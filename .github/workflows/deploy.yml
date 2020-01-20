@@ -1,8 +1,10 @@
 name: deploy
+
 on:
   push:
     branches:
       - master
+
 jobs:
   merge:
     name: merge
@@ -34,9 +36,6 @@ jobs:
 
       - name: Build
         run: yarn && yarn build
-
-      - name: Upload
-        run: node qiniu.js ${{ secrets.QINIU_AK }} ${{ secrets.QINIU_SK }}
 
       - name: Commit
         run: |
