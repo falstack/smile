@@ -17,9 +17,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-  deploy:
+  build:
     needs: merge
-    name: deploy
+    name: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -38,14 +38,24 @@ jobs:
       - name: Upload
         run: node qiniu.js ${{ secrets.QINIU_AK }} ${{ secrets.QINIU_SK }}
 
-      - name: Update
+      - name: Commit
         run: |
-          rm -rf ./.nuxt/dist/client
-          git status
-          git add -A
-          git commit "merge master"
-          git push origin deploy
+          git config --local user.email "icesilt@outlook.com"
+          git config --local user.name "falstack"
+          git commit -m "merge master" -a
 
+      - name: Push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: 'deploy'
+          force: true
+
+  publish:
+    needs: [merge, build]
+    name: publish
+    runs-on: ubuntu-latest
+    steps:
       - name: Publish
         run: |
           echo it works!
