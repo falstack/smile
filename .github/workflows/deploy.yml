@@ -42,7 +42,7 @@ jobs:
           git config --local user.email "icesilt@outlook.com"
           git config --local user.name "falstack"
           git add -A
-          git commit -m "merge master"
+          git diff-index --quiet HEAD || git commit -m "Add changes"
 
       - name: Push
         uses: ad-m/github-push-action@master
