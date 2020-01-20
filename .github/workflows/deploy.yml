@@ -1,3 +1,4 @@
+name: deploy
 on:
   push:
     branches:
@@ -17,11 +18,25 @@ jobs:
         with:
           node-version: 12
 
+      - name: Merge
+        run: |
+          git fetch origin deploy
+          git checkout deploy
+          git merge master
+
       - name: Build
         run: yarn && yarn build
 
       - name: Upload
         run: node qiniu.js ${{ secrets.QINIU_AK }} ${{ secrets.QINIU_SK }}
+
+      - name: Update
+        run: |
+          rm -rf ./.nuxt/dist/client
+          git status
+          git add -A
+          git commit "merge master"
+          git push origin deploy
 
       - name: Publish
         run: |
