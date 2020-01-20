@@ -1,16 +1,31 @@
+name: deploy
 on:
   push:
     branches:
       - master
 jobs:
+  merge:
+    name: merge
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Merge to deploy branch
+        uses: devmasx/merge-branch@v1.1.0
+        with:
+          type: now
+          target_branch: 'deploy'
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
   deploy:
+    needs: merge
     name: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: master
+          ref: deploy
 
       - name: Install
         uses: actions/setup-node@v1
@@ -22,6 +37,14 @@ jobs:
 
       - name: Upload
         run: node qiniu.js ${{ secrets.QINIU_AK }} ${{ secrets.QINIU_SK }}
+
+      - name: Update
+        run: |
+          rm -rf ./.nuxt/dist/client
+          git status
+          git add -A
+          git commit "merge master"
+          git push origin deploy
 
       - name: Publish
         run: |
