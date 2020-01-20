@@ -56,6 +56,14 @@ jobs:
     name: upload
     runs-on: ubuntu-latest
     steps:
+      - name: Install
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Build
+        run: yarn
+
       - name: Upload
         run: node qiniu.js ${{ secrets.QINIU_AK }} ${{ secrets.QINIU_SK }}
 
