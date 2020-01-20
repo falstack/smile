@@ -19,7 +19,7 @@ jobs:
           node-version: 12
 
       - name: Merge
-        run: git merge origin/master
+        run: git merge origin master
 
       - name: Build
         run: yarn && yarn build
