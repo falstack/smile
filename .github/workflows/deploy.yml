@@ -41,7 +41,8 @@ jobs:
         run: |
           git config --local user.email "icesilt@outlook.com"
           git config --local user.name "falstack"
-          git commit -m "merge master" -a
+          git add -A
+          git commit -m "merge master"
 
       - name: Push
         uses: ad-m/github-push-action@master
