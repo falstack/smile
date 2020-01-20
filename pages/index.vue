@@ -6,7 +6,7 @@
         smile
       </h1>
       <h2 class="subtitle">
-        My breathtaking Nuxt.js project
+        Hello Github Actions
       </h2>
       <div class="links">
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">
