@@ -51,8 +51,16 @@ jobs:
           branch: 'deploy'
           force: true
 
-  publish:
+  upload:
     needs: [merge, build]
+    name: upload
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload
+        run: node qiniu.js ${{ secrets.QINIU_AK }} ${{ secrets.QINIU_SK }}
+
+  publish:
+    needs: [merge, build, upload]
     name: publish
     runs-on: ubuntu-latest
     steps:
