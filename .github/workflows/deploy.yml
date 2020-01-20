@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: master
+          ref: deploy
 
       - name: Install
         uses: actions/setup-node@v1
@@ -19,10 +19,7 @@ jobs:
           node-version: 12
 
       - name: Merge
-        run: |
-          git fetch origin deploy
-          git checkout deploy
-          git merge master
+        run: git merge origin/master
 
       - name: Build
         run: yarn && yarn build
