@@ -82,9 +82,9 @@ jobs:
           private-key: ${{ secrets.RSA_KEY }}
           config: |
             Host prod
-              HostName: ${{ secrets.SERVER_IP }}
-              Port: ${{ secrets.SERVER_PORT }}
-              User: ${{ secrets.SERVER_USER }}
+              HostName: 47.100.8.212
+              Port: 9527
+              User: root
 
       - name: Publish
         run: |
