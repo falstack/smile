@@ -87,5 +87,8 @@ jobs:
 
       - name: Publish
         run: |
-          echo it works!
+          cd ${{ secrets.SERVER_PATH }}
+          git pull
+          yarn
+          pm2 reload pm2.config.js --env=production -i max
 
