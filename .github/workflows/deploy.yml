@@ -90,9 +90,7 @@ jobs:
 
       - name: Publish
         run: |
-          cd /home/runner/.ssh
-          ls -a
-          ssh prod -tt
+          ssh prod -tt -i ~/.ssh/id_rsa-prod
           cd ${{ secrets.SERVER_PATH }}
           git pull
           yarn
