@@ -90,7 +90,7 @@ jobs:
 
       - name: Publish
         run: |
-          ssh prod
+          ssh -tt prod
           cd ${{ secrets.SERVER_PATH }}
           git pull
           yarn
