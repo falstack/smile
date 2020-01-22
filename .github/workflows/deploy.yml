@@ -87,7 +87,7 @@ jobs:
 
       - name: Publish
         run: |
-          ssh -p${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
+          ssh -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
           cd ${{ secrets.SERVER_PATH }}
           git pull
           yarn
