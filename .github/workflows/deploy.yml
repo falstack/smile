@@ -76,15 +76,16 @@ jobs:
     name: publish
     runs-on: ubuntu-latest
     steps:
-      - name: Publish
-        uses: appleboy/ssh-action@master
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v1
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.RSA_KEY }}
-          port: ${{ secrets.SERVER_PORT }}
-          debug: true
-          script: |
-            cd ${{ secrets.SERVER_PATH }}
-            git pull
-            echo it works!
+          private-key: ${{ secrets.RSA_KEY }}
+          config: |
+            Host: ${{ secrets.SERVER_HOST }}
+            Port: ${{ secrets.SERVER_PORT }}
+            User: ${{ secrets.SERVER_USER }}
+
+      - name: Publish
+        run: |
+          echo it works!
+
