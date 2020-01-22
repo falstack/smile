@@ -83,6 +83,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.RSA_KEY }}
           port: ${{ secrets.SERVER_PORT }}
+          debug: true
           script: |
             cd ${{ secrets.SERVER_PATH }}
             git pull
