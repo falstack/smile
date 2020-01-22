@@ -81,13 +81,14 @@ jobs:
         with:
           private-key: ${{ secrets.RSA_KEY }}
           config: |
-            Host: ${{ secrets.SERVER_HOST }}
-            Port: ${{ secrets.SERVER_PORT }}
-            User: ${{ secrets.SERVER_USER }}
+            Host prod
+              HostName: ${{ secrets.SERVER_IP }}
+              Port: ${{ secrets.SERVER_PORT }}
+              User: ${{ secrets.SERVER_USER }}
 
       - name: Publish
         run: |
-          ssh -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
+          ssh prod
           cd ${{ secrets.SERVER_PATH }}
           git pull
           yarn
