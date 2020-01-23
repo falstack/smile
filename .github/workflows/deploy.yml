@@ -79,8 +79,8 @@ jobs:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v1
         with:
-          name: id_rsa-prod
-          private-key: ${{ secrets.RSA_KEY }}
+          name: id_rsa
+          private-key: ${{ secrets.PRIVATE_KEY_PEM }}
           known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
           config: |
             Host prod
@@ -90,7 +90,7 @@ jobs:
 
       - name: Publish
         run: |
-          ssh prod -tt -i ~/.ssh/id_rsa-prod
+          ssh prod -tt -i ~/.ssh/id_rsa
           cd ${{ secrets.SERVER_PATH }}
           git pull
           yarn
