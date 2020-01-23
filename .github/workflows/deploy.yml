@@ -87,10 +87,11 @@ jobs:
               HostName ${{ secrets.SERVER_IP }}
               Port ${{ secrets.SERVER_PORT }}
               User ${{ secrets.SERVER_USER }}
+              IdentityFile ~/.ssh/id_rsa
 
       - name: Publish
         run: |
-          ssh prod -tt -i ~/.ssh/id_rsa
+          ssh prod -tt
           cd ${{ secrets.SERVER_PATH }}
           git pull
           yarn
