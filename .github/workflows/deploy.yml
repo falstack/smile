@@ -91,10 +91,8 @@ jobs:
 
       - name: Publish
         run: |
-          cd /home/runner/.ssh
-          ls -a
-          cat known_hosts
           ssh prod -tt
+          echo "bbb" > test.txt
           cd ${{ secrets.SERVER_PATH }}
           git pull
           yarn
