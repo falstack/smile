@@ -70,8 +70,9 @@ jobs:
         run: |
           wget http://devtools.qiniu.com/qshell-darwin-x64-v2.4.1.zip
           unzip qshell-darwin-x64-v2.4.1.zip
-          mv qshell-darwin-x64-v2.4.1 /Users/runner/runners/qshell
+          mv qshell-darwin-x64-v2.4.1 qshell
           chmod +x qshell
+          mv qshell /Users/runner/runners/qshell
           export PATH=$PATH:/Users/runner/runners
 
       - name: Upload
