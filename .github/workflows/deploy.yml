@@ -54,17 +54,26 @@ jobs:
   upload:
     needs: [merge, build]
     name: upload
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           ref: deploy
 
-      - name: Install
+      - name: Install Node
         uses: actions/setup-node@v1
         with:
           node-version: 12
+
+      - name: Install Qshell
+        run: |
+          pwd
+          ls
+          wget http://devtools.qiniu.com/qshell-darwin-x64-v2.4.1.zip
+          unzip qshell-darwin-x64-v2.4.1.zip
+          mv qshell-darwin-x64-v2.4.1 qshell
+          chmod +x qshell
 
       - name: Upload
         run: |
