@@ -1,5 +1,5 @@
 {
-  "publicPath": "/_nuxt/",
+  "publicPath": "https://file.calibur.tv/smile/",
   "all": [
     "../server/index.spa.html",
     "../server/index.ssr.html",
@@ -7,10 +7,10 @@
     "54bddc8a13fbc8bbf79d.js",
     "75eaaf3fc5f6e04f8bd2.js",
     "LICENSES",
-    "e31c5e442e8ada7bc2a9.js"
+    "c4ef861901ca18185e90.js"
   ],
   "initial": [
-    "e31c5e442e8ada7bc2a9.js",
+    "c4ef861901ca18185e90.js",
     "75eaaf3fc5f6e04f8bd2.js",
     "54bddc8a13fbc8bbf79d.js"
   ],
@@ -656,6 +656,6 @@
     "09f0b089c152aadc4251.js": "2a130dde",
     "54bddc8a13fbc8bbf79d.js": "1a3ae26b",
     "75eaaf3fc5f6e04f8bd2.js": "0859c165",
-    "e31c5e442e8ada7bc2a9.js": "6fca0322"
+    "c4ef861901ca18185e90.js": "6fca0322"
   }
 }
