@@ -76,27 +76,16 @@ jobs:
     name: publish
     runs-on: ubuntu-latest
     steps:
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v1
+      - name: Publish
+        uses: appleboy/ssh-action@master
         with:
-          name: id_rsa
-          private-key: ${{ secrets.PRIVATE_KEY_PEM }}
-          known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
-          config: |
-            Host prod
-              HostName ${{ secrets.SERVER_IP }}
-              Port ${{ secrets.SERVER_PORT }}
-              User ${{ secrets.SERVER_USER }}
-              IdentityFile ~/.ssh/id_rsa
-
-      - name: Login
-        run: ssh prod -tt
-
-      - name: Deploy
-        run: |
-          echo "${{ secrets.SERVER_PATH }}" > test.txt
-          cd ${{ secrets.SERVER_PATH }}
-          git pull
-          yarn
-          pm2 startOrReload pm2.config.js --env=production -i max
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.PRIVATE_KEY_PEM }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            cd ${{ secrets.SERVER_PATH }}
+            git pull
+            yarn
+            pm2 startOrReload pm2.config.js --env=production -i max
 
