@@ -91,6 +91,9 @@ jobs:
 
       - name: Publish
         run: |
+          cd /home/runner/.ssh
+          ls -a
+          cat known_hosts
           ssh prod -tt
           cd ${{ secrets.SERVER_PATH }}
           git pull
