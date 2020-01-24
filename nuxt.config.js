@@ -1,3 +1,6 @@
+const nodeEnv = process.env.NODE_ENV
+const isDev = nodeEnv === 'development'
+
 module.exports = {
   mode: 'universal',
   /*
@@ -45,6 +48,7 @@ module.exports = {
    ** Build configuration
    */
   build: {
+    publicPath: isDev ? '/_nuxt/' : 'https://file.calibur.tv/smile/',
     /*
      ** You can extend webpack config here
      */
