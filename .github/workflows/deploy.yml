@@ -89,10 +89,12 @@ jobs:
               User ${{ secrets.SERVER_USER }}
               IdentityFile ~/.ssh/id_rsa
 
-      - name: Publish
+      - name: Login
+        run: ssh prod -tt
+
+      - name: Deploy
         run: |
-          ssh prod -tt
-          echo "bbb" > test.txt
+          echo "${{ secrets.SERVER_PATH }}" > test.txt
           cd ${{ secrets.SERVER_PATH }}
           git pull
           yarn
