@@ -72,9 +72,8 @@ jobs:
           unzip qshell-darwin-x64-v2.4.1.zip
           mv qshell-darwin-x64-v2.4.1 qshell
           chmod +x qshell
-          mv qshell /Users/runner/runners/qshell
-          echo "export PATH=$PATH:/Users/runner/runners" > ~/.bashrc
-          cat ~/.bashrc
+          mv qshell /usr/local/bin/qshell
+          qshell
 
       - name: Upload
         run: |
