@@ -89,12 +89,14 @@ jobs:
               User ${{ secrets.SERVER_USER }}
               IdentityFile ~/.ssh/id_rsa
 
-      - name: Publish
-        run: |
-          ssh prod -tt
-          echo "bbb" > test.txt
-          cd ${{ secrets.SERVER_PATH }}
-          git pull
-          yarn
-          pm2 startOrReload pm2.config.js --env=production -i max
+      - name: Login
+        run: ssh prod -tt
+
+      - name: Deploy
+          run: |
+            echo "bbb" > test.txt
+            cd ${{ secrets.SERVER_PATH }}
+            git pull
+            yarn
+            pm2 startOrReload pm2.config.js --env=production -i max
 
