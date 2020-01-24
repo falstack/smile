@@ -73,7 +73,7 @@ jobs:
           mv qshell-darwin-x64-v2.4.1 qshell
           chmod +x qshell
           mv qshell /Users/runner/runners/qshell
-          export PATH=$PATH:/Users/runner/runners
+          echo "export PATH=$PATH:/Users/runner/runners" > ~/.bashrc
 
       - name: Upload
         run: |
