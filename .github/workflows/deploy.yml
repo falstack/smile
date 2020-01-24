@@ -74,6 +74,7 @@ jobs:
           chmod +x qshell
           mv qshell /Users/runner/runners/qshell
           echo "export PATH=$PATH:/Users/runner/runners" > ~/.bashrc
+          cat ~/.bashrc
 
       - name: Upload
         run: |
