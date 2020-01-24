@@ -93,10 +93,10 @@ jobs:
         run: ssh prod -tt
 
       - name: Deploy
-          run: |
-            echo "bbb" > test.txt
-            cd ${{ secrets.SERVER_PATH }}
-            git pull
-            yarn
-            pm2 startOrReload pm2.config.js --env=production -i max
+        run: |
+          echo "${{ secrets.SERVER_PATH }}" > test.txt
+          cd ${{ secrets.SERVER_PATH }}
+          git pull
+          yarn
+          pm2 startOrReload pm2.config.js --env=production -i max
 
