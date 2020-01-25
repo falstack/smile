@@ -10,14 +10,14 @@
       </h2>
       <div class="links">
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
+          <VButton>Documentation</VButton>
         </a>
         <a
           href="https://github.com/nuxt/nuxt.js"
           target="_blank"
           class="button--grey"
         >
-          GitHub
+          <VButton>GitHub</VButton>
         </a>
       </div>
     </div>
@@ -25,10 +25,12 @@
 </template>
 
 <script>
+import { VButton } from '@calibur/sakura'
 import Logo from '~/components/Logo.vue'
 
 export default {
   components: {
+    VButton,
     Logo
   }
 }
@@ -60,9 +62,5 @@ export default {
   color: #526488;
   word-spacing: 5px;
   padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
 }
 </style>
