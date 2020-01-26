@@ -129,11 +129,11 @@ export async function setContext (app, context) {
       isDev: false,
       isHMR: false,
       app,
-
+      store: app.store,
       payload: context.payload,
       error: context.error,
       base: '/',
-      env: {}
+      env: {"API_URL":"http://localhost/","API_URL_BROWSER":"https://api.calibur.tv/","SOCKET_HOST":"wss://api.calibur.tv/ws"}
     }
     // Only set once
     if (context.req) {
