@@ -1,19 +1,24 @@
 const nodeEnv = process.env.NODE_ENV
 const isDev = nodeEnv === 'development'
+const ENV = require('./.env')
 
 module.exports = {
   mode: 'universal',
+  env: {
+    API_URL: ENV.BASE_URL.API_URL[nodeEnv],
+    API_URL_BROWSER: ENV.BASE_URL.API_URL_BROWSER[nodeEnv],
+    SOCKET_HOST: ENV.SOCKET_HOST[nodeEnv]
+  },
   /*
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    titleTemplate: (val) => val || '',
     meta: [
       { charset: 'utf-8' },
       {
         name: 'viewport',
-        content:
-          'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover'
+        content: 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover'
       },
       {
         name: 'format-detection',
@@ -37,6 +42,17 @@ module.exports = {
         type: 'image/x-icon',
         href: 'https://file.calibur.tv/favicon.ico'
       }
+    ],
+    script: [
+      {
+        src: '//qqq.gtimg.cn/miniprogram/webview_jssdk/qqjssdk-1.0.0.js',
+        type: 'text/javascript'
+      },
+      {
+        src: '//res2.wx.qq.com/open/js/jweixin-1.4.0.js',
+        type: 'text/javascript',
+        async: true
+      }
     ]
   },
   /*
@@ -50,7 +66,7 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/components.all.js'],
+  plugins: ['~/plugins/axios.all.js', '~/plugins/components.all.js', '~/plugins/prototypes.all.js', '~/plugins/prototypes.client.js'],
   /*
    ** Nuxt.js modules
    */
