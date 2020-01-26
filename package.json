@@ -18,7 +18,8 @@
     "@nuxtjs/axios": "5.9.3",
     "cross-env": "6.0.3",
     "koa": "^2.11.0",
-    "nuxt": "2.11.0"
+    "nuxt": "2.11.0",
+    "vue-mixin-store": "^1.1.80"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "2.0.0",

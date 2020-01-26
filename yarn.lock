@@ -8409,6 +8409,13 @@ vue-meta@^2.3.1:
   dependencies:
     deepmerge "^4.2.2"
 
+vue-mixin-store@^1.1.80:
+  version "1.1.80"
+  resolved "https://registry.yarnpkg.com/vue-mixin-store/-/vue-mixin-store-1.1.80.tgz#2e532238aebabc8a308fc89bdae0d98d56f01160"
+  integrity sha512-1QmajpHBc44H+QwivoJO30rjpa/TEEP/SCmZ9CSUTdV8opRYRwwY70N81H20X/7h41pgVL4LDvvrTwqS7j0brQ==
+  dependencies:
+    vue "^2.6.11"
+
 vue-no-ssr@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/vue-no-ssr/-/vue-no-ssr-1.1.1.tgz#875f3be6fb0ae41568a837f3ac1a80eaa137b998"
