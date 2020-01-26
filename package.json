@@ -17,6 +17,7 @@
     "@calibur/sakura": "^1.0.1",
     "@nuxtjs/axios": "5.9.3",
     "cross-env": "6.0.3",
+    "js-cookie": "^2.2.1",
     "koa": "^2.11.0",
     "nuxt": "2.11.0",
     "vue-mixin-store": "^1.1.80"

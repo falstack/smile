@@ -23,19 +23,11 @@ module.exports = {
       {
         name: 'format-detection',
         content: 'telephone=no,email=no,address=no'
-      },
-      {
-        name: 'applicable-device',
-        content: 'mobile'
-      },
-      { name: 'renderer', content: 'webkit|ie-comp|ie-stand' },
-      { name: 'force-rendering', content: 'webkit' },
-      { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge,chrome=1' }
+      }
     ],
     link: [
       { rel: 'dns-prefetch', href: 'https://file.calibur.tv' },
       { rel: 'dns-prefetch', href: 'https://m1.calibur.tv' },
-      { rel: 'preconnect', href: 'https://app.calibur.tv' },
       { rel: 'preconnect', href: 'https://api.calibur.tv' },
       {
         rel: 'icon',
