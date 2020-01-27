@@ -3,6 +3,22 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
+const _4529324a = () => interopDefault(import('../pages/admin/index.vue' /* webpackChunkName: "pages/admin/index" */))
+const _7f3bf50f = () => interopDefault(import('../pages/admin/create-bangumi.vue' /* webpackChunkName: "pages/admin/create-bangumi" */))
+const _ab0c7f9c = () => interopDefault(import('../pages/admin/create-idol.vue' /* webpackChunkName: "pages/admin/create-idol" */))
+const _4638e9c2 = () => interopDefault(import('../pages/admin/trial.vue' /* webpackChunkName: "pages/admin/trial" */))
+const _e3476f72 = () => interopDefault(import('../pages/bangumi/edit.vue' /* webpackChunkName: "pages/bangumi/edit" */))
+const _495bb132 = () => interopDefault(import('../pages/bangumi/join.vue' /* webpackChunkName: "pages/bangumi/join" */))
+const _512784fc = () => interopDefault(import('../pages/bangumi/profile.vue' /* webpackChunkName: "pages/bangumi/profile" */))
+const _7dccb0b9 = () => interopDefault(import('../pages/bangumi/relation.vue' /* webpackChunkName: "pages/bangumi/relation" */))
+const _2af6ca62 = () => interopDefault(import('../pages/bangumi/test.vue' /* webpackChunkName: "pages/bangumi/test" */))
+const _7e5c9ea9 = () => interopDefault(import('../pages/bangumi/trial.vue' /* webpackChunkName: "pages/bangumi/trial" */))
+const _2392170a = () => interopDefault(import('../pages/idol/edit.vue' /* webpackChunkName: "pages/idol/edit" */))
+const _6abe0402 = () => interopDefault(import('../pages/public/news.vue' /* webpackChunkName: "pages/public/news" */))
+const _26dd70db = () => interopDefault(import('../pages/public/rank.vue' /* webpackChunkName: "pages/public/rank" */))
+const _451bd3ab = () => interopDefault(import('../pages/public/rule.vue' /* webpackChunkName: "pages/public/rule" */))
+const _a42e7e52 = () => interopDefault(import('../pages/user/edit.vue' /* webpackChunkName: "pages/user/edit" */))
+const _c2becd2a = () => interopDefault(import('../pages/user/list.vue' /* webpackChunkName: "pages/user/list" */))
 const _6f94ae5b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 // TODO: remove in Nuxt 3
@@ -22,6 +38,70 @@ export const routerOptions = {
   scrollBehavior,
 
   routes: [{
+    path: "/admin",
+    component: _4529324a,
+    name: "admin"
+  }, {
+    path: "/admin/create-bangumi",
+    component: _7f3bf50f,
+    name: "admin-create-bangumi"
+  }, {
+    path: "/admin/create-idol",
+    component: _ab0c7f9c,
+    name: "admin-create-idol"
+  }, {
+    path: "/admin/trial",
+    component: _4638e9c2,
+    name: "admin-trial"
+  }, {
+    path: "/bangumi/edit",
+    component: _e3476f72,
+    name: "bangumi-edit"
+  }, {
+    path: "/bangumi/join",
+    component: _495bb132,
+    name: "bangumi-join"
+  }, {
+    path: "/bangumi/profile",
+    component: _512784fc,
+    name: "bangumi-profile"
+  }, {
+    path: "/bangumi/relation",
+    component: _7dccb0b9,
+    name: "bangumi-relation"
+  }, {
+    path: "/bangumi/test",
+    component: _2af6ca62,
+    name: "bangumi-test"
+  }, {
+    path: "/bangumi/trial",
+    component: _7e5c9ea9,
+    name: "bangumi-trial"
+  }, {
+    path: "/idol/edit",
+    component: _2392170a,
+    name: "idol-edit"
+  }, {
+    path: "/public/news",
+    component: _6abe0402,
+    name: "public-news"
+  }, {
+    path: "/public/rank",
+    component: _26dd70db,
+    name: "public-rank"
+  }, {
+    path: "/public/rule",
+    component: _451bd3ab,
+    name: "public-rule"
+  }, {
+    path: "/user/edit",
+    component: _a42e7e52,
+    name: "user-edit"
+  }, {
+    path: "/user/list",
+    component: _c2becd2a,
+    name: "user-list"
+  }, {
     path: "/",
     component: _6f94ae5b,
     name: "index"
