@@ -5,7 +5,7 @@ import imageResize from '~/assets/js/imageResize'
 
 export default ({ store }) => {
   Vue.use({
-    install(Vue) {
+    install (Vue) {
       Vue.prototype.$alias = alias
 
       Vue.prototype.$utils = utils

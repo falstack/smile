@@ -1,6 +1,6 @@
-export const getRecommendedUsers = (ctx) => ctx.$axios.$get('user/recommended')
+export const getRecommendedUsers = ctx => ctx.$axios.$get('user/recommended')
 
-export const getLoginUser = (ctx) => ctx.$axios.$post('v1/door/get_user_info')
+export const getLoginUser = ctx => ctx.$axios.$post('v1/door/get_user_info')
 
 export const settingProfile = (ctx, params) => ctx.$axios.$post('v1/user/update_info', params)
 
@@ -45,11 +45,11 @@ export const login = (ctx, { access, secret, remember, geetest }) =>
     geetest
   })
 
-export const logout = (ctx) => ctx.$axios.$post('v1/door/logout')
+export const logout = ctx => ctx.$axios.$post('v1/door/logout')
 
 export const feedback = (ctx, { type, desc, ua }) => ctx.$axios.$post('user/feedback', { type, desc, ua })
 
-export const daySignAction = (ctx) => ctx.$axios.$post('user/daySign')
+export const daySignAction = ctx => ctx.$axios.$post('user/daySign')
 
 export const getUserCard = (ctx, { id }) =>
   ctx.$axios.$get('user/card', {
@@ -80,7 +80,7 @@ export const resetPassword = (ctx, { method, access, authCode, secret }) =>
     secret
   })
 
-export const readAllMessage = (ctx) => ctx.$axios.$post('user/notification/clear')
+export const readAllMessage = ctx => ctx.$axios.$post('user/notification/clear')
 
 export const readMessage = (ctx, { id }) => ctx.$axios.$post('user/notification/read', { id })
 
@@ -91,6 +91,6 @@ export const getNotifications = (ctx, { minId }) =>
     params: { minId }
   })
 
-export const getNotificationCount = (ctx) => ctx.$axios.$get('user/notification/count')
+export const getNotificationCount = ctx => ctx.$axios.$get('user/notification/count')
 
-export const getSystemNotice = (ctx) => ctx.$axios.$get('user/notice/list')
+export const getSystemNotice = ctx => ctx.$axios.$get('user/notice/list')

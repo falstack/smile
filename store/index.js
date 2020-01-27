@@ -11,39 +11,39 @@ export const state = () => ({
 })
 
 export const mutations = {
-  SET_USER_INFO(state, user) {
+  SET_USER_INFO (state, user) {
     const signed = !!(user && user.slug)
     state.user = user
     state.haveAuthToken = signed
     state.isAuth = signed
     state.logging = false
   },
-  SET_USER_TOKEN(state, token) {
+  SET_USER_TOKEN (state, token) {
     if (state.isLogout) {
       return
     }
     state.haveAuthToken = !!token
   },
-  SET_LOGGING(state) {
+  SET_LOGGING (state) {
     state.logging = true
   },
-  USER_LOGOUT(state) {
+  USER_LOGOUT (state) {
     state.haveAuthToken = false
     state.isAuth = false
     state.logging = false
     state.isLogout = true
     state.user = {}
   },
-  UPDATE_USER_INFO(state, { key, value }) {
+  UPDATE_USER_INFO (state, { key, value }) {
     Vue.set(state.user, key, value)
   },
-  SET_USER_ROLE(state, data) {
+  SET_USER_ROLE (state, data) {
     state.roles = data
   }
 }
 
 export const actions = {
-  async initAuth({ state, commit }) {
+  async initAuth ({ state, commit }) {
     if (!state.haveAuthToken || state.logging) {
       return null
     }
@@ -60,7 +60,7 @@ export const actions = {
       return null
     }
   },
-  getUserRoles({ state, commit }) {
+  getUserRoles ({ state, commit }) {
     if (state.roles || !state.user || !state.user.title.length) {
       return
     }
@@ -74,7 +74,7 @@ export const actions = {
 }
 
 export const getters = {
-  isMine: (state) => (slug) => (state.isAuth ? state.user.slug === slug : false),
-  isAdmin: (state) => (state.isAuth ? state.user.is_admin : false),
-  hasRole: (state) => (role) => (state.user.is_admin ? true : state.roles ? ~state.roles.indexOf(role) : false)
+  isMine: state => slug => (state.isAuth ? state.user.slug === slug : false),
+  isAdmin: state => (state.isAuth ? state.user.is_admin : false),
+  hasRole: state => role => (state.user.is_admin ? true : state.roles ? ~state.roles.indexOf(role) : false)
 }
