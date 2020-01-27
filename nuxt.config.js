@@ -13,7 +13,7 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    titleTemplate: (val) => val || '',
+    titleTemplate: val => val || '',
     meta: [
       { charset: 'utf-8' },
       {
@@ -54,7 +54,7 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['~/assets/css/global.scss'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -64,9 +64,14 @@ module.exports = {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
+    '@nuxtjs/style-resources',
     '@nuxtjs/axios',
     '@nuxtjs/eslint-module'
   ],
+
+  styleResources: {
+    scss: ['./assets/css/var.scss', './assets/css/mixin.scss']
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -99,6 +104,6 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend (config, ctx) {}
   }
 }

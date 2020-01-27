@@ -16,7 +16,7 @@
   "dependencies": {
     "@calibur/sakura": "^1.0.1",
     "@nuxtjs/axios": "5.9.3",
-    "cross-env": "6.0.3",
+    "cross-env": "7.0.0",
     "js-cookie": "^2.2.1",
     "koa": "^2.11.0",
     "nuxt": "2.11.0",
@@ -25,22 +25,22 @@
   "devDependencies": {
     "@nuxtjs/eslint-config": "2.0.0",
     "@nuxtjs/eslint-module": "1.1.0",
+    "@nuxtjs/style-resources": "^1.0.0",
     "babel-eslint": "10.0.3",
     "babel-plugin-component": "^1.1.1",
     "core-js": "^3.6.4",
     "eslint": "6.8.0",
-    "eslint-config-prettier": "6.9.0",
     "eslint-config-standard": "14.1.0",
     "eslint-plugin-import": "2.20.0",
     "eslint-plugin-jest": "23.6.0",
     "eslint-plugin-node": "11.0.0",
     "eslint-plugin-nuxt": "0.5.0",
-    "eslint-plugin-prettier": "3.1.2",
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-standard": "4.0.1",
     "eslint-plugin-vue": "6.1.2",
+    "node-sass": "^4.13.1",
     "nodemon": "2.0.2",
-    "prettier": "1.19.1",
-    "qiniu-qupload": "^1.0.6"
+    "qiniu-qupload": "^1.0.6",
+    "sass-loader": "^8.0.2"
   }
 }

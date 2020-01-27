@@ -1,7 +1,7 @@
 import parseToken from '~/assets/js/parseToken'
 
 export default {
-  async beforeMount() {
+  async beforeMount () {
     if (this.$store.state.logging) {
       const canceler = this.$watch('$store.state.logging', () => {
         if (this.$store.state.isAuth) {
