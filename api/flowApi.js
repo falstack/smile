@@ -118,6 +118,15 @@ export const getIdolFans = ({ $axios, page, take, slug, sort }) => {
   })
 }
 
+export const getBangumiRank = ({ $axios, page, take }) => {
+  return $axios.$get('v1/bangumi/rank', {
+    params: {
+      page,
+      take
+    }
+  })
+}
+
 export const getBangumiLiker = ({ $axios, page, take, slug }) => {
   return $axios.$get('v1/bangumi/liker', {
     params: {

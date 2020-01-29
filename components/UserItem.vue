@@ -69,9 +69,7 @@ export default {
   },
   methods: {
     goUser () {
-      const isQQ = /qq/.test(window.navigator.userAgent.toLowerCase())
-      const self = isQQ ? window.qq : window.wx
-      self.miniProgram.navigateTo({
+      this.$bridge.navigateTo({
         url: `/pages/user/show/index?slug=${this.user.slug}`
       })
     }
