@@ -268,9 +268,7 @@ export default {
         })
         .then((result) => {
           this.$toast.info(result).then(() => {
-            const isQQ = /qq/.test(window.navigator.userAgent.toLowerCase())
-            const self = isQQ ? window.qq : window.wx
-            self.miniProgram.redirectTo({
+            this.$bridge.redirectTo({
               url: `/pages/bangumi/show/index?slug=${this.slug}`
             })
           })

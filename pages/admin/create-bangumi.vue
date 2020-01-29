@@ -155,9 +155,7 @@ export default {
             this.$toast.stop()
             this.$confirm('该番剧已存在，是否跳转？')
               .then(() => {
-                const isQQ = /qq/.test(window.navigator.userAgent.toLowerCase())
-                const self = isQQ ? window.qq : window.wx
-                self.miniProgram.navigateTo({
+                this.$bridge.navigateTo({
                   url: `/pages/bangumi/show/index?slug=${err.message}`
                 })
               })
@@ -178,9 +176,7 @@ export default {
             })
             .then((slug) => {
               this.$toast.info('创建成功')
-              const isQQ = /qq/.test(window.navigator.userAgent.toLowerCase())
-              const self = isQQ ? window.qq : window.wx
-              self.miniProgram.navigateTo({
+              this.$bridge.navigateTo({
                 url: `/pages/bangumi/show/index?slug=${slug}`
               })
             })
