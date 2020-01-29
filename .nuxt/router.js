@@ -12,6 +12,7 @@ const _495bb132 = () => interopDefault(import('../pages/bangumi/join.vue' /* web
 const _512784fc = () => interopDefault(import('../pages/bangumi/profile.vue' /* webpackChunkName: "pages/bangumi/profile" */))
 const _7dccb0b9 = () => interopDefault(import('../pages/bangumi/relation.vue' /* webpackChunkName: "pages/bangumi/relation" */))
 const _2af6ca62 = () => interopDefault(import('../pages/bangumi/test.vue' /* webpackChunkName: "pages/bangumi/test" */))
+const _536e32d5 = () => interopDefault(import('../pages/bangumi/top250.vue' /* webpackChunkName: "pages/bangumi/top250" */))
 const _7e5c9ea9 = () => interopDefault(import('../pages/bangumi/trial.vue' /* webpackChunkName: "pages/bangumi/trial" */))
 const _2392170a = () => interopDefault(import('../pages/idol/edit.vue' /* webpackChunkName: "pages/idol/edit" */))
 const _6abe0402 = () => interopDefault(import('../pages/public/news.vue' /* webpackChunkName: "pages/public/news" */))
@@ -73,6 +74,10 @@ export const routerOptions = {
     path: "/bangumi/test",
     component: _2af6ca62,
     name: "bangumi-test"
+  }, {
+    path: "/bangumi/top250",
+    component: _536e32d5,
+    name: "bangumi-top250"
   }, {
     path: "/bangumi/trial",
     component: _7e5c9ea9,
