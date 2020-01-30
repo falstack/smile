@@ -20,6 +20,7 @@ const _26dd70db = () => interopDefault(import('../pages/public/rank.vue' /* webp
 const _451bd3ab = () => interopDefault(import('../pages/public/rule.vue' /* webpackChunkName: "pages/public/rule" */))
 const _a42e7e52 = () => interopDefault(import('../pages/user/edit.vue' /* webpackChunkName: "pages/user/edit" */))
 const _c2becd2a = () => interopDefault(import('../pages/user/list.vue' /* webpackChunkName: "pages/user/list" */))
+const _d26dfa24 = () => interopDefault(import('../pages/write/pin.vue' /* webpackChunkName: "pages/write/pin" */))
 const _6f94ae5b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 // TODO: remove in Nuxt 3
@@ -106,6 +107,10 @@ export const routerOptions = {
     path: "/user/list",
     component: _c2becd2a,
     name: "user-list"
+  }, {
+    path: "/write/pin",
+    component: _d26dfa24,
+    name: "write-pin"
   }, {
     path: "/",
     component: _6f94ae5b,
