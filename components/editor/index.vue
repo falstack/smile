@@ -139,7 +139,7 @@ export default {
                     return new Promise((resolve, reject) => {
                       const formData = new FormData()
                       formData.append('file', file)
-                      formData.append('token', self.uploadHeaders.token)
+                      formData.append('token', self.imageUploadToken)
                       uploadToQiniu(self, formData)
                         .then((data) => {
                           data.url = `https://m1.calibur.tv/${data.url}`
