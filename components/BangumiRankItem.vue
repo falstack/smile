@@ -45,6 +45,25 @@
 
       .title {
         font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .tags {
+        height: 20px;
+        font-size: 0;
+        overflow: hidden;
+
+        .tag {
+          display: inline-block;
+          font-size: 12px;
+          height: 20px;
+          line-height: 20px;
+          padding: 0 2px;
+          background-color: rgba($color-main-light, 0.5);
+          border-radius: 5px;
+          color: #fff;
+          margin-right: 2px;
+        }
       }
     }
 
@@ -66,10 +85,13 @@
     </div>
     <div class="body">
       <div class="poster">
-        <img :src="$resize(item.avatar, { width: 180, height: 240 })" />
+        <img :src="$resize(item.avatar, { width: 180, height: 240 })">
       </div>
       <div class="content">
         <p class="title oneline" v-text="item.name" />
+        <div class="tags">
+          <span v-for="tag in item.tags" :key="tag.slug" class="tag" v-text="tag.name" />
+        </div>
       </div>
       <div class="star">
         star
