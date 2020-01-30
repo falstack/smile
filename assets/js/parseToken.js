@@ -5,6 +5,9 @@ export default (app) => {
 
   if (app) {
     token = app.context.query.token || ''
+    if (token === 'LOGOUT') {
+      VCache.del('JWT-TOKEN')
+    }
   }
 
   if (typeof window !== 'undefined') {
