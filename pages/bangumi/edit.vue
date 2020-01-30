@@ -106,7 +106,7 @@
 <script>
 export default {
   name: 'EditBangumi',
-  asyncData ({ app, error, query }) {
+  asyncData({ app, error, query }) {
     const slug = query.slug
     if (!slug) {
       return
@@ -120,34 +120,34 @@ export default {
       })
       .catch(error)
   },
-  data () {
+  data() {
     return {
       bangumi: null,
       trialInfo: null
     }
   },
   computed: {
-    isAdmin () {
+    isAdmin() {
       return this.$store.getters.isAdmin
     },
-    showEdit () {
+    showEdit() {
       return this.$hasRole('update_bangumi')
     },
-    showRelation () {
+    showRelation() {
       return this.$hasRole('update_bangumi')
     },
-    changeTagRule () {
+    changeTagRule() {
       return this.$hasRole('change_tag_rule')
     },
-    trialQuestion () {
+    trialQuestion() {
       return this.$hasRole('trial_qa')
     }
   },
-  mounted () {
+  mounted() {
     this.getTrialInfo()
   },
   methods: {
-    getTrialInfo () {
+    getTrialInfo() {
       this.$axios
         .$get('v1/bangumi/atfield', {
           params: {

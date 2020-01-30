@@ -62,14 +62,14 @@ export default {
     UserItem
   },
   props: {},
-  data () {
+  data() {
     return {}
   },
   computed: {
-    query () {
+    query() {
       return this.$route.query
     },
-    headers () {
+    headers() {
       const { query } = this
       if (query.type === 'idol_fans') {
         return [
@@ -101,13 +101,13 @@ export default {
     }
   },
   watch: {},
-  created () {},
-  mounted () {},
+  created() {},
+  mounted() {},
   methods: {
-    handleChange (index) {
+    handleChange(index) {
       this.$refs.loader[index].initData()
     },
-    computedUserScore (user, sort) {
+    computedUserScore(user, sort) {
       const { query } = this
       if (query.type === 'idol_fans') {
         if (sort === 'news') {

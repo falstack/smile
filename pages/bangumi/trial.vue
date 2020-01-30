@@ -70,13 +70,13 @@
 <script>
 export default {
   name: 'BangumiTrial',
-  data () {
+  data() {
     return {
       loading: false
     }
   },
   computed: {
-    query () {
+    query() {
       const query = this.$route.query
 
       return {
@@ -87,7 +87,7 @@ export default {
     }
   },
   methods: {
-    handleDelete (id) {
+    handleDelete(id) {
       this.$confirm('删除后不可恢复，确认要删除吗？', '提示')
         .then(() => {
           if (this.loading) {
@@ -109,7 +109,7 @@ export default {
         })
         .catch(() => {})
     },
-    handlePass (id) {
+    handlePass(id) {
       if (this.loading) {
         return
       }
@@ -127,7 +127,7 @@ export default {
           this.loading = false
         })
     },
-    checkIsSelected (extra, key, id) {
+    checkIsSelected(extra, key, id) {
       const answers = extra.answers || {}
       let result = false
       Object.keys(answers).forEach((ansId) => {

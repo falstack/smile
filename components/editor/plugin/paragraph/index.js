@@ -24,7 +24,7 @@ export default class Paragraph {
    * @return {string}
    * @constructor
    */
-  static get DEFAULT_PLACEHOLDER () {
+  static get DEFAULT_PLACEHOLDER() {
     return ''
   }
 
@@ -36,7 +36,7 @@ export default class Paragraph {
    *   config - user config for Tool
    *   api - Editor.js API
    */
-  constructor ({ data, config, api }) {
+  constructor({ data, config, api }) {
     this.api = api
 
     this._CSS = {
@@ -64,7 +64,7 @@ export default class Paragraph {
    *
    * @param {KeyboardEvent} e - key up event
    */
-  onKeyUp (e) {
+  onKeyUp(e) {
     if (e.code !== 'Backspace' && e.code !== 'Delete') {
       return
     }
@@ -81,7 +81,7 @@ export default class Paragraph {
    * @return {HTMLElement}
    * @private
    */
-  drawView () {
+  drawView() {
     const div = document.createElement('DIV')
 
     div.classList.add(this._CSS.wrapper, this._CSS.block)
@@ -98,7 +98,7 @@ export default class Paragraph {
    * @returns {HTMLDivElement}
    * @public
    */
-  render () {
+  render() {
     return this._element
   }
 
@@ -108,7 +108,7 @@ export default class Paragraph {
    * @param {ParagraphData} data
    * @public
    */
-  merge (data) {
+  merge(data) {
     this.data = {
       text: this.data.text + data.text
     }
@@ -122,7 +122,7 @@ export default class Paragraph {
    * @returns {boolean} false if saved data is not correct, otherwise true
    * @public
    */
-  validate (savedData) {
+  validate(savedData) {
     return !(savedData.text.trim() === '' || /vanced issues found/.test(savedData.text))
   }
 
@@ -132,7 +132,7 @@ export default class Paragraph {
    * @returns {ParagraphData} - saved data
    * @public
    */
-  save (toolsContent) {
+  save(toolsContent) {
     return {
       text: toolsContent.innerHTML
     }
@@ -143,7 +143,7 @@ export default class Paragraph {
    *
    * @param {PasteEvent} event - event with pasted data
    */
-  onPaste (event) {
+  onPaste(event) {
     this.data = {
       text: event.detail.data.innerHTML
     }
@@ -152,7 +152,7 @@ export default class Paragraph {
   /**
    * Enable Conversion Toolbar. Paragraph can be converted to/from other tools
    */
-  static get conversionConfig () {
+  static get conversionConfig() {
     return {
       export: 'text', // to convert Paragraph to other block, use 'text' property of saved data
       import: 'text' // to covert other block's exported string to Paragraph, fill 'text' property of tool data
@@ -162,7 +162,7 @@ export default class Paragraph {
   /**
    * Sanitizer rules
    */
-  static get sanitize () {
+  static get sanitize() {
     return {
       text: {
         br: true
@@ -175,7 +175,7 @@ export default class Paragraph {
    * @returns {ParagraphData} Current data
    * @private
    */
-  get data () {
+  get data() {
     this._data.text = this._element.innerHTML
 
     return this._data
@@ -189,7 +189,7 @@ export default class Paragraph {
    * @param {ParagraphData} data — data to set
    * @private
    */
-  set data (data) {
+  set data(data) {
     this._data = data || {}
 
     this._element.innerHTML = this._data.text || ''
@@ -201,7 +201,7 @@ export default class Paragraph {
    *
    * @returns {{tags: string[]}}
    */
-  static get pasteConfig () {
+  static get pasteConfig() {
     return {
       tags: ['P']
     }

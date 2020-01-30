@@ -21,7 +21,7 @@ export default class Checklist {
    * @returns {boolean}
    * @public
    */
-  static get enableLineBreaks () {
+  static get enableLineBreaks() {
     return true
   }
 
@@ -32,7 +32,7 @@ export default class Checklist {
    *
    * @return {{icon: string, title: string}}
    */
-  static get toolbox () {
+  static get toolbox() {
     return {
       icon:
         '<svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 15a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15zm0-2.394a5.106 5.106 0 1 0 0-10.212 5.106 5.106 0 0 0 0 10.212zm-.675-4.665l2.708-2.708 1.392 1.392-2.708 2.708-1.392 1.391-2.971-2.971L5.245 6.36l1.58 1.58z"/></svg>',
@@ -46,7 +46,7 @@ export default class Checklist {
    * @param {object} config - user config for Tool
    * @param {object} api - Editor.js API
    */
-  constructor ({ data, config, api }) {
+  constructor({ data, config, api }) {
     /**
      * HTML nodes
      * @private
@@ -73,7 +73,7 @@ export default class Checklist {
    * @return {Element}
    * @public
    */
-  render () {
+  render() {
     this._elements.wrapper = this._make('div', [this.CSS.baseBlock, this.CSS.wrapper])
 
     // fill with data
@@ -123,7 +123,7 @@ export default class Checklist {
    * @returns {boolean} false if saved data is not correct, otherwise true
    * @public
    */
-  validate (savedData) {
+  validate(savedData) {
     return !!savedData.items.length
   }
 
@@ -131,7 +131,7 @@ export default class Checklist {
    * Toggle checklist item state
    * @param event
    */
-  toggleCheckbox (event) {
+  toggleCheckbox(event) {
     const checkListItem = event.target.closest(`.${this.CSS.item}`)
     const checkbox = checkListItem.querySelector(`.${this.CSS.checkbox}`)
 
@@ -145,7 +145,7 @@ export default class Checklist {
    * @param {ChecklistData} item - data.item
    * @return {HTMLElement} checkListItem - new element of checklist
    */
-  createChecklistItem (item = {}) {
+  createChecklistItem(item = {}) {
     const checkListItem = this._make('div', this.CSS.item)
 
     const checkbox = this._make('span', this.CSS.checkbox)
@@ -169,7 +169,7 @@ export default class Checklist {
    * Append new elements to the list by pressing Enter
    * @param {KeyboardEvent} event
    */
-  appendNewElement (event) {
+  appendNewElement(event) {
     event.preventDefault()
     const currentNode = window.getSelection().anchorNode
     const lastItem = this._elements.items[this._elements.items.length - 1].querySelector(`.${this.CSS.textField}`)
@@ -220,7 +220,7 @@ export default class Checklist {
    * Handle backspace
    * @param {KeyboardEvent} event
    */
-  backspace (event) {
+  backspace(event) {
     const currentItem = event.target.closest(`.${this.CSS.item}`)
     const currentIndex = this._elements.items.indexOf(currentItem)
     const currentItemText = currentItem
@@ -262,7 +262,7 @@ export default class Checklist {
    * @return {ChecklistData}
    * @public
    */
-  save () {
+  save() {
     return this.data
   }
 
@@ -270,7 +270,7 @@ export default class Checklist {
    * Styles
    * @private
    */
-  get CSS () {
+  get CSS() {
     return {
       baseBlock: this.api.styles.block,
       wrapper: 'cdx-checklist',
@@ -285,7 +285,7 @@ export default class Checklist {
    * Checklist data setter
    * @param {ChecklistData} checklistData
    */
-  set data (checklistData) {
+  set data(checklistData) {
     this._data.items = checklistData.items || []
 
     const oldView = this._elements.wrapper
@@ -299,7 +299,7 @@ export default class Checklist {
    * Return Checklist data
    * @return {ChecklistData}
    */
-  get data () {
+  get data() {
     this._data.items = []
 
     for (let i = 0; i < this._elements.items.length; i++) {
@@ -326,7 +326,7 @@ export default class Checklist {
    * @param  {Object} attributes        - any attributes
    * @return {Element}
    */
-  _make (tagName, classNames = null, attributes = {}) {
+  _make(tagName, classNames = null, attributes = {}) {
     const el = document.createElement(tagName)
 
     if (Array.isArray(classNames)) {
@@ -346,7 +346,7 @@ export default class Checklist {
    * Moves caret to the end of contentEditable element
    * @param {HTMLElement} element - contentEditable element
    */
-  moveCaretToEnd (element) {
+  moveCaretToEnd(element) {
     const range = document.createRange()
     const selection = window.getSelection()
 

@@ -20,7 +20,7 @@ export default class Delimiter {
    * Allow Tool to have no content
    * @return {boolean}
    */
-  static get contentless () {
+  static get contentless() {
     return true
   }
 
@@ -32,7 +32,7 @@ export default class Delimiter {
    *   config - user config for Tool
    *   api - Editor.js API
    */
-  constructor ({ data, config, api }) {
+  constructor({ data, config, api }) {
     this.api = api
 
     this._CSS = {
@@ -51,7 +51,7 @@ export default class Delimiter {
    * @return {HTMLElement}
    * @private
    */
-  drawView () {
+  drawView() {
     const div = document.createElement('DIV')
 
     div.classList.add(this._CSS.wrapper, this._CSS.block)
@@ -64,7 +64,7 @@ export default class Delimiter {
    * @returns {HTMLDivElement}
    * @public
    */
-  render () {
+  render() {
     return this._element
   }
 
@@ -74,7 +74,7 @@ export default class Delimiter {
    * @returns {DelimiterData} - saved data
    * @public
    */
-  save (toolsContent) {
+  save(toolsContent) {
     return {}
   }
 
@@ -85,7 +85,7 @@ export default class Delimiter {
    *
    * @return {{icon: string, title: string}}
    */
-  static get toolbox () {
+  static get toolbox() {
     return {
       icon: '<svg width="19" height="4" viewBox="0 0 19 4" xmlns="http://www.w3.org/2000/svg"><path d="M1.25 0H7a1.25 1.25 0 1 1 0 2.5H1.25a1.25 1.25 0 1 1 0-2.5zM11 0h5.75a1.25 1.25 0 0 1 0 2.5H11A1.25 1.25 0 0 1 11 0z"/></svg>',
       title: '分割线'

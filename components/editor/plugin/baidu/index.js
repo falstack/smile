@@ -1,11 +1,11 @@
 import './index.scss'
 
 export default class Baidu {
-  constructor ({ data }) {
+  constructor({ data }) {
     this.data = data
   }
 
-  static get toolbox () {
+  static get toolbox() {
     return {
       title: '百度云',
       icon:
@@ -13,7 +13,7 @@ export default class Baidu {
     }
   }
 
-  render () {
+  render() {
     const outerWrap = document.createElement('div')
     outerWrap.classList.add('baidu-resource')
 
@@ -85,7 +85,7 @@ export default class Baidu {
     return outerWrap
   }
 
-  save (blockContent) {
+  save(blockContent) {
     const urlInput = blockContent.querySelector('.baidu-resource-url')
     const pwdInput = blockContent.querySelector('.baidu-resource-password')
     const publicInput = blockContent.querySelector('.baidu-resource-role-public')
@@ -102,7 +102,7 @@ export default class Baidu {
     }
   }
 
-  validate (savedData) {
+  validate(savedData) {
     if (!savedData.url || !savedData.password) {
       return false
     }

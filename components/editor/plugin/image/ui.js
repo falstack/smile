@@ -10,7 +10,7 @@ export default class Ui {
    * @param {ImageConfig} config - user config
    * @param {function} onSelectFile - callback for clicks on Select file buttor
    */
-  constructor ({ api, config, onSelectFile }) {
+  constructor({ api, config, onSelectFile }) {
     this.api = api
     this.config = config
     this.onSelectFile = onSelectFile
@@ -46,7 +46,7 @@ export default class Ui {
    * CSS classes
    * @constructor
    */
-  get CSS () {
+  get CSS() {
     return {
       baseClass: this.api.styles.block,
       loading: this.api.styles.loader,
@@ -71,7 +71,7 @@ export default class Ui {
    * - filled
    * @return {{EMPTY: string, UPLOADING: string, FILLED: string}}
    */
-  static get status () {
+  static get status() {
     return {
       EMPTY: 'empty',
       UPLOADING: 'loading',
@@ -83,7 +83,7 @@ export default class Ui {
    * @param {ImageToolData} toolData
    * @return {HTMLDivElement}
    */
-  render (toolData) {
+  render(toolData) {
     if (!toolData.file || Object.keys(toolData.file).length === 0) {
       this.toggleStatus(Ui.status.EMPTY)
     } else {
@@ -97,7 +97,7 @@ export default class Ui {
    * Creates upload-file button
    * @return {Element}
    */
-  createFileButton () {
+  createFileButton() {
     const button = make('div', [this.CSS.button])
 
     button.innerHTML =
@@ -117,7 +117,7 @@ export default class Ui {
    * Shows uploading preloader
    * @param {string} src - preview source
    */
-  showPreloader (src) {
+  showPreloader(src) {
     this.nodes.imagePreloader.style.backgroundImage = `url(${src})`
 
     this.toggleStatus(Ui.status.UPLOADING)
@@ -126,7 +126,7 @@ export default class Ui {
   /**
    * Hide uploading preloader
    */
-  hidePreloader () {
+  hidePreloader() {
     this.nodes.imagePreloader.style.backgroundImage = ''
     this.toggleStatus(Ui.status.EMPTY)
   }
@@ -135,7 +135,7 @@ export default class Ui {
    * Shows an image
    * @param {string} url
    */
-  fillImage (url) {
+  fillImage(url) {
     /**
      * Check for a source extension to compose element correctly: video tag for mp4, img — for others
      */
@@ -200,7 +200,7 @@ export default class Ui {
    * Shows caption input
    * @param {string} text - caption text
    */
-  fillCaption (text) {
+  fillCaption(text) {
     if (this.nodes.caption) {
       this.nodes.caption.innerHTML = text
     }
@@ -210,7 +210,7 @@ export default class Ui {
    * Changes UI status
    * @param {string} status - see {@link Ui.status} constants
    */
-  toggleStatus (status) {
+  toggleStatus(status) {
     for (const statusType in Ui.status) {
       // eslint-disable-next-line
       if (Ui.status.hasOwnProperty(statusType)) {
@@ -224,7 +224,7 @@ export default class Ui {
    * @param {string} tuneName - one of available tunes {@link Tunes.tunes}
    * @param {boolean} status - true for enable, false for disable
    */
-  applyTune (tuneName, status) {
+  applyTune(tuneName, status) {
     this.nodes.wrapper.classList.toggle(`${this.CSS.wrapper}--${tuneName}`, status)
   }
 }
@@ -237,7 +237,7 @@ export default class Ui {
  * @param  {Object} attributes        - any attributes
  * @return {Element}
  */
-export const make = function make (tagName, classNames = null, attributes = {}) {
+export const make = function make(tagName, classNames = null, attributes = {}) {
   const el = document.createElement(tagName)
 
   if (Array.isArray(classNames)) {

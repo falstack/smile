@@ -80,7 +80,7 @@ export default class ImageTool {
    *
    * @return {{icon: string, title: string}}
    */
-  static get toolbox () {
+  static get toolbox() {
     return {
       icon:
         '<svg width="17" height="15" viewBox="0 0 336 276" xmlns="http://www.w3.org/2000/svg"><path d="M291 150.242V79c0-18.778-15.222-34-34-34H79c-18.778 0-34 15.222-34 34v42.264l67.179-44.192 80.398 71.614 56.686-29.14L291 150.242zm-.345 51.622l-42.3-30.246-56.3 29.884-80.773-66.925L45 174.187V197c0 18.778 15.222 34 34 34h178c17.126 0 31.295-12.663 33.655-29.136zM79 0h178c43.63 0 79 35.37 79 79v118c0 43.63-35.37 79-79 79H79c-43.63 0-79-35.37-79-79V79C0 35.37 35.37 0 79 0z"/></svg>',
@@ -93,7 +93,7 @@ export default class ImageTool {
    * @param {ImageConfig} config - user config for Tool
    * @param {object} api - Editor.js API
    */
-  constructor ({ data, config, api }) {
+  constructor({ data, config, api }) {
     this.api = api
 
     /**
@@ -155,7 +155,7 @@ export default class ImageTool {
    *
    * @return {HTMLDivElement}
    */
-  render () {
+  render() {
     return this.ui.render(this.data)
   }
 
@@ -165,7 +165,7 @@ export default class ImageTool {
    *
    * @return {ImageToolData}
    */
-  save () {
+  save() {
     const caption = this.ui.nodes.caption
 
     this._data.caption = caption.innerHTML
@@ -179,7 +179,7 @@ export default class ImageTool {
    *
    * @return {Element}
    */
-  renderSettings () {
+  renderSettings() {
     return this.tunes.render(this.data)
   }
 
@@ -188,7 +188,7 @@ export default class ImageTool {
    * Initiates click on the Select File button
    * @public
    */
-  appendCallback () {
+  appendCallback() {
     this.ui.nodes.fileButton.click()
   }
 
@@ -197,7 +197,7 @@ export default class ImageTool {
    *
    * @see {@link https://github.com/codex-team/editor.js/blob/master/docs/tools.md#paste-handling}
    */
-  static get pasteConfig () {
+  static get pasteConfig() {
     return {
       /**
        * Paste HTML into Editor
@@ -226,7 +226,7 @@ export default class ImageTool {
    *
    * @see {@link https://github.com/codex-team/editor.js/blob/master/docs/tools.md#paste-handling}
    */
-  async onPaste (event) {
+  async onPaste(event) {
     switch (event.type) {
       case 'tag':
         // eslint-disable-next-line
@@ -271,7 +271,7 @@ export default class ImageTool {
    *
    * @param {ImageToolData} data
    */
-  set data (data) {
+  set data(data) {
     this.image = data.file
 
     this._data.caption = data.caption || ''
@@ -290,7 +290,7 @@ export default class ImageTool {
    *
    * @return {ImageToolData} data
    */
-  get data () {
+  get data() {
     return this._data
   }
 
@@ -300,7 +300,7 @@ export default class ImageTool {
    *
    * @param {object} file - uploaded file data
    */
-  set image (file) {
+  set image(file) {
     this._data.file = file || {}
 
     if (file && file.url) {
@@ -314,7 +314,7 @@ export default class ImageTool {
    *
    * @param {UploadResponseFormat} response
    */
-  onUpload (response) {
+  onUpload(response) {
     if (response.success && response.file) {
       this.image = response.file
     } else {
@@ -328,7 +328,7 @@ export default class ImageTool {
    *
    * @param {string} errorText
    */
-  uploadingFailed (errorText) {
+  uploadingFailed(errorText) {
     // eslint-disable-next-line
     console.log('Image Tool: uploading failed because of', errorText)
 
@@ -345,7 +345,7 @@ export default class ImageTool {
    *
    * @param {string} tuneName - tune that has been clicked
    */
-  tuneToggled (tuneName) {
+  tuneToggled(tuneName) {
     // inverse tune state
     this.setTune(tuneName, !this._data[tuneName])
   }
@@ -355,7 +355,7 @@ export default class ImageTool {
    * @param {string} tuneName - {@link Tunes.tunes}
    * @param {boolean} value - tune state
    */
-  setTune (tuneName, value) {
+  setTune(tuneName, value) {
     this._data[tuneName] = value
 
     this.ui.applyTune(tuneName, value)
@@ -375,7 +375,7 @@ export default class ImageTool {
    *
    * @param {File} file
    */
-  uploadFile (file) {
+  uploadFile(file) {
     this.uploader.uploadByFile(file, {
       onPreview: (src) => {
         this.ui.showPreloader(src)
@@ -388,12 +388,12 @@ export default class ImageTool {
    *
    * @param {string} url
    */
-  uploadUrl (url) {
+  uploadUrl(url) {
     this.ui.showPreloader(url)
     this.uploader.uploadByUrl(url)
   }
 
-  validate (savedData) {
+  validate(savedData) {
     return !(!savedData.file || !savedData.file.url)
   }
 }

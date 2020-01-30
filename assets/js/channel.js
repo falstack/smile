@@ -1,12 +1,12 @@
 export default {
-  data () {
+  data() {
     return {
       handler: {},
       events: {}
     }
   },
   methods: {
-    $when (eventName, callback) {
+    $when(eventName, callback) {
       if (this.events[eventName]) {
         callback(this.events[eventName])
       } else if (this.handler[eventName]) {
@@ -15,7 +15,7 @@ export default {
         this.handler[eventName] = [callback]
       }
     },
-    $fire (eventName, value = undefined) {
+    $fire(eventName, value = undefined) {
       if (this.events[eventName]) {
         return
       }

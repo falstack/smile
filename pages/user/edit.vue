@@ -139,7 +139,7 @@ export default {
     VRadio
   },
   mixins: [upload, mustSign],
-  data () {
+  data() {
     const validateNickname = (rule, value, callback) => {
       const length = value.replace(/([\u4E00-\u9FA5])/g, 'aa').trim().length
       if (!length) {
@@ -182,17 +182,17 @@ export default {
     }
   },
   computed: {
-    isAuth () {
+    isAuth() {
       return this.$store.state.isAuth
     },
-    user () {
+    user() {
       return this.$store.state.user
     },
     nickname: {
-      get () {
+      get() {
         return this.user.nickname
       },
-      set (value) {
+      set(value) {
         this.$store.commit('UPDATE_USER_INFO', {
           key: 'nickname',
           value
@@ -200,10 +200,10 @@ export default {
       }
     },
     birthday: {
-      get () {
+      get() {
         return this.user.birthday
       },
-      set (value) {
+      set(value) {
         this.$store.commit('UPDATE_USER_INFO', {
           key: 'birthday',
           value
@@ -211,10 +211,10 @@ export default {
       }
     },
     birthSecret: {
-      get () {
+      get() {
         return this.user.birth_secret
       },
-      set (value) {
+      set(value) {
         this.$store.commit('UPDATE_USER_INFO', {
           key: 'birth_secret',
           value
@@ -222,10 +222,10 @@ export default {
       }
     },
     sex: {
-      get () {
+      get() {
         return this.user.sex
       },
-      set (value) {
+      set(value) {
         this.$store.commit('UPDATE_USER_INFO', {
           key: 'sex',
           value
@@ -233,10 +233,10 @@ export default {
       }
     },
     sexSecret: {
-      get () {
+      get() {
         return this.user.sex_secret
       },
-      set (value) {
+      set(value) {
         this.$store.commit('UPDATE_USER_INFO', {
           key: 'sex_secret',
           value
@@ -244,10 +244,10 @@ export default {
       }
     },
     signature: {
-      get () {
+      get() {
         return this.user.signature
       },
-      set (value) {
+      set(value) {
         this.$store.commit('UPDATE_USER_INFO', {
           key: 'signature',
           value: value.trim()
@@ -256,22 +256,22 @@ export default {
     }
   },
   methods: {
-    avatarUploadSuccess (res, file) {
+    avatarUploadSuccess(res, file) {
       this.handleImageUploadSuccess(res, file)
       this.$store.commit('UPDATE_USER_INFO', {
         key: 'avatar',
         value: res.data.url
       })
     },
-    bannerUploadSuccess (res, file) {
+    bannerUploadSuccess(res, file) {
       this.handleImageUploadSuccess(res, file)
       this.$store.commit('UPDATE_USER_INFO', {
         key: 'banner',
         value: res.data.url
       })
     },
-    submit () {
-      this.$refs.form.validate(async (valid) => {
+    submit() {
+      this.$refs.form.validate(async(valid) => {
         if (valid) {
           if (this.submitting) {
             return

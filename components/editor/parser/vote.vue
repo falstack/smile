@@ -145,7 +145,7 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       selected: [],
       submitting: false,
@@ -155,7 +155,7 @@ export default {
     }
   },
   watch: {
-    vote (val) {
+    vote(val) {
       this.selected = val.map(_ => _)
       if (val.length) {
         this.voted = true
@@ -164,7 +164,7 @@ export default {
     }
   },
   methods: {
-    getVoteStat () {
+    getVoteStat() {
       this.$axios
         .$get('v1/pin/vote_stat', {
           params: {
@@ -177,7 +177,7 @@ export default {
         })
         .catch(() => {})
     },
-    handleSelect (option) {
+    handleSelect(option) {
       const { selected, voted } = this
       if (voted) {
         return
@@ -196,10 +196,10 @@ export default {
       }
       selected.push(option.id)
     },
-    checkSelected (option) {
+    checkSelected(option) {
       return ~this.selected.indexOf(option.id)
     },
-    submit () {
+    submit() {
       if (this.submitting || this.voted) {
         return
       }
@@ -229,7 +229,7 @@ export default {
           this.submitting = false
         })
     },
-    computeItemStyle (option, index) {
+    computeItemStyle(option, index) {
       const count = this.stat[option.id] || 0
       const width = count ? `${(75 * count) / this.maxCount}%` : '0%'
       return {
@@ -237,7 +237,7 @@ export default {
         backgroundColor: this.getRandomColor(index)
       }
     },
-    getRandomColor (index) {
+    getRandomColor(index) {
       const colors = ['rgba(255,170,170,.5)', 'rgba(255,148,39,.5)', 'rgba(252,196,25,.5)', 'rgba(32,201,151,.5)', 'rgba(18,183,245,.5)', 'rgba(173,181,189,.5)']
       return colors[index % 6]
     }

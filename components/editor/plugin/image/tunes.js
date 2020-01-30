@@ -8,7 +8,7 @@ export default class Tunes {
    * @param {object} api - Editor API
    * @param {function} onChange - tune toggling callback
    */
-  constructor ({ api, onChange }) {
+  constructor({ api, onChange }) {
     this.api = api
     this.onChange = onChange
     this.buttons = []
@@ -17,7 +17,7 @@ export default class Tunes {
   /**
    * Available Image tunes
    */
-  static get tunes () {
+  static get tunes() {
     return [
       {
         name: 'withBorder',
@@ -44,7 +44,7 @@ export default class Tunes {
    * Styles
    * @return {{wrapper: string, buttonBase: *, button: string, buttonActive: *}}
    */
-  get CSS () {
+  get CSS() {
     return {
       wrapper: '',
       buttonBase: this.api.styles.settingsButton,
@@ -58,7 +58,7 @@ export default class Tunes {
    * @param {ImageToolData} toolData
    * @return {Element}
    */
-  render (toolData) {
+  render(toolData) {
     const wrapper = make('div', this.CSS.wrapper)
 
     this.buttons = []
@@ -88,7 +88,7 @@ export default class Tunes {
    * Clicks to one of the tunes
    * @param {string} tuneName - clicked tune name
    */
-  tuneClicked (tuneName) {
+  tuneClicked(tuneName) {
     const button = this.buttons.find(el => el.dataset.tune === tuneName)
 
     button.classList.toggle(this.CSS.buttonActive, !button.classList.contains(this.CSS.buttonActive))

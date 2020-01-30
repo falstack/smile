@@ -11,13 +11,13 @@ export default {
   name: 'PublicRule',
   components: {},
   props: {},
-  data () {
+  data() {
     return {}
   },
   computed: {},
   watch: {},
-  created () {},
-  mounted () {},
+  created() {},
+  mounted() {},
   methods: {},
   head: {
     title: '社区章程'

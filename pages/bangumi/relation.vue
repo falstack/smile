@@ -33,7 +33,7 @@ export default {
     VField,
     VButton
   },
-  asyncData ({ app, error, query }) {
+  asyncData({ app, error, query }) {
     const slug = query.slug
     if (!slug) {
       return
@@ -47,19 +47,19 @@ export default {
       })
       .catch(error)
   },
-  data () {
+  data() {
     return {
       bangumi: null
     }
   },
   methods: {
-    handleParentChange (result) {
+    handleParentChange(result) {
       this.$axios.$post('v1/bangumi/update/set_parent', {
         bangumi_slug: this.bangumi.slug,
         result
       })
     },
-    handleSetParent () {
+    handleSetParent() {
       this.$axios
         .$post('v1/bangumi/update/set_parent', {
           child_slug: this.bangumi.slug,

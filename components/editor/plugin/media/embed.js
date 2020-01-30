@@ -43,7 +43,7 @@ export default class Embed {
    *   config - user config for Tool
    *   api - Editor.js API
    */
-  constructor ({ data, api }) {
+  constructor({ data, api }) {
     this.api = api
     this._data = {}
     this.element = null
@@ -59,7 +59,7 @@ export default class Embed {
    * @param {number} [data.width] - iframe width
    * @param {string} [data.caption] - caption
    */
-  set data (data) {
+  set data(data) {
     if (!(data instanceof Object)) {
       throw new TypeError('Embed Tool data should be object')
     }
@@ -85,7 +85,7 @@ export default class Embed {
   /**
    * @return {EmbedData}
    */
-  get data () {
+  get data() {
     if (this.element) {
       const caption = this.element.querySelector(`.${this.api.styles.input}`)
 
@@ -99,7 +99,7 @@ export default class Embed {
    * Get plugin styles
    * @return {Object}
    */
-  get CSS () {
+  get CSS() {
     return {
       baseClass: this.api.styles.block,
       input: this.api.styles.input,
@@ -117,7 +117,7 @@ export default class Embed {
    *
    * @return {HTMLElement}
    */
-  render () {
+  render() {
     if (!this.data.service) {
       const container = document.createElement('div')
 
@@ -163,7 +163,7 @@ export default class Embed {
    * Creates preloader to append to container while data is loading
    * @return {HTMLElement} preloader
    */
-  createPreloader () {
+  createPreloader() {
     const preloader = document.createElement('preloader')
     const url = document.createElement('div')
 
@@ -182,7 +182,7 @@ export default class Embed {
    *
    * @return {EmbedData}
    */
-  save () {
+  save() {
     return this.data
   }
 
@@ -192,7 +192,7 @@ export default class Embed {
    * @param {PasteEvent} event- event with pasted data
    * @return {Service}
    */
-  onPaste (event) {
+  onPaste(event) {
     const { key: service, data: url } = event.detail
 
     const { regex, embedUrl, width, height, id = ids => ids.shift() } = Embed.services[service]
@@ -214,7 +214,7 @@ export default class Embed {
    *
    * @param {EmbedConfig} config
    */
-  static prepare ({ config = {} }) {
+  static prepare({ config = {} }) {
     const { services = {} } = config
 
     let entries = Object.entries(SERVICES)
@@ -275,7 +275,7 @@ export default class Embed {
    * @param {Service} config
    * @return {boolean}
    */
-  static checkServiceConfig (config) {
+  static checkServiceConfig(config) {
     const { regex, embedUrl, html, height, width, id } = config
 
     let isValid = regex && regex instanceof RegExp && embedUrl && typeof embedUrl === 'string' && html && typeof html === 'string'
@@ -290,7 +290,7 @@ export default class Embed {
   /**
    * Paste configuration to enable pasted URLs processing by Editor
    */
-  static get pasteConfig () {
+  static get pasteConfig() {
     return {
       patterns: Embed.patterns
     }
@@ -301,7 +301,7 @@ export default class Embed {
    * @param {HTMLElement} targetNode - HTML-element mutations of which to listen
    * @return {Promise<any>} - result that all mutations have finished
    */
-  embedIsReady (targetNode) {
+  embedIsReady(targetNode) {
     const PRELOADER_DELAY = 450
 
     let observer = null

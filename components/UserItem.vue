@@ -68,7 +68,7 @@ export default {
     }
   },
   methods: {
-    goUser () {
+    goUser() {
       this.$bridge.navigateTo({
         url: `/pages/user/show/index?slug=${this.user.slug}`
       })

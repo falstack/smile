@@ -110,7 +110,7 @@ export default {
     }
   },
   methods: {
-    handleClick () {
+    handleClick() {
       this.$bridge.navigateTo({
         url: `/pages/bangumi/show/index?slug=${this.item.slug}`
       })

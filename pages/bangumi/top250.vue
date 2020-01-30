@@ -24,7 +24,7 @@ export default {
     BangumiRankItem
   },
   props: {},
-  async asyncData ({ store, app }) {
+  async asyncData({ store, app }) {
     await store.dispatch('flow/initData', {
       func: 'getBangumiRank',
       type: 'page',
@@ -33,13 +33,13 @@ export default {
       }
     })
   },
-  data () {
+  data() {
     return {}
   },
   computed: {},
   watch: {},
-  created () {},
-  mounted () {},
+  created() {},
+  mounted() {},
   methods: {},
   head: {
     title: '动漫排行榜'

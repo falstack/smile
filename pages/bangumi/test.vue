@@ -63,7 +63,7 @@ export default {
     VButton,
     VRadio
   },
-  data () {
+  data() {
     return {
       bangumi: null,
       submitting: false,
@@ -91,21 +91,21 @@ export default {
     }
   },
   computed: {
-    slug () {
+    slug() {
       return this.$route.query.slug
     },
-    rightAnswerOpts () {
+    rightAnswerOpts() {
       return this.answers.map((_) => {
         return { label: `答案${_.key + 1}`, value: _.key }
       })
     }
   },
-  mounted () {
+  mounted() {
     this.getBangumi()
     this.getRule()
   },
   methods: {
-    getBangumi () {
+    getBangumi() {
       this.$axios
         .$get('v1/bangumi/show', {
           params: {
@@ -117,7 +117,7 @@ export default {
         })
         .catch(() => {})
     },
-    getRule () {
+    getRule() {
       this.$axios
         .$get('v1/join/rule/show', {
           params: {
@@ -129,7 +129,7 @@ export default {
         })
         .catch()
     },
-    submit () {
+    submit() {
       if (!this.title.trim()) {
         this.$toast.info('题目不能为空')
         return
