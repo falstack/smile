@@ -3,6 +3,7 @@
 <template>
   <div id="public-news">
     今天没什么新闻
+    <a href="/write/pin">写新闻</a>
   </div>
 </template>
 
