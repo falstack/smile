@@ -2,7 +2,7 @@
 
 <template>
   <div id="public-rank">
-    暂无排行数据
+    全年代日本动画Top250
   </div>
 </template>
 

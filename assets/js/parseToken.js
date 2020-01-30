@@ -1,36 +1,22 @@
-const parseCookie = (cookieStr) => {
-  if (!cookieStr) {
-    return ''
-  }
-  let token = ''
-  cookieStr.split('; ').forEach((item) => {
-    if (item.startsWith('JWT-TOKEN=')) {
-      token = item.split('JWT-TOKEN=')[1]
-    }
-  })
-  return token
-}
+import { VCache } from '@calibur/sakura'
 
 export default (app) => {
   let token = ''
 
   if (typeof window !== 'undefined') {
-    if (window.__AUTH_TOKEN__) {
-      return window.__AUTH_TOKEN__
-    }
-
-    token = parseCookie(document.cookie)
-  } else {
-    token = parseCookie(app.context.req.headers.cookie)
+    token = VCache.get('JWT-TOKEN', '')
   }
 
-  if (!token && app) {
+  if (token) {
+    return token
+  }
+
+  if (app) {
     token = app.context.query.token
   }
 
-  token = ~['undefined', 'null'].indexOf(token) ? '' : token
-  if (typeof window !== 'undefined') {
-    window.__AUTH_TOKEN__ = token
+  if (token) {
+    VCache.set('JWT-TOKEN', token)
   }
 
   return token

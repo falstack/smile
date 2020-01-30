@@ -8,7 +8,7 @@ export default {
           this.$channel.$fire('user-signed')
           canceler()
         } else {
-          this.$cookie.remove('JWT-TOKEN')
+          this.$cache.del('JWT-TOKEN')
           this.$channel.$fire('user-not-sign')
         }
       })
@@ -20,7 +20,7 @@ export default {
         this.$channel.$fire('user-signed')
         this.$store.dispatch('getUserRoles')
       } else {
-        this.$cookie.remove('JWT-TOKEN')
+        this.$cache.del('JWT-TOKEN')
         this.$channel.$fire('user-not-sign')
       }
     }
