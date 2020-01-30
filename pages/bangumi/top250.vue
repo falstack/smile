@@ -40,6 +40,9 @@ export default {
   watch: {},
   created () {},
   mounted () {},
-  methods: {}
+  methods: {},
+  head: {
+    title: '动漫排行榜'
+  }
 }
 </script>
