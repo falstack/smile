@@ -1,13 +1,13 @@
 import './index.scss'
 
 export default class Vote {
-  constructor ({ data, api }) {
+  constructor({ data, api }) {
     this.data = data
     this.api = api
     this.i = 0
   }
 
-  static get toolbox () {
+  static get toolbox() {
     return {
       title: '投票',
       icon:
@@ -15,7 +15,7 @@ export default class Vote {
     }
   }
 
-  render () {
+  render() {
     const votes = document.querySelectorAll('.vote-wrap')
     if (votes.length > 0) {
       this.api.notifier.show({
@@ -133,10 +133,10 @@ export default class Vote {
     return wrapper
   }
 
-  save (blockContent) {
+  save(blockContent) {
     const answerInput = blockContent.querySelectorAll('.vote-answer')
     const answers = []
-    ;[].forEach.call(answerInput, function (item) {
+    ;[].forEach.call(answerInput, function(item) {
       answers.push(item.value)
     })
     const expireInput = blockContent.querySelector('.vote-expire-input')
@@ -148,7 +148,7 @@ export default class Vote {
     }
   }
 
-  validate (savedData) {
+  validate(savedData) {
     return savedData.items.length > 1
   }
 }

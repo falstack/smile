@@ -29,7 +29,7 @@ export default class Header {
    *   config - user config for Tool
    *   api - Editor.js API
    */
-  constructor ({ data, config, api }) {
+  constructor({ data, config, api }) {
     this.api = api
 
     /**
@@ -77,7 +77,7 @@ export default class Header {
    * @return {HeaderData}
    * @private
    */
-  normalizeData (data) {
+  normalizeData(data) {
     const newData = {}
 
     if (typeof data !== 'object') {
@@ -95,7 +95,7 @@ export default class Header {
    * @returns {HTMLHeadingElement}
    * @public
    */
-  render () {
+  render() {
     return this._element
   }
 
@@ -104,7 +104,7 @@ export default class Header {
    *
    * @return {HTMLElement}
    */
-  renderSettings () {
+  renderSettings() {
     const holder = document.createElement('DIV')
 
     /** Add type selectors */
@@ -155,7 +155,7 @@ export default class Header {
    * Callback for Block's settings buttons
    * @param level
    */
-  setLevel (level) {
+  setLevel(level) {
     this.data = {
       level,
       text: this.data.text
@@ -175,7 +175,7 @@ export default class Header {
    * @param {HeaderData} data
    * @public
    */
-  merge (data) {
+  merge(data) {
     const newData = {
       text: this.data.text + data.text,
       level: this.data.level
@@ -192,7 +192,7 @@ export default class Header {
    * @returns {boolean} false if saved data is not correct, otherwise true
    * @public
    */
-  validate (blockData) {
+  validate(blockData) {
     return blockData.text.trim() !== ''
   }
 
@@ -202,7 +202,7 @@ export default class Header {
    * @returns {HeaderData} - saved data
    * @public
    */
-  save (toolsContent) {
+  save(toolsContent) {
     return {
       text: toolsContent.innerHTML,
       level: this.currentLevel.number
@@ -212,7 +212,7 @@ export default class Header {
   /**
    * Allow Header to be converted to/from other blocks
    */
-  static get conversionConfig () {
+  static get conversionConfig() {
     return {
       export: 'text', // use 'text' property for other blocks
       import: 'text' // fill 'text' property from other block's export string
@@ -222,7 +222,7 @@ export default class Header {
   /**
    * Sanitizer Rules
    */
-  static get sanitize () {
+  static get sanitize() {
     return {
       level: {}
     }
@@ -233,7 +233,7 @@ export default class Header {
    * @returns {HeaderData} Current data
    * @private
    */
-  get data () {
+  get data() {
     this._data.text = this._element.innerHTML
     this._data.level = this.currentLevel.number
 
@@ -248,7 +248,7 @@ export default class Header {
    * @param {HeaderData} data — data to set
    * @private
    */
-  set data (data) {
+  set data(data) {
     this._data = this.normalizeData(data)
 
     /**
@@ -293,7 +293,7 @@ export default class Header {
    * By default returns second-leveled header
    * @return {HTMLElement}
    */
-  getTag () {
+  getTag() {
     /**
      * Create element for current Block's level
      */
@@ -326,7 +326,7 @@ export default class Header {
    * Get current level
    * @return {level}
    */
-  get currentLevel () {
+  get currentLevel() {
     let level = this.levels.find(levelItem => levelItem.number === this._data.level)
 
     if (!level) {
@@ -340,7 +340,7 @@ export default class Header {
    * Return default level
    * @returns {level}
    */
-  get defaultLevel () {
+  get defaultLevel() {
     /**
      * Use H2 as default header
      */
@@ -358,7 +358,7 @@ export default class Header {
    * Available header levels
    * @return {level[]}
    */
-  get levels () {
+  get levels() {
     return [
       {
         number: 1,
@@ -404,7 +404,7 @@ export default class Header {
    *
    * @param {PasteEvent} event - event with pasted content
    */
-  onPaste (event) {
+  onPaste(event) {
     const content = event.detail.data
 
     /**
@@ -444,7 +444,7 @@ export default class Header {
    *
    * @returns {{handler: (function(HTMLElement): {text: string}), tags: string[]}}
    */
-  static get pasteConfig () {
+  static get pasteConfig() {
     return {
       tags: ['H1', 'H2', 'H3', 'H4', 'H5', 'H6']
     }
@@ -457,7 +457,7 @@ export default class Header {
    *
    * @return {{icon: string, title: string}}
    */
-  static get toolbox () {
+  static get toolbox() {
     return {
       icon:
         '<svg width="11" height="14" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M7.6 8.15H2.25v4.525a1.125 1.125 0 0 1-2.25 0V1.125a1.125 1.125 0 1 1 2.25 0V5.9H7.6V1.125a1.125 1.125 0 0 1 2.25 0v11.55a1.125 1.125 0 0 1-2.25 0V8.15z"/></svg>',

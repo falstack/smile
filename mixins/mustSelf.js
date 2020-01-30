@@ -1,5 +1,5 @@
 export default {
-  beforeMount () {
+  beforeMount() {
     const redirect = () => {
       if (!this.$store.getters.isMine(this.$route.params.slug)) {
         this.$router.replace({

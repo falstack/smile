@@ -71,7 +71,7 @@ export default {
     VUploader
   },
   mixins: [mustSign, upload],
-  asyncData ({ app, error, query }) {
+  asyncData({ app, error, query }) {
     const slug = query.slug
     if (!slug) {
       return
@@ -85,18 +85,18 @@ export default {
       })
       .catch(error)
   },
-  data () {
+  data() {
     return {
       bangumi: null,
       loading: false
     }
   },
   methods: {
-    avatarUploadSuccess (res, file) {
+    avatarUploadSuccess(res, file) {
       this.handleImageUploadSuccess(res, file)
       this.bangumi.avatar = res.data.url
     },
-    handleSubmit () {
+    handleSubmit() {
       if (this.loading) {
         return
       }

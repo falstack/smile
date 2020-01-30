@@ -31,19 +31,19 @@ export default {
   name: 'AppAdmin',
   components: {},
   props: {},
-  data () {
+  data() {
     return {
       trialInfo: null
     }
   },
   computed: {},
   watch: {},
-  created () {},
-  mounted () {
+  created() {},
+  mounted() {
     this.getTrialInfo()
   },
   methods: {
-    getTrialInfo () {
+    getTrialInfo() {
       this.$axios
         .$get('v1/bangumi/atfield')
         .then((data) => {

@@ -82,7 +82,7 @@ export default {
     VUploader
   },
   mixins: [upload],
-  data () {
+  data() {
     const validateAlias = (rule, value, callback) => {
       if (!value || !value.length) {
         callback(new Error('别名不能为空'))
@@ -113,11 +113,11 @@ export default {
     }
   },
   methods: {
-    avatarUploadSuccess (res, file) {
+    avatarUploadSuccess(res, file) {
       this.handleImageUploadSuccess(res, file)
       this.tag.avatar = res.data.url
     },
-    fetch () {
+    fetch() {
       if (!this.tag.id) {
         return
       }
@@ -151,7 +151,7 @@ export default {
           return this.$toast.error(err.message)
         })
     },
-    submit () {
+    submit() {
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.submitting = true

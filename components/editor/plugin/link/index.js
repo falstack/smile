@@ -35,7 +35,7 @@ export default class LinkTool {
    *
    * @return {{icon: string, title: string}}
    */
-  static get toolbox () {
+  static get toolbox() {
     return {
       icon:
         '<svg width="13" height="14" xmlns="http://www.w3.org/2000/svg">\n' +
@@ -50,7 +50,7 @@ export default class LinkTool {
    * @returns {boolean}
    * @public
    */
-  static get enableLineBreaks () {
+  static get enableLineBreaks() {
     return true
   }
 
@@ -59,7 +59,7 @@ export default class LinkTool {
    * @param {config} config - user config for Tool
    * @param {object} api - Editor.js API
    */
-  constructor ({ data, config, api }) {
+  constructor({ data, config, api }) {
     this.api = api
 
     /**
@@ -96,7 +96,7 @@ export default class LinkTool {
    *
    * @return {HTMLDivElement}
    */
-  render () {
+  render() {
     this.nodes.wrapper = this.make('div', this.CSS.baseClass)
     this.nodes.container = this.make('div', this.CSS.container)
 
@@ -124,7 +124,7 @@ export default class LinkTool {
    *
    * @return {LinkToolData}
    */
-  save () {
+  save() {
     return this.data
   }
 
@@ -132,7 +132,7 @@ export default class LinkTool {
    * Stores all Tool's data
    * @param {LinkToolData} data
    */
-  set data (data) {
+  set data(data) {
     this._data = Object.assign(
       {},
       {
@@ -146,7 +146,7 @@ export default class LinkTool {
    * Return Tool data
    * @return {LinkToolData} data
    */
-  get data () {
+  get data() {
     return this._data
   }
 
@@ -154,7 +154,7 @@ export default class LinkTool {
    * @return {object} - Link Tool styles
    * @constructor
    */
-  get CSS () {
+  get CSS() {
     return {
       baseClass: this.api.styles.block,
       input: this.api.styles.input,
@@ -182,7 +182,7 @@ export default class LinkTool {
    * Prepare input holder
    * @return {HTMLElement} - url input
    */
-  makeInputHolder () {
+  makeInputHolder() {
     const inputHolder = this.make('div', this.CSS.inputHolder)
 
     this.nodes.progress = this.make('label', this.CSS.progress)
@@ -224,7 +224,7 @@ export default class LinkTool {
   /**
    * Activates link data fetching by url
    */
-  startFetching (event) {
+  startFetching(event) {
     let url = this.nodes.input.textContent
 
     if (event.type === 'paste') {
@@ -238,7 +238,7 @@ export default class LinkTool {
   /**
    * If previous link data fetching failed, remove error styles
    */
-  removeErrorStyle () {
+  removeErrorStyle() {
     this.nodes.inputHolder.classList.remove(this.CSS.inputError)
     this.nodes.inputHolder.insertBefore(this.nodes.progress, this.nodes.input)
   }
@@ -247,7 +247,7 @@ export default class LinkTool {
    * Select LinkTool input content by CMD+A
    * @param {KeyboardEvent} event
    */
-  selectLinkUrl (event) {
+  selectLinkUrl(event) {
     event.preventDefault()
     event.stopPropagation()
 
@@ -268,7 +268,7 @@ export default class LinkTool {
    * Prepare link preview holder
    * @return {HTMLElement}
    */
-  prepareLinkPreview () {
+  prepareLinkPreview() {
     const holder = this.make('a', this.CSS.linkContent, {
       target: '_blank',
       rel: 'nofollow noindex noreferrer'
@@ -286,7 +286,7 @@ export default class LinkTool {
    * Compose link preview from fetched data
    * @param {metaData} meta - link meta data
    */
-  showLinkPreview ({ image, title, description }) {
+  showLinkPreview({ image, title, description }) {
     this.nodes.container.appendChild(this.nodes.linkContent)
 
     if (image && image.url) {
@@ -318,14 +318,14 @@ export default class LinkTool {
   /**
    * Show loading progressbar
    */
-  showProgress () {
+  showProgress() {
     this.nodes.progress.classList.add(this.CSS.progressLoading)
   }
 
   /**
    * Hide loading progressbar
    */
-  hideProgress () {
+  hideProgress() {
     return new Promise((resolve) => {
       this.nodes.progress.classList.remove(this.CSS.progressLoading)
       this.nodes.progress.classList.add(this.CSS.progressLoaded)
@@ -337,7 +337,7 @@ export default class LinkTool {
   /**
    * If data fetching failed, set input error style
    */
-  applyErrorStyle () {
+  applyErrorStyle() {
     this.nodes.inputHolder.classList.add(this.CSS.inputError)
     this.nodes.progress.remove()
   }
@@ -346,7 +346,7 @@ export default class LinkTool {
    * Sends to backend pasted url and receives link data
    * @param {string} url - link source url
    */
-  async fetchLinkData (url) {
+  async fetchLinkData(url) {
     if (!url.includes('.')) {
       return
     }
@@ -379,7 +379,7 @@ export default class LinkTool {
    * Link data fetching callback
    * @param {UploadResponseFormat} response
    */
-  onFetch (response) {
+  onFetch(response) {
     if (!response || !response.success) {
       this.fetchingFailed('不支持的链接')
       return
@@ -406,7 +406,7 @@ export default class LinkTool {
    *
    * @param {string} errorMessage
    */
-  fetchingFailed (errorMessage) {
+  fetchingFailed(errorMessage) {
     this.api.notifier.show({
       message: errorMessage,
       style: 'error'
@@ -422,7 +422,7 @@ export default class LinkTool {
    * @param attributes
    * @return {HTMLElement}
    */
-  make (tagName, classNames = null, attributes = {}) {
+  make(tagName, classNames = null, attributes = {}) {
     const el = document.createElement(tagName)
 
     if (Array.isArray(classNames)) {

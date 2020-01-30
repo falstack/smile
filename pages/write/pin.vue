@@ -93,13 +93,14 @@
   <div id="write-pin">
     <div class="banner">
       <VUploader
+        ref="uploader"
         class="uploader"
-        :action="imageUploadAction"
+        :cookie="false"
+        :url="imageUploadAction"
         :accept="imageUploadAccept"
-        :data="uploadHeaders"
-        :before-upload="handleImageUploadBefore"
-        :on-success="customImageUploadSuccess"
-        :on-error="handleImageUploadError"
+        :transform-request="imageUploadRequest"
+        :transform-response="imageUploadResponse"
+        @change="handleUploaderChange"
       />
       <template v-if="title && title.banner">
         <div class="image" :style="{ backgroundImage: `url(${$resize(title.banner.url, { width: 660 })}` }" />
@@ -144,7 +145,7 @@ export default {
   },
   mixins: [mustSign, upload],
   props: {},
-  asyncData ({ app, error, query }) {
+  asyncData({ app, error, query }) {
     const slug = query.slug
     if (!slug) {
       return
@@ -153,16 +154,14 @@ export default {
       .$get('v1/pin/update/content', {
         params: { slug }
       })
-      .then((res) => {
-        const data = { ...res }
-        data.area = data.area ? data.area.slug : ''
-        data.topic = data.topic ? data.topic.slug : ''
-        data.notebook = data.notebook ? data.notebook.slug : ''
-        return data
+      .then((data) => {
+        return {
+          ...data
+        }
       })
       .catch(error)
   },
-  data () {
+  data() {
     return {
       slug: '',
       title: {
@@ -170,21 +169,18 @@ export default {
         text: ''
       },
       content: [],
-      notebook: '',
-      area: '',
-      topic: '',
       last_edit_at: '',
       published_at: '',
       loading: false
     }
   },
-  mounted () {
+  mounted() {
     if (this.$cache.has(`editor_local_draft_title-${this.slug}`)) {
       this.title = this.$cache.get(`editor_local_draft_title-${this.slug}`)
     }
   },
   methods: {
-    customImageUploadSuccess (res, file) {
+    customImageUploadSuccess(res, file) {
       this.handleImageUploadSuccess(res, file)
       const banner = res.data
       if (banner.width < 960 || banner.height < 540) {
@@ -195,17 +191,17 @@ export default {
       this.title.banner = banner
       this.saveTitle()
     },
-    onEditorSave () {
+    onEditorSave() {
       this.saveTitle()
     },
-    saveTitle () {
+    saveTitle() {
       this.$cache.set(`editor_local_draft_title-${this.slug}`, this.title)
     },
-    deleteBanner () {
+    deleteBanner() {
       this.title.banner = null
       this.saveTitle()
     },
-    preValidate () {
+    preValidate() {
       if (this.loading) {
         return true
       }
@@ -220,7 +216,7 @@ export default {
       this.loading = true
       return false
     },
-    actionCreate (publish) {
+    actionCreate(publish) {
       if (this.preValidate()) {
         return
       }
@@ -245,7 +241,7 @@ export default {
           this.loading = false
         })
     },
-    actionUpdate (publish) {
+    actionUpdate(publish) {
       if (this.preValidate()) {
         return
       }
@@ -272,7 +268,7 @@ export default {
           this.loading = false
         })
     },
-    actionRedo () {
+    actionRedo() {
       if (this.content.length || this.title.text.length || this.title.banner) {
         this.removeCache()
         this.$toast.success(this.slug ? '撤销成功' : '删除成功').then(() => {
@@ -280,9 +276,12 @@ export default {
         })
       }
     },
-    removeCache () {
+    removeCache() {
       this.$cache.del(`editor_local_draft_title-${this.slug}`)
       this.$cache.del(`editor_local_draft-${this.slug}`)
+    },
+    handleUploaderChange() {
+      this.title.banner = this.$refs.uploader.images()[0]
     }
   },
   head: {

@@ -79,16 +79,16 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       editor: null
     }
   },
-  mounted () {
+  mounted() {
     this.initEditor()
   },
   methods: {
-    initEditor () {
+    initEditor() {
       Promise.all([import('@editorjs/editorjs'), import('~/components/editor/plugin/image'), import('~/components/editor/plugin/link')]).then((modules) => {
         const self = this
         let data = {}
@@ -135,7 +135,7 @@ export default {
               types: 'image/jpeg, image/png, image/jpg',
               config: {
                 uploader: {
-                  uploadByFile (file) {
+                  uploadByFile(file) {
                     return new Promise((resolve, reject) => {
                       const formData = new FormData()
                       formData.append('file', file)
@@ -197,7 +197,7 @@ export default {
           })
       })
     },
-    bindSaveEvent () {
+    bindSaveEvent() {
       document.addEventListener(
         'keydown',
         (e) => {
@@ -210,7 +210,7 @@ export default {
         false
       )
     },
-    handleSave () {
+    handleSave() {
       if (!this.editor) {
         return
       }
@@ -230,7 +230,7 @@ export default {
           this.$toast.error('保存失败')
         })
     },
-    decodeData ({ version, blocks, time }) {
+    decodeData({ version, blocks, time }) {
       if (!blocks) {
         return null
       }
@@ -245,7 +245,7 @@ export default {
         time
       }
     },
-    encodeData ({ version, blocks, time }) {
+    encodeData({ version, blocks, time }) {
       blocks.forEach((item, index) => {
         if (item.type === 'video' && item.data.service.startsWith('netease')) {
           blocks[index].type = 'music'

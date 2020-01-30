@@ -12,7 +12,7 @@ export default class Uploader {
    * @param {function} onUpload - one callback for all uploading (file, url, d-n-d, pasting)
    * @param {function} onError - callback for uploading errors
    */
-  constructor ({ config, onUpload, onError }) {
+  constructor({ config, onUpload, onError }) {
     this.config = config
     this.onUpload = onUpload
     this.onError = onError
@@ -23,8 +23,8 @@ export default class Uploader {
    * @fires ajax.transport()
    * @param {function} onPreview - callback fired when preview is ready
    */
-  uploadSelectedFile ({ onPreview }) {
-    const preparePreview = function (file) {
+  uploadSelectedFile({ onPreview }) {
+    const preparePreview = function(file) {
       const reader = new FileReader()
 
       reader.readAsDataURL(file)
@@ -84,7 +84,7 @@ export default class Uploader {
    * @fires ajax.post()
    * @param {string} url - image source url
    */
-  uploadByUrl (url) {
+  uploadByUrl(url) {
     let upload
 
     /**
@@ -131,7 +131,7 @@ export default class Uploader {
    * @param {File} file - file pasted by drag-n-drop
    * @param {function} onPreview - file pasted by drag-n-drop
    */
-  uploadByFile (file, { onPreview }) {
+  uploadByFile(file, { onPreview }) {
     /**
      * Load file for preview
      * @type {FileReader}
@@ -194,6 +194,6 @@ export default class Uploader {
  * @param  {*}  object - object to check
  * @return {Boolean}
  */
-function isPromise (object) {
+function isPromise(object) {
   return Promise.resolve(object) === object
 }

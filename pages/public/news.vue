@@ -12,13 +12,13 @@ export default {
   name: 'PublicNews',
   components: {},
   props: {},
-  data () {
+  data() {
     return {}
   },
   computed: {},
   watch: {},
-  created () {},
-  mounted () {},
+  created() {},
+  mounted() {},
   methods: {},
   head: {
     title: '今日要闻'

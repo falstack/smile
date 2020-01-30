@@ -785,10 +785,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@calibur/sakura@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@calibur/sakura/-/sakura-1.0.6.tgz#d4efe6c01c3cd378e93e13a7071dd85110640b2b"
-  integrity sha512-iOud2rHjxXxo8KRwNZOZqmTeAhM0dV7wkEpXBOuUfkzcKhi6+OmNwNdFVnRpLH3W6mLHV/IBAV3Y5YbTNa+mXA==
+"@calibur/sakura@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@calibur/sakura/-/sakura-1.0.10.tgz#b1ef995f9a45e5c0a0fe352b2234866117783abd"
+  integrity sha512-CETEofoO1MOXECbBixfOE9oPR55ldkT3biwKZ0a6sKD+5bDK5FhHRs8u+xrQb/Lw1Vbme+vdW8gVcF+1c02lrA==
   dependencies:
     luxon "^1.22.0"
     throttle-debounce "^2.1.0"

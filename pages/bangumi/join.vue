@@ -125,7 +125,7 @@ export default {
     VButton
   },
   mixins: [mustSign],
-  data () {
+  data() {
     return {
       showLaunch: true,
       showCreate: false,
@@ -138,18 +138,18 @@ export default {
     }
   },
   computed: {
-    slug () {
+    slug() {
       return this.$route.query.slug
     }
   },
   watch: {},
-  created () {},
-  mounted () {
+  created() {},
+  mounted() {
     this.getBangumiInfo()
     this.getBangumiRule()
   },
   methods: {
-    getBangumiRule () {
+    getBangumiRule() {
       this.$axios
         .$get('v1/join/rule/show', {
           params: {
@@ -163,7 +163,7 @@ export default {
           this.$toast.error(err.message)
         })
     },
-    getBangumiInfo () {
+    getBangumiInfo() {
       this.$axios
         .$get('v1/bangumi/show', {
           params: {
@@ -177,7 +177,7 @@ export default {
           this.$toast.error(err.message)
         })
     },
-    handleBegin () {
+    handleBegin() {
       this.$axios
         .$post('v1/join/begin', {
           slug: this.slug
@@ -200,7 +200,7 @@ export default {
           this.$toast.error(err.message)
         })
     },
-    getQuestions () {
+    getQuestions() {
       this.$axios
         .$get('v1/join/list', {
           params: {
@@ -216,7 +216,7 @@ export default {
           this.$toast.error(err.message)
         })
     },
-    handleSelect (questionId, answerId) {
+    handleSelect(questionId, answerId) {
       this.$axios
         .$post('v1/join/vote', {
           question_id: questionId,
@@ -229,7 +229,7 @@ export default {
           this.$toast.error(err.message)
         })
     },
-    restart () {
+    restart() {
       this.$confirm('你会获取一套新的试题，确定要重做吗？')
         .then(() => {
           if (this.loading) {
@@ -253,7 +253,7 @@ export default {
         })
         .catch(() => {})
     },
-    submit () {
+    submit() {
       if (Object.keys(this.selected).length < this.questions.length) {
         this.$toast.info('请先做完所有题目')
         return

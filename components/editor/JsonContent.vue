@@ -59,7 +59,7 @@ export default {
       default: ''
     }
   },
-  mounted () {
+  mounted() {
     const copyright = new Copyright()
     copyright.bind(this.$el)
   }

@@ -4,7 +4,7 @@ import channel from '~/assets/js/channel'
 import bridge from '~/assets/js/bridge'
 
 Vue.use({
-  install (Vue) {
+  install(Vue) {
     Vue.prototype.$channel = new Vue(channel)
 
     Vue.prototype.$alert = VAlert()

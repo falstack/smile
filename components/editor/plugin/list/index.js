@@ -17,7 +17,7 @@ export default class List {
    * @returns {boolean}
    * @public
    */
-  static get enableLineBreaks () {
+  static get enableLineBreaks() {
     return true
   }
 
@@ -28,7 +28,7 @@ export default class List {
    *
    * @return {{icon: string, title: string}}
    */
-  static get toolbox () {
+  static get toolbox() {
     return {
       icon:
         '<svg width="17" height="13" viewBox="0 0 17 13" xmlns="http://www.w3.org/2000/svg"> <path d="M5.625 4.85h9.25a1.125 1.125 0 0 1 0 2.25h-9.25a1.125 1.125 0 0 1 0-2.25zm0-4.85h9.25a1.125 1.125 0 0 1 0 2.25h-9.25a1.125 1.125 0 0 1 0-2.25zm0 9.85h9.25a1.125 1.125 0 0 1 0 2.25h-9.25a1.125 1.125 0 0 1 0-2.25zm-4.5-5a1.125 1.125 0 1 1 0 2.25 1.125 1.125 0 0 1 0-2.25zm0-4.85a1.125 1.125 0 1 1 0 2.25 1.125 1.125 0 0 1 0-2.25zm0 9.85a1.125 1.125 0 1 1 0 2.25 1.125 1.125 0 0 1 0-2.25z"/></svg>',
@@ -44,7 +44,7 @@ export default class List {
    *   config - user config for Tool
    *   api - Editor.js API
    */
-  constructor ({ data, config, api }) {
+  constructor({ data, config, api }) {
     /**
      * HTML nodes
      * @private
@@ -88,7 +88,7 @@ export default class List {
    * @return {Element}
    * @public
    */
-  render () {
+  render() {
     const style = this._data.style === 'ordered' ? this.CSS.wrapperOrdered : this.CSS.wrapperUnordered
 
     this._elements.wrapper = this._make('ul', [this.CSS.baseBlock, this.CSS.wrapper, style], {
@@ -133,14 +133,14 @@ export default class List {
    * @return {ListData}
    * @public
    */
-  save () {
+  save() {
     return this.data
   }
 
   /**
    * Allow List Tool to be converted to/from other block
    */
-  static get conversionConfig () {
+  static get conversionConfig() {
     return {
       /**
        * To create exported string from list, concatenate items by dot-symbol.
@@ -167,7 +167,7 @@ export default class List {
   /**
    * Sanitizer rules
    */
-  static get sanitize () {
+  static get sanitize() {
     return {
       style: {},
       items: {
@@ -180,7 +180,7 @@ export default class List {
    * Settings
    * @public
    */
-  renderSettings () {
+  renderSettings() {
     const wrapper = this._make('div', [this.CSS.settingsWrapper], {})
 
     this.settings.forEach((item) => {
@@ -215,7 +215,7 @@ export default class List {
    *
    * @param {PasteEvent} event - event with pasted data
    */
-  onPaste (event) {
+  onPaste(event) {
     const list = event.detail.data
 
     this.data = this.pasteHandler(list)
@@ -225,7 +225,7 @@ export default class List {
    * List Tool on paste configuration
    * @public
    */
-  static get pasteConfig () {
+  static get pasteConfig() {
     return {
       tags: ['OL', 'UL', 'LI']
     }
@@ -235,7 +235,7 @@ export default class List {
    * Toggles List style
    * @param {string} style - 'ordered'|'unordered'
    */
-  toggleTune (style) {
+  toggleTune(style) {
     this._elements.wrapper.classList.toggle(this.CSS.wrapperOrdered, style === 'ordered')
     this._elements.wrapper.classList.toggle(this.CSS.wrapperUnordered, style === 'unordered')
 
@@ -246,7 +246,7 @@ export default class List {
    * Styles
    * @private
    */
-  get CSS () {
+  get CSS() {
     return {
       baseBlock: this.api.styles.block,
       wrapper: 'cdx-list',
@@ -263,7 +263,7 @@ export default class List {
    * List data setter
    * @param {ListData} listData
    */
-  set data (listData) {
+  set data(listData) {
     if (!listData) {
       listData = {}
     }
@@ -282,7 +282,7 @@ export default class List {
    * Return List data
    * @return {ListData}
    */
-  get data () {
+  get data() {
     this._data.items = []
 
     const items = this._elements.wrapper.querySelectorAll(`.${this.CSS.item}`)
@@ -306,7 +306,7 @@ export default class List {
    * @param  {Object} attributes        - any attributes
    * @return {Element}
    */
-  _make (tagName, classNames = null, attributes = {}) {
+  _make(tagName, classNames = null, attributes = {}) {
     const el = document.createElement(tagName)
 
     if (Array.isArray(classNames)) {
@@ -326,7 +326,7 @@ export default class List {
    * Returns current List item by the caret position
    * @return {Element}
    */
-  get currentItem () {
+  get currentItem() {
     let currentNode = window.getSelection().anchorNode
 
     if (currentNode.nodeType !== Node.ELEMENT_NODE) {
@@ -341,7 +341,7 @@ export default class List {
    * by Enter on the empty last item
    * @param {KeyboardEvent} event
    */
-  getOutofList (event) {
+  getOutofList(event) {
     const items = this._elements.wrapper.querySelectorAll('.' + this.CSS.item)
 
     /**
@@ -368,7 +368,7 @@ export default class List {
    * Handle backspace
    * @param {KeyboardEvent} event
    */
-  backspace (event) {
+  backspace(event) {
     const items = this._elements.wrapper.querySelectorAll('.' + this.CSS.item)
     const firstItem = items[0]
 
@@ -388,7 +388,7 @@ export default class List {
    * Select LI content by CMD+A
    * @param {KeyboardEvent} event
    */
-  selectItem (event) {
+  selectItem(event) {
     event.preventDefault()
 
     const selection = window.getSelection()
@@ -408,7 +408,7 @@ export default class List {
    * @param {HTMLUListElement|HTMLOListElement|HTMLLIElement} element
    * @returns {ListData}
    */
-  pasteHandler (element) {
+  pasteHandler(element) {
     const { tagName: tag } = element
     let type
 
