@@ -1,6 +1,8 @@
 <style lang="scss">
 #write-pin {
-  padding-bottom: 50px;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 50px + $page-padding;
 
   .banner {
     position: relative;
@@ -8,15 +10,28 @@
     height: 0;
     padding-top: 56%;
 
-    .uploader {
+    .v-uploader {
       position: absolute;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       background-color: #fafbfd;
-      border-radius: 4px;
       z-index: 0;
+
+      &__action {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        color: $color-text-4;
+        font-size: 20px;
+      }
     }
 
     .image {
@@ -26,46 +41,20 @@
       width: 100%;
       height: 100%;
       z-index: 1;
-      border-radius: 4px;
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
     }
 
-    .tool {
+    .delete {
       position: absolute;
       right: 0;
       bottom: 0;
-      width: 50px;
-      height: 50px;
       z-index: 2;
-      border-radius: 0 0 4px;
-      overflow: hidden;
-      @include pc() {
-        opacity: 0;
-      }
-
-      i {
-        display: block;
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-        line-height: 50px;
-        text-align: center;
-        cursor: pointer;
-        color: #fff;
-        background-color: rgba(#000, 0.5);
-
-        &:hover {
-          background-color: rgba(#000, 0.8);
-        }
-      }
-    }
-
-    &:hover {
-      .tool {
-        opacity: 1;
-      }
+      padding: 5px 8px;
+      background-color: rgba(#000, 0.5);
+      color: #fff;
+      font-size: 12px;
     }
   }
 
@@ -74,7 +63,7 @@
   }
 
   .footer {
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
@@ -85,6 +74,20 @@
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+    border-top: 1px solid $color-gray-3;
+
+    .v-button {
+      flex: 1;
+      margin: 0 $page-padding / 2;
+
+      &:first-child {
+        margin-left: $page-padding;
+      }
+
+      &:last-child {
+        margin-right: $page-padding;
+      }
+    }
   }
 }
 </style>
@@ -94,18 +97,24 @@
     <div class="banner">
       <VUploader
         ref="uploader"
-        class="uploader"
         :cookie="false"
         :url="imageUploadAction"
         :accept="imageUploadAccept"
         :transform-request="imageUploadRequest"
         :transform-response="imageUploadResponse"
         @change="handleUploaderChange"
-      />
+      >
+        <template #action>
+          点击上传封面
+        </template>
+        <template #list>
+          <span />
+        </template>
+      </VUploader>
       <template v-if="title && title.banner">
         <div class="image" :style="{ backgroundImage: `url(${$resize(title.banner.url, { width: 660 })}` }" />
-        <div class="tool">
-          <i class="el-icon-delete" @click="deleteBanner" />
+        <div class="delete" @click="deleteBanner">
+          删除
         </div>
       </template>
     </div>
@@ -198,7 +207,7 @@ export default {
       this.$cache.set(`editor_local_draft_title-${this.slug}`, this.title)
     },
     deleteBanner() {
-      this.title.banner = null
+      this.$refs.uploader.remove(0)
       this.saveTitle()
     },
     preValidate() {
@@ -281,11 +290,13 @@ export default {
       this.$cache.del(`editor_local_draft-${this.slug}`)
     },
     handleUploaderChange() {
-      this.title.banner = this.$refs.uploader.images()[0]
+      const images = this.$refs.uploader.images()
+      this.title.banner = images.length ? images[0] : null
+      this.saveTitle()
     }
   },
   head: {
-    title: '创作中心'
+    title: '投稿'
   }
 }
 </script>

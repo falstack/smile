@@ -1,9 +1,9 @@
 <style lang="scss">
 .bangumi-rank-item {
-  padding: 15px;
+  padding: $page-padding;
 
   &:not(:last-child) {
-    border-bottom: 10px solid $color-gray-bg;
+    border-bottom: $page-padding solid $color-gray-bg;
   }
 
   .head {

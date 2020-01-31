@@ -64,11 +64,12 @@
 }
 
 .image-tool__caption[contentEditable=true][data-placeholder]::before{
-  position: absolute;
+  position: absolute !important;
   content: '图片描述';
   color: #707684;
   font-weight: normal;
   opacity: 0;
+  width: auto;
 }
 
 .image-tool__caption[contentEditable=true][data-placeholder]:empty::before {
