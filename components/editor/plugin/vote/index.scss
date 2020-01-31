@@ -32,10 +32,7 @@
     border: none;
     border-radius: 0;
     border-bottom: 1px solid #DCDFE6;
-  }
-
-  input[type=number] {
-    padding-left: 25px;
+    min-width: 100px;
   }
 
   &-item {
