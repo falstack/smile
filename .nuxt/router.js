@@ -42,78 +42,97 @@ export const routerOptions = {
   routes: [{
     path: "/admin",
     component: _4529324a,
+    props: false,
     name: "admin"
   }, {
     path: "/admin/create-bangumi",
     component: _7f3bf50f,
+    props: false,
     name: "admin-create-bangumi"
   }, {
     path: "/admin/create-idol",
     component: _ab0c7f9c,
+    props: false,
     name: "admin-create-idol"
   }, {
     path: "/admin/trial",
     component: _4638e9c2,
+    props: false,
     name: "admin-trial"
   }, {
     path: "/bangumi/edit",
     component: _e3476f72,
+    props: false,
     name: "bangumi-edit"
   }, {
     path: "/bangumi/join",
     component: _495bb132,
+    props: false,
     name: "bangumi-join"
   }, {
     path: "/bangumi/profile",
     component: _512784fc,
+    props: false,
     name: "bangumi-profile"
   }, {
     path: "/bangumi/relation",
     component: _7dccb0b9,
+    props: false,
     name: "bangumi-relation"
   }, {
     path: "/bangumi/test",
     component: _2af6ca62,
+    props: false,
     name: "bangumi-test"
   }, {
     path: "/bangumi/top250",
     component: _536e32d5,
+    props: false,
     name: "bangumi-top250"
   }, {
     path: "/bangumi/trial",
     component: _7e5c9ea9,
+    props: false,
     name: "bangumi-trial"
   }, {
     path: "/idol/edit",
     component: _2392170a,
+    props: false,
     name: "idol-edit"
   }, {
     path: "/public/news",
     component: _6abe0402,
+    props: false,
     name: "public-news"
   }, {
     path: "/public/rank",
     component: _26dd70db,
+    props: false,
     name: "public-rank"
   }, {
     path: "/public/rule",
     component: _451bd3ab,
+    props: false,
     name: "public-rule"
   }, {
     path: "/user/edit",
     component: _a42e7e52,
+    props: false,
     name: "user-edit"
   }, {
     path: "/user/list",
     component: _c2becd2a,
+    props: false,
     name: "user-list"
   }, {
     path: "/write/pin",
     component: _d26dfa24,
+    props: false,
     name: "write-pin"
   }, {
     path: "/",
     component: _6f94ae5b,
+    props: false,
     name: "index"
   }],
 
