@@ -2,6 +2,7 @@
 #write-pin {
   position: relative;
   min-height: 100vh;
+  padding-top: 40px;
   padding-bottom: 50px + $page-padding;
   @include iPhoneX() {
     padding-bottom: 70px + $page-padding;

@@ -14,9 +14,9 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@calibur/sakura": "^1.0.10",
+    "@calibur/sakura": "^1.0.13",
     "@codexteam/ajax": "^4.1.0",
-    "@nuxtjs/axios": "5.9.3",
+    "@nuxtjs/axios": "5.9.4",
     "cross-env": "7.0.0",
     "koa": "^2.11.0",
     "nuxt": "2.11.0",

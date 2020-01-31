@@ -130,6 +130,7 @@ export default class Embed {
     const container = document.createElement('div')
     const caption = document.createElement('div')
     const template = document.createElement('template')
+    const wrap = document.createElement('div')
     const preloader = this.createPreloader()
 
     container.classList.add(this.CSS.baseClass, this.CSS.container, this.CSS.containerLoading)
@@ -146,8 +147,10 @@ export default class Embed {
     template.content.firstChild.classList.add(this.CSS.content)
 
     const embedIsReady = this.embedIsReady(container)
+    wrap.classList.add('editor-video-wrap')
+    wrap.appendChild(template.content.firstChild)
 
-    container.appendChild(template.content.firstChild)
+    container.appendChild(wrap)
     container.appendChild(caption)
 
     embedIsReady.then(() => {

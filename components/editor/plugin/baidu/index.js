@@ -17,17 +17,13 @@ export default class Baidu {
     const outerWrap = document.createElement('div')
     outerWrap.classList.add('baidu-resource')
 
-    const iconArea = document.createElement('i')
-    iconArea.classList.add('iconfont', 'ic-baidu-cloud', 'baidu-resource-icon')
-    outerWrap.appendChild(iconArea)
-
     const wrapper = document.createElement('div')
     wrapper.classList.add('baidu-resource-wrap')
     outerWrap.appendChild(wrapper)
 
     const urlInput = document.createElement('input')
     urlInput.classList.add('baidu-resource-url')
-    urlInput.placeholder = '粘贴资源链接到这里（仅支持百度云盘：pan.baidu.com）'
+    urlInput.placeholder = '仅支持百度云盘：pan.baidu.com'
     urlInput.type = 'text'
     urlInput.value = this.data && this.data.url ? this.data.url : ''
     wrapper.appendChild(urlInput)
