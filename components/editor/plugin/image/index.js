@@ -125,8 +125,9 @@ export default class ImageTool {
     this.ui = new Ui({
       api,
       config: this.config,
-      onSelectFile: () => {
-        this.uploader.uploadSelectedFile({
+      onSelectFile: (e) => {
+        const { files } = e.target
+        this.uploader.uploadByFile(files[0], {
           onPreview: (src) => {
             this.ui.showPreloader(src)
           }
@@ -333,7 +334,7 @@ export default class ImageTool {
     console.log('Image Tool: uploading failed because of', errorText)
 
     this.api.notifier.show({
-      message: '图片上传失败，请刷新网页重试',
+      message: '图片上传失败',
       style: 'error'
     })
     this.ui.hidePreloader()
