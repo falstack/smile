@@ -1,12 +1,16 @@
 .cdx-checklist__item {
   display: flex;
   box-sizing: content-box;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .cdx-checklist__item-text {
-  outline: none;
-  flex-grow: 1;
+  flex: 1;
   padding: 10px 0;
+  border-radius: 0;
+  border-bottom: 1px solid $color-gray-border;
 }
 
 .cdx-checklist__item-checkbox {

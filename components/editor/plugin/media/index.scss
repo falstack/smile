@@ -5,6 +5,21 @@
   }
 }
 
+.editor-video-wrap {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 60%;
+
+  iframe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
 .embed-tool--loading .embed-tool__caption {
   display: none;
 }
@@ -74,10 +89,11 @@
   }
 }
 .embed-tool__caption[contentEditable=true][data-placeholder]::before{
-  position: absolute;
+  position: absolute !important;
   content: '文字描述';
   color: #707684;
   font-weight: normal;
+  width: auto;
   opacity: 0;
 }
 .embed-tool__caption[contentEditable=true][data-placeholder]:empty::before {

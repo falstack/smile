@@ -190,7 +190,7 @@ export default class LinkTool {
       contentEditable: true
     })
 
-    this.nodes.input.dataset.placeholder = 'Link'
+    this.nodes.input.dataset.placeholder = '网页链接'
 
     this.nodes.input.addEventListener('paste', (event) => {
       this.startFetching(event)
@@ -270,7 +270,6 @@ export default class LinkTool {
    */
   prepareLinkPreview() {
     const holder = this.make('a', this.CSS.linkContent, {
-      target: '_blank',
       rel: 'nofollow noindex noreferrer'
     })
 
@@ -305,7 +304,8 @@ export default class LinkTool {
     }
 
     this.nodes.linkContent.classList.add(this.CSS.linkContentRendered)
-    this.nodes.linkContent.setAttribute('href', this.data.link)
+    // this.nodes.linkContent.setAttribute('href', this.data.link)
+    this.nodes.linkContent.setAttribute('href', 'javascript:;')
     this.nodes.linkContent.appendChild(this.nodes.linkText)
 
     try {

@@ -31,8 +31,8 @@ export default class Vote {
     tips.textContent = '投票（文章发表后无法再修改）'
 
     const list = document.createElement('ul')
-    const append = document.createElement('button')
-    append.classList.add('vote-append', 'el-icon-plus')
+    const append = document.createElement('div')
+    append.classList.add('vote-append', 'bili-font', 'ic_add')
 
     const createItem = (text) => {
       const wrap = document.createElement('li')
@@ -50,8 +50,8 @@ export default class Vote {
       wrap.appendChild(label)
       wrap.appendChild(input)
       if (this.i > 2) {
-        const close = document.createElement('button')
-        close.classList.add('el-icon-circle-close')
+        const close = document.createElement('div')
+        close.classList.add('bili-font', 'ic_input_close')
         close.addEventListener('click', () => {
           list.removeChild(wrap)
           this.i--
@@ -98,8 +98,12 @@ export default class Vote {
       }
       countInput.max = this.i
 
-      footer.appendChild(countLabel)
-      footer.appendChild(countInput)
+      const countWrap = document.createElement('div')
+      countWrap.classList.add('footer-item-wrap')
+      countWrap.appendChild(countLabel)
+      countWrap.appendChild(countInput)
+
+      footer.appendChild(countWrap)
 
       const expireLabel = document.createElement('span')
       expireLabel.textContent = '截止时间（可选）'
@@ -111,15 +115,24 @@ export default class Vote {
         expireInput.value = new Date(this.data.expired_at * 1000).toISOString().split('T')[0]
       }
 
-      footer.appendChild(expireLabel)
-      footer.appendChild(expireInput)
+      const expireWrap = document.createElement('div')
+      expireWrap.classList.add('footer-item-wrap')
+      expireWrap.appendChild(expireLabel)
+      expireWrap.appendChild(expireInput)
+
+      footer.appendChild(expireWrap)
 
       wrapper.appendChild(footer)
     }
 
     wrapper.appendChild(tips)
     wrapper.appendChild(list)
-    wrapper.appendChild(append)
+
+    const appendWrap = document.createElement('div')
+    appendWrap.classList.add('append-btn-wrap')
+    appendWrap.appendChild(append)
+
+    wrapper.appendChild(appendWrap)
 
     if (this.data && this.data.items) {
       this.data.items.forEach(createItem)

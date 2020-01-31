@@ -19,10 +19,6 @@
     font-weight: normal;
     font-style: normal;
 
-    h2 {
-      padding-top: 1.5em;
-    }
-
     a {
       display: none;
     }
@@ -30,6 +26,35 @@
     &__content {
       max-width: 100%;
     }
+  }
+
+  .ce-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 40px;
+    display: flex !important;
+    transform: none !important;
+    margin-top: 0;
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid $color-gray-3;
+
+    .ce-toolbox {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .ce-toolbar__plus {
+      display: none !important;
+    }
+  }
+
+  .ce-settings {
+    top: 35px !important;
+    bottom: auto !important;
   }
 
   .ce-paragraph {
@@ -55,7 +80,6 @@ import HeaderPlugin from '~/components/editor/plugin/header'
 import BaiduPlugin from '~/components/editor/plugin/baidu'
 import EmbedPlugin from '~/components/editor/plugin/media/embed'
 import DelimiterPlugin from '~/components/editor/plugin/delimiter'
-import ListPlugin from '~/components/editor/plugin/list'
 import ChecklistPlugin from '~/components/editor/plugin/checklist'
 import ParagraphPlugin from '~/components/editor/plugin/paragraph'
 import VotePlugin from '~/components/editor/plugin/vote'
@@ -118,7 +142,7 @@ export default {
           data: self.decodeData(data || {}),
           holder: 'codex-editor',
           placeholder: '请输入内容',
-          autofocus: self.autofocus,
+          autofocus: false,
           tools: {
             video: {
               class: EmbedPlugin,
@@ -160,10 +184,6 @@ export default {
             },
             delimiter: {
               class: DelimiterPlugin
-            },
-            list: {
-              class: ListPlugin,
-              inlineToolbar: true
             },
             checklist: {
               class: ChecklistPlugin,
