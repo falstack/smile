@@ -2,7 +2,6 @@
 #write-pin {
   position: relative;
   min-height: 100vh;
-  padding-top: 40px;
   padding-bottom: 50px + $page-padding;
   @include iPhoneX() {
     padding-bottom: 70px + $page-padding;
@@ -77,6 +76,7 @@
     align-items: center;
     height: 50px;
     border-top: 1px solid $color-gray-3;
+    z-index: 1;
 
     @include iPhoneX() {
       height: 70px;
@@ -95,6 +95,10 @@
         margin-right: $page-padding;
       }
     }
+  }
+
+  .draft-preload {
+    display: none;
   }
 }
 </style>
@@ -135,21 +139,60 @@
         placeholder="标题（建议30字以内）"
       />
     </div>
-    <Editor v-model="content" :slug="slug" :time="last_edit_at" @save="onEditorSave" />
+    <Editor v-if="renderEditor" v-model="content" :slug="slug" :time="last_edit_at" @save="onEditorSave" />
     <div class="footer">
-      <VButton>提交文章</VButton>
-      <VButton theme="info">
-        存草稿
+      <template v-if="published_at">
+        <VButton :loading="loading" @click="actionUpdate(true)">
+          更新文章
+        </VButton>
+      </template>
+      <template v-else>
+        <VButton :loading="loading" @click="actionCreate(true)">
+          发布文章
+        </VButton>
+        <VButton v-if="slug" :loading="loading" theme="info" plain @click="actionUpdate(false)">
+          存草稿
+        </VButton>
+        <VButton v-else :loading="loading" theme="info" plain @click="actionCreate(false)">
+          存草稿
+        </VButton>
+      </template>
+      <VButton v-if="draftSource.total" plain @click="toggleDraftDrawer = !toggleDraftDrawer">
+        草稿箱({{ draftSource.total }})
       </VButton>
+      <VDrawer v-model="toggleDraftDrawer">
+        <FlowLoader
+          func="getUserDrafts"
+          type="page"
+          :query="{
+            $axios: $axios
+          }"
+        >
+          <template slot-scope="{ flow }">
+            <PinDraftItem v-for="item in flow" :key="item.slug" :item="item" @click="switchDraft(item.slug)" />
+          </template>
+        </FlowLoader>
+      </VDrawer>
     </div>
+    <FlowLoader
+      ref="draftLoader"
+      class="draft-preload"
+      func="getUserDrafts"
+      type="page"
+      :auto="0"
+      :query="{
+        $axios: $axios
+      }"
+    />
   </div>
 </template>
 
 <script>
-import { VField, VUploader, VButton } from '@calibur/sakura'
+import { VField, VUploader, VButton, VDrawer } from '@calibur/sakura'
 import Editor from '~/components/editor'
 import upload from '~/mixins/upload'
 import mustSign from '~/mixins/mustSign'
+import PinDraftItem from '~/components/PinDraftItem'
 
 export default {
   name: 'WritePin',
@@ -157,10 +200,11 @@ export default {
     VUploader,
     VField,
     VButton,
-    Editor
+    Editor,
+    VDrawer,
+    PinDraftItem
   },
   mixins: [mustSign, upload],
-  props: {},
   asyncData({ app, error, query }) {
     const slug = query.slug
     if (!slug) {
@@ -187,31 +231,46 @@ export default {
       content: [],
       last_edit_at: '',
       published_at: '',
-      loading: false
+      loading: false,
+      renderEditor: true,
+      toggleDraftDrawer: false
+    }
+  },
+  computed: {
+    draftSource() {
+      return this.$store.getters['flow/getFlow']({
+        func: 'getUserDrafts',
+        type: 'page'
+      }) || {}
     }
   },
   mounted() {
-    if (this.$cache.has(`editor_local_draft_title-${this.slug}`)) {
-      this.title = this.$cache.get(`editor_local_draft_title-${this.slug}`)
-    }
+    this.initCache()
+    this.initUserDraft()
   },
   methods: {
-    customImageUploadSuccess(res, file) {
-      this.handleImageUploadSuccess(res, file)
-      const banner = res.data
-      if (banner.width < 960 || banner.height < 540) {
-        this.handleImageUploadRemove(file)
-        this.$toast.info('图片尺寸不符合要求')
+    initCache() {
+      if (this.slug) {
         return
       }
-      this.title.banner = banner
-      this.saveTitle()
+      if (this.$cache.has('editor_local_draft_title')) {
+        this.title = this.$cache.get('editor_local_draft_title')
+      }
+    },
+    initUserDraft() {
+      if (!this.$refs.draftLoader) {
+        return
+      }
+      this.$refs.draftLoader.initData()
     },
     onEditorSave() {
       this.saveTitle()
     },
     saveTitle() {
-      this.$cache.set(`editor_local_draft_title-${this.slug}`, this.title)
+      if (this.slug) {
+        return
+      }
+      this.$cache.set('editor_local_draft_title', this.title)
     },
     deleteBanner() {
       this.$refs.uploader.remove(0)
@@ -250,7 +309,12 @@ export default {
         })
         .then((slug) => {
           this.removeCache()
-          window.location = this.$alias.pin(slug)
+          if (publish) {
+            // TODO：redirect pin page
+          } else {
+            this.loading = false
+            this.switchDraft(slug)
+          }
         })
         .catch((err) => {
           this.$toast.error(err.message)
@@ -275,31 +339,97 @@ export default {
           ].concat(this.content),
           publish
         })
-        .then((result) => {
-          this.removeCache()
-          window.location = this.$alias.pin(result)
+        .then((slug) => {
+          if (publish) {
+            // TODO：redirect pin page
+          }
         })
         .catch((err) => {
           this.$toast.error(err.message)
           this.loading = false
         })
     },
-    actionRedo() {
-      if (this.content.length || this.title.text.length || this.title.banner) {
-        this.removeCache()
-        this.$toast.success(this.slug ? '撤销成功' : '删除成功').then(() => {
-          window.location.reload()
-        })
-      }
-    },
     removeCache() {
-      this.$cache.del(`editor_local_draft_title-${this.slug}`)
-      this.$cache.del(`editor_local_draft-${this.slug}`)
+      this.$cache.del('editor_local_draft_title')
+      this.$cache.del('editor_local_draft')
     },
     handleUploaderChange() {
       const images = this.$refs.uploader.images()
       this.title.banner = images.length ? images[0] : null
       this.saveTitle()
+    },
+    clearPageData() {
+      this.renderEditor = false
+      this.slug = ''
+      this.title = {
+        banner: null,
+        text: ''
+      }
+      this.last_edit_at = ''
+      this.published_at = ''
+      this.content = []
+      this.toggleDraftDrawer = false
+      this.$nextTick(() => {
+        this.renderEditor = true
+      })
+    },
+    updatePageData(data) {
+      this.renderEditor = false
+      this.slug = data.slug
+      this.title = data.title
+      this.last_edit_at = data.last_edit_at
+      this.published_at = data.published_at
+      this.content = data.content
+      this.toggleDraftDrawer = false
+      this.$nextTick(() => {
+        this.renderEditor = true
+      })
+    },
+    switchDraft(slug, conformed = false) {
+      if (this.slug) {
+        // 已发布的文章提醒更新
+        if (this.published_at) {
+          // 如果已确认过了，就跳过
+          if (!conformed) {
+            this.$alert({
+              title: '未对本次更改做保存',
+              message: '切换后会丢失更新的内容，确认吗？',
+              buttons: ['取消', '确认'],
+              callback: (index) => {
+                if (index) {
+                  this.switchDraft(slug, true)
+                }
+              }
+            })
+            return
+          }
+        } else {
+          // 未发布的文章，自动存草稿
+          this.actionUpdate(false)
+        }
+      }
+      // 路由切换
+      this.$router.replace({
+        name: this.$route.name,
+        query: {
+          ...this.$route.query,
+          slug
+        }
+      })
+      if (!slug) {
+        this.clearPageData()
+        return
+      }
+      this.$axios
+        .$get('v1/pin/update/content', {
+          params: { slug }
+        })
+        .then((data) => {
+          this.updatePageData(data)
+        })
+        .catch((err) => {
+          this.$toast.info(err.message)
+        })
     }
   },
   head: {
