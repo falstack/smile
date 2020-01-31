@@ -29,19 +29,6 @@
   }
 
   .ce-toolbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 40px;
-    display: flex !important;
-    transform: none !important;
-    margin-top: 0;
-    border: none;
-    box-shadow: none;
-    border-bottom: 1px solid $color-gray-3;
-
     .ce-toolbox {
       visibility: visible;
       opacity: 1;
@@ -50,11 +37,6 @@
     .ce-toolbar__plus {
       display: none !important;
     }
-  }
-
-  .ce-settings {
-    top: 35px !important;
-    bottom: auto !important;
   }
 
   .ce-paragraph {
@@ -83,6 +65,7 @@ import DelimiterPlugin from '~/components/editor/plugin/delimiter'
 import ChecklistPlugin from '~/components/editor/plugin/checklist'
 import ParagraphPlugin from '~/components/editor/plugin/paragraph'
 import VotePlugin from '~/components/editor/plugin/vote'
+import pkg from '~/package.json'
 
 export default {
   name: 'JsonEditor',
@@ -117,22 +100,15 @@ export default {
     initEditor() {
       Promise.all([import('@editorjs/editorjs'), import('~/components/editor/plugin/image'), import('~/components/editor/plugin/link')]).then((modules) => {
         const self = this
-        let data = {}
+        let data
         if (self.slug) {
-          // 编辑模式
-          const cache = self.$cache.get(`editor_local_draft-${self.slug}`)
-          if (cache && cache.time > self.$utils.adjustDate(self.time).getTime()) {
-            // 如果有缓存，并且缓存的版本更高，就使用缓存
-            data = cache
-          } else {
-            data = {
-              blocks: self.value,
-              time: Date.now(),
-              version: self.$cache.get('editor_version', '2.16.1')
-            }
+          data = {
+            blocks: self.value,
+            time: Date.now(),
+            version: self.$cache.get('editor_version', pkg.dependencies['@editorjs/editorjs'].replace('^', ''))
           }
         } else {
-          data = self.$cache.get('editor_local_draft-')
+          data = self.$cache.get('editor_local_draft')
           if (data) {
             self.$emit('input', data.blocks)
           }
@@ -236,9 +212,10 @@ export default {
         .save()
         .then((outputData) => {
           const value = this.encodeData(outputData)
-          const cacheKey = `editor_local_draft-${this.slug || ''}`
-          this.$cache.set(cacheKey, value)
-          this.$cache.set('editor_version', value.version)
+          if (!this.slug) {
+            this.$cache.set('editor_local_draft', value)
+            this.$cache.set('editor_version', value.version)
+          }
           if (this.value) {
             this.$emit('input', value.blocks)
           }

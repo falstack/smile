@@ -77,10 +77,29 @@ module.exports = {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {},
+
+  router: {
+    extendRoutes(routes) {
+      for (const route of routes) {
+        const props = /:/.test(route.path)
+        route.props = props
+        if (route.children) {
+          for (const item of route.children) {
+            item.props = props
+          }
+        }
+      }
+    }
+  },
   /*
    ** Build configuration
    */
   build: {
+    loaders: {
+      cssModules: {
+        localsConvention: 'camelCase'
+      }
+    },
     publicPath: isDev ? '/_nuxt/' : 'https://file.calibur.tv/smile/',
     babel: {
       presets: [

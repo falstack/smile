@@ -90,7 +90,7 @@
 }
 .embed-tool__caption[contentEditable=true][data-placeholder]::before{
   position: absolute !important;
-  content: '文字描述';
+  content: '视频描述';
   color: #707684;
   font-weight: normal;
   width: auto;
