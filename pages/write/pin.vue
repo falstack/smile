@@ -3,6 +3,9 @@
   position: relative;
   min-height: 100vh;
   padding-bottom: 50px + $page-padding;
+  @include iPhoneX() {
+    padding-bottom: 70px + $page-padding;
+  }
 
   .banner {
     position: relative;
@@ -67,14 +70,17 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 50px;
-    background-color: #fff;
-    z-index: 10;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+    height: 50px;
     border-top: 1px solid $color-gray-3;
+
+    @include iPhoneX() {
+      height: 70px;
+      padding-bottom: 20px;
+    }
 
     .v-button {
       flex: 1;
