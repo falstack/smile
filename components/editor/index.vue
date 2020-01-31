@@ -2,23 +2,24 @@
 .editor-wrap {
   padding: 0 $page-padding;
 
-  .ce-inline-toolbar--showed {
-    display: none !important;
+  .cdx-button {
+    position: relative;
+  }
+
+  .image-tool__input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
   }
 
   .ce-block {
     font-weight: normal;
     font-style: normal;
 
-    h1,
     h2 {
-      border-bottom: 1px solid $color-gray-line;
-      padding-bottom: 10px;
-      padding-top: 1.5em;
-      margin-bottom: 1px;
-    }
-
-    h3 {
       padding-top: 1.5em;
     }
 
@@ -34,6 +35,10 @@
   .ce-paragraph {
     @extend %breakWord;
   }
+}
+
+.ct--shown {
+  display: none !important;
 }
 </style>
 
@@ -52,7 +57,6 @@ import EmbedPlugin from '~/components/editor/plugin/media/embed'
 import DelimiterPlugin from '~/components/editor/plugin/delimiter'
 import ListPlugin from '~/components/editor/plugin/list'
 import ChecklistPlugin from '~/components/editor/plugin/checklist'
-import MarkPlugin from '~/components/editor/plugin/mark'
 import ParagraphPlugin from '~/components/editor/plugin/paragraph'
 import VotePlugin from '~/components/editor/plugin/vote'
 
@@ -119,10 +123,6 @@ export default {
             video: {
               class: EmbedPlugin,
               inlineToolbar: true
-            },
-            marker: {
-              class: MarkPlugin,
-              shortcut: 'CMD+SHIFT+M'
             },
             header: {
               class: HeaderPlugin,
