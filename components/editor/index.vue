@@ -82,14 +82,6 @@ export default {
     slug: {
       type: String,
       default: ''
-    },
-    time: {
-      type: [String, Number],
-      default: ''
-    },
-    autofocus: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
