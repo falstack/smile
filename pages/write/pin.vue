@@ -84,7 +84,7 @@
         placeholder="标题（建议30字以内）"
       />
     </div>
-    <Editor v-if="renderEditor" v-model="content" :slug="slug" :time="last_edit_at" @save="onEditorSave" />
+    <Editor v-if="renderEditor" v-model="content" :slug="slug" @save="onEditorSave" />
     <div v-if="selectedBangumi" class="info-wrap">
       <p class="info-title">
         请选择投稿分区
@@ -250,6 +250,12 @@ export default {
       if (this.$cache.has('editor_local_draft_title')) {
         this.title = this.$cache.get('editor_local_draft_title')
       }
+      if (this.$cache.has('editor_local_draft_bangumi')) {
+        this.selectedBangumi = this.$cache.get('editor_local_draft_bangumi')
+        if (this.selectedBangumi) {
+          this.bangumi_slug = this.selectedBangumi.slug
+        }
+      }
     },
     initUserDraft() {
       if (!this.$refs.draftLoader) {
@@ -273,6 +279,7 @@ export default {
     },
     onEditorSave() {
       this.saveTitle()
+      this.saveBangumi()
     },
     saveTitle() {
       if (this.slug) {
@@ -302,19 +309,16 @@ export default {
 
       this.$axios
         .$post('v1/pin/create/story', {
-          notebook: this.notebook,
-          content: [
-            {
-              type: 'title',
-              data: this.title
-            }
-          ].concat(this.content),
+          bangumi_slug: this.bangumi_slug,
+          content: [{ type: 'title', data: this.title }].concat(this.content),
           publish
         })
         .then((slug) => {
           this.removeCache()
           if (publish) {
-            // TODO：redirect pin page
+            this.$bridge.redirectTo({
+              url: `/pages/pin/show/index?slug=${slug}`
+            })
           } else {
             this.switchDraft(slug)
           }
@@ -330,22 +334,18 @@ export default {
         return
       }
 
-      const { slug } = this
       this.$axios
         .$post('v1/pin/update/story', {
-          slug,
-          notebook: this.notebook,
-          content: [
-            {
-              type: 'title',
-              data: this.title
-            }
-          ].concat(this.content),
+          slug: this.slug,
+          bangumi_slug: this.bangumi_slug,
+          content: [{ type: 'title', data: this.title }].concat(this.content),
           publish
         })
         .then((slug) => {
           if (publish) {
-            // TODO：redirect pin page
+            this.$bridge.redirectTo({
+              url: `/pages/pin/show/index?slug=${slug}`
+            })
           }
           this.loading = false
         })
@@ -356,6 +356,7 @@ export default {
     },
     removeCache() {
       this.$cache.del('editor_local_draft_title')
+      this.$cache.del('editor_local_draft_bangumi')
       this.$cache.del('editor_local_draft')
     },
     clearPageData() {
@@ -397,6 +398,10 @@ export default {
       this.toggleBangumiDrawer = false
       this.selectedBangumi = item
       this.bangumi_slug = item.slug
+      this.saveBangumi()
+    },
+    saveBangumi() {
+      this.$cache.set('editor_local_draft_bangumi', this.selectedBangumi)
     },
     switchDraft(slug, conformed = false) {
       if (this.slug) {

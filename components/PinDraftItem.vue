@@ -11,6 +11,7 @@
     width: 100px;
     border-radius: 5px;
     margin-right: $page-padding;
+    border: 1px solid $color-gray-border;
     float: left;
   }
 
@@ -30,6 +31,7 @@
 
   .title {
     color: $color-text-2;
+    width: 100%;
   }
 }
 </style>
@@ -38,7 +40,7 @@
   <div :class="$style.pinDraft" @click="handleClick">
     <img :class="[$style.poster, { [$style.defaultPoster]: noPoster }]" :src="$resize(noPoster ? 'default-poster' : item.title.banner.url, { width: 200, height: 150 })">
     <div :class="$style.body">
-      <p :class="$style.title" class="oneline" v-text="item.title.text" />
+      <div :class="$style.title" class="oneline" v-text="item.title.text" />
       <p :class="$style.time" v-text="$utils.timeAgo(item.last_edit_at)" />
     </div>
   </div>

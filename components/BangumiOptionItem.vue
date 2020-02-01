@@ -13,6 +13,7 @@
     width: 60px;
     height: 60px;
     margin-right: $page-padding;
+    border: 1px solid $color-gray-border;
     border-radius: 5px;
   }
 
