@@ -89,16 +89,9 @@
   }
 }
 
-.editor-music-wrap + .embed-tool__caption[contentEditable=true][data-placeholder]::before{
-  content: '音频描述';
-}
-
-.editor-video-wrap + .embed-tool__caption[contentEditable=true][data-placeholder]::before{
-  content: '视频描述';
-}
-
 .embed-tool__caption[contentEditable=true][data-placeholder]::before{
   position: absolute !important;
+  content: '视频描述';
   color: #707684;
   font-weight: normal;
   width: auto;

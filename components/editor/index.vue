@@ -225,11 +225,6 @@ export default {
       if (!blocks) {
         return null
       }
-      blocks.forEach((item, index) => {
-        if (item.type === 'music') {
-          blocks[index].type = 'video'
-        }
-      })
       return {
         version,
         blocks,
@@ -237,12 +232,6 @@ export default {
       }
     },
     encodeData({ version, blocks, time }) {
-      blocks.forEach((item, index) => {
-        if (item.type === 'video' && item.data.service.startsWith('netease')) {
-          blocks[index].type = 'music'
-          blocks[index].data.embed = blocks[index].data.embed.replace(/&amp;/g, '&')
-        }
-      })
       return {
         version,
         blocks,

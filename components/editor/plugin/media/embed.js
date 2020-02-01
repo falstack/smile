@@ -125,13 +125,13 @@ export default class Embed {
 
       return container
     }
+
     const { html } = Embed.services[this.data.service]
     const container = document.createElement('div')
     const caption = document.createElement('div')
     const template = document.createElement('template')
     const wrap = document.createElement('div')
     const preloader = this.createPreloader()
-    const isVideo = /bili/.test(this.data.service)
 
     container.classList.add(this.CSS.baseClass, this.CSS.container, this.CSS.containerLoading)
     caption.classList.add(this.CSS.input, this.CSS.caption)
@@ -139,7 +139,7 @@ export default class Embed {
     container.appendChild(preloader)
 
     caption.contentEditable = true
-    caption.dataset.placeholder = 'Enter a caption'
+    caption.dataset.placeholder = ''
     caption.innerHTML = this.data.caption || ''
 
     template.innerHTML = html
@@ -147,7 +147,7 @@ export default class Embed {
     template.content.firstChild.classList.add(this.CSS.content)
 
     const embedIsReady = this.embedIsReady(container)
-    wrap.classList.add(isVideo ? 'editor-video-wrap' : 'editor-music-wrap')
+    wrap.classList.add('editor-video-wrap')
     wrap.appendChild(template.content.firstChild)
 
     container.appendChild(wrap)
