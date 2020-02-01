@@ -785,10 +785,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@calibur/sakura@^1.0.14":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@calibur/sakura/-/sakura-1.0.14.tgz#273422a105a51c62cdb5bb4bffb70cdbfb2cdb02"
-  integrity sha512-JNuTuCa/pVmL/NaQKhKs6O7RHFAbvYF8n29TmCetAiEOH0brLpTyEZ7JM6gWL8Ba6AMJNgqUz5CFhNNB88vh8A==
+"@calibur/sakura@^1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@calibur/sakura/-/sakura-1.0.16.tgz#db8e35abfe74c98ef8b20eb3977b3f439d7b308f"
+  integrity sha512-uIs2gdxCR75FcZnbVTg9gVNgsZEBk9j+N+C8CyDl22YhozFbxvMbU/ev7PKcRGRN6XHK+f/sghXVnxC4S/Yqag==
   dependencies:
     luxon "^1.22.0"
     throttle-debounce "^2.1.0"
@@ -9264,10 +9264,10 @@ vue-meta@^2.3.1:
   dependencies:
     deepmerge "^4.2.2"
 
-vue-mixin-store@^1.1.80:
-  version "1.1.80"
-  resolved "https://registry.yarnpkg.com/vue-mixin-store/-/vue-mixin-store-1.1.80.tgz#2e532238aebabc8a308fc89bdae0d98d56f01160"
-  integrity sha512-1QmajpHBc44H+QwivoJO30rjpa/TEEP/SCmZ9CSUTdV8opRYRwwY70N81H20X/7h41pgVL4LDvvrTwqS7j0brQ==
+vue-mixin-store@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vue-mixin-store/-/vue-mixin-store-1.2.0.tgz#2bf54923145118dc4b1833626753003af4a13ca1"
+  integrity sha512-EOeoKWEXsqJMioq14ACK/yN9GC4tZn4VhdgR4bZN4F70bD++m2hqRH4KeLmLwVT4jLmEX8Fn3frpoyIteQOxhw==
   dependencies:
     vue "^2.6.11"
 
