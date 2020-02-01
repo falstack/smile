@@ -64,7 +64,6 @@ import upload from '~/mixins/upload'
 import { uploadToQiniu } from '~/api/imageApi'
 import HeaderPlugin from '~/components/editor/plugin/header'
 import BaiduPlugin from '~/components/editor/plugin/baidu'
-import EmbedPlugin from '~/components/editor/plugin/media/embed'
 import DelimiterPlugin from '~/components/editor/plugin/delimiter'
 import ChecklistPlugin from '~/components/editor/plugin/checklist'
 import ParagraphPlugin from '~/components/editor/plugin/paragraph'
@@ -116,10 +115,6 @@ export default {
           placeholder: '请输入正文（建议在15000字以内）',
           autofocus: false,
           tools: {
-            video: {
-              class: EmbedPlugin,
-              inlineToolbar: true
-            },
             header: {
               class: HeaderPlugin,
               inlineToolbar: true
