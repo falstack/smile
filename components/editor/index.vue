@@ -41,6 +41,10 @@
 
   .ce-paragraph {
     @extend %breakWord;
+
+    &::before {
+      color: #C0C0C0 !important;
+    }
   }
 }
 
@@ -117,7 +121,7 @@ export default {
         const editor = new EditorJS({
           data: self.decodeData(data || {}),
           holder: 'codex-editor',
-          placeholder: '请输入内容',
+          placeholder: '请输入正文（建议在15000字以内）',
           autofocus: false,
           tools: {
             video: {

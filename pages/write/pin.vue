@@ -7,62 +7,31 @@
     padding-bottom: 70px + $page-padding;
   }
 
-  .banner {
+  .title {
     position: relative;
-    width: 100%;
-    height: 0;
-    padding-top: 56%;
 
-    .v-uploader {
+    &:after {
+      content: '';
       position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #fafbfd;
-      z-index: 0;
-
-      &__action {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        color: $color-text-4;
-        font-size: 20px;
-      }
-    }
-
-    .image {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-
-    .delete {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      z-index: 2;
-      padding: 5px 8px;
-      background-color: rgba(#000, 0.5);
-      color: #fff;
-      font-size: 12px;
+      left: 12px;
+      right: 12px;
+      height: 1px;
+      background-color: $color-gray-border;
     }
   }
 
-  .title {
-    border-bottom: 1px solid $color-gray-3;
+  .editor-wrap {
+    border-bottom: 1px solid $color-gray-border;
+  }
+
+  .info-wrap {
+    position: relative;
+    padding: 0 $page-padding;
+    z-index: 1;
+
+    .info-title {
+      padding: $page-padding 0;
+    }
   }
 
   .footer {
@@ -97,7 +66,7 @@
     }
   }
 
-  .draft-preload {
+  .preload-wrap {
     display: none;
   }
 }
@@ -105,30 +74,6 @@
 
 <template>
   <div id="write-pin">
-    <div class="banner">
-      <VUploader
-        ref="uploader"
-        :cookie="false"
-        :url="imageUploadAction"
-        :accept="imageUploadAccept"
-        :transform-request="imageUploadRequest"
-        :transform-response="imageUploadResponse"
-        @change="handleUploaderChange"
-      >
-        <template #action>
-          点击上传封面
-        </template>
-        <template #list>
-          <span />
-        </template>
-      </VUploader>
-      <template v-if="title && title.banner">
-        <div class="image" :style="{ backgroundImage: `url(${$resize(title.banner.url, { width: 660 })}` }" />
-        <div class="delete" @click="deleteBanner">
-          删除
-        </div>
-      </template>
-    </div>
     <div class="title">
       <VField
         v-model="title.text"
@@ -140,6 +85,12 @@
       />
     </div>
     <Editor v-if="renderEditor" v-model="content" :slug="slug" :time="last_edit_at" @save="onEditorSave" />
+    <div v-if="selectedBangumi" class="info-wrap">
+      <p class="info-title">
+        请选择投稿分区
+      </p>
+      <VButton plain @click="toggleBangumiDrawer = true" v-text="selectedBangumi.name" />
+    </div>
     <div class="footer">
       <template v-if="published_at">
         <VButton :loading="loading" @click="actionUpdate(true)">
@@ -157,52 +108,82 @@
           存草稿
         </VButton>
       </template>
-      <VButton v-if="draftSource.total" plain @click="toggleDraftDrawer = !toggleDraftDrawer">
+      <VButton v-if="draftSource.total" plain @click="toggleDraftDrawer = true">
         草稿箱({{ draftSource.total }})
       </VButton>
-      <VDrawer v-model="toggleDraftDrawer">
-        <FlowLoader
-          func="getUserDrafts"
-          type="page"
-          :query="{
-            $axios: $axios
-          }"
-        >
-          <template slot-scope="{ flow }">
-            <PinDraftItem v-for="item in flow" :key="item.slug" :item="item" @click="switchDraft(item.slug)" />
-          </template>
-        </FlowLoader>
-      </VDrawer>
     </div>
-    <FlowLoader
-      ref="draftLoader"
-      class="draft-preload"
-      func="getUserDrafts"
-      type="page"
-      :auto="0"
-      :query="{
-        $axios: $axios
-      }"
-    />
+    <div class="preload-wrap">
+      <FlowLoader
+        ref="draftLoader"
+        func="getUserDrafts"
+        type="page"
+        :auto="0"
+        :query="{ $axios: $axios }"
+      />
+      <FlowLoader
+        v-if="isAuth"
+        ref="areaLoader"
+        func="getUserBangumi"
+        type="page"
+        :auto="0"
+        :query="{ $axios: $axios, slug: currentUser.slug }"
+      />
+    </div>
+    <VDrawer v-model="toggleDraftDrawer">
+      <FlowLoader
+        func="getUserDrafts"
+        type="page"
+        :query="{ $axios: $axios }"
+      >
+        <div slot-scope="{ flow }">
+          <PinDraftItem
+            v-for="item in flow"
+            :key="item.slug"
+            :item="item"
+            @click="switchDraft(item.slug)"
+          />
+        </div>
+      </FlowLoader>
+    </VDrawer>
+    <VDrawer v-model="toggleBangumiDrawer">
+      <FlowLoader
+        func="getUserBangumi"
+        type="page"
+        :auto="0"
+        :query="{ $axios: $axios, slug: currentUser.slug }"
+      >
+        <div slot-scope="{ flow }">
+          <BangumiOptionItem
+            v-for="item in flow"
+            :key="item.slug"
+            :item="item"
+            :selected-slug="bangumi_slug"
+            type="select"
+            @click="switchBangumi(item)"
+          />
+        </div>
+      </FlowLoader>
+    </VDrawer>
   </div>
 </template>
 
 <script>
-import { VField, VUploader, VButton, VDrawer } from '@calibur/sakura'
+import { VField, VButton, VDrawer } from '@calibur/sakura'
 import Editor from '~/components/editor'
 import upload from '~/mixins/upload'
 import mustSign from '~/mixins/mustSign'
 import PinDraftItem from '~/components/PinDraftItem'
+import BangumiOptionItem from '~/components/BangumiOptionItem'
 
 export default {
   name: 'WritePin',
   components: {
-    VUploader,
     VField,
     VButton,
     Editor,
     VDrawer,
-    PinDraftItem
+    PinDraftItem,
+    BangumiOptionItem
   },
   mixins: [mustSign, upload],
   asyncData({ app, error, query }) {
@@ -229,11 +210,14 @@ export default {
         text: ''
       },
       content: [],
+      bangumi_slug: '',
       last_edit_at: '',
       published_at: '',
+      selectedBangumi: null,
       loading: false,
       renderEditor: true,
-      toggleDraftDrawer: false
+      toggleDraftDrawer: false,
+      toggleBangumiDrawer: false
     }
   },
   computed: {
@@ -242,11 +226,21 @@ export default {
         func: 'getUserDrafts',
         type: 'page'
       }) || {}
+    },
+    bangumiSource() {
+      return this.$store.getters['flow/getFlow']({
+        func: 'getUserBangumi',
+        type: 'page',
+        query: {
+          slug: this.currentUser.slug
+        }
+      }) || {}
     }
   },
   mounted() {
     this.initCache()
     this.initUserDraft()
+    this.initUserBangumi()
   },
   methods: {
     initCache() {
@@ -263,6 +257,20 @@ export default {
       }
       this.$refs.draftLoader.initData()
     },
+    initUserBangumi() {
+      this.$channel.$when('user-signed', async() => {
+        if (!this.$refs.areaLoader) {
+          return
+        }
+        await this.$refs.areaLoader.initData()
+        if (this.bangumi_slug) {
+          this.selectedBangumi = this.bangumiSource.find(_ => _.slug === this.bangumi_slug)
+        } else {
+          this.selectedBangumi = this.bangumiSource.result[0]
+        }
+        this.bangumi_slug = this.selectedBangumi.slug
+      })
+    },
     onEditorSave() {
       this.saveTitle()
     },
@@ -271,10 +279,6 @@ export default {
         return
       }
       this.$cache.set('editor_local_draft_title', this.title)
-    },
-    deleteBanner() {
-      this.$refs.uploader.remove(0)
-      this.saveTitle()
     },
     preValidate() {
       if (this.loading) {
@@ -312,9 +316,9 @@ export default {
           if (publish) {
             // TODO：redirect pin page
           } else {
-            this.loading = false
             this.switchDraft(slug)
           }
+          this.loading = false
         })
         .catch((err) => {
           this.$toast.error(err.message)
@@ -343,6 +347,7 @@ export default {
           if (publish) {
             // TODO：redirect pin page
           }
+          this.loading = false
         })
         .catch((err) => {
           this.$toast.error(err.message)
@@ -353,11 +358,6 @@ export default {
       this.$cache.del('editor_local_draft_title')
       this.$cache.del('editor_local_draft')
     },
-    handleUploaderChange() {
-      const images = this.$refs.uploader.images()
-      this.title.banner = images.length ? images[0] : null
-      this.saveTitle()
-    },
     clearPageData() {
       this.renderEditor = false
       this.slug = ''
@@ -365,10 +365,12 @@ export default {
         banner: null,
         text: ''
       }
+      this.bangumi_slug = ''
       this.last_edit_at = ''
       this.published_at = ''
       this.content = []
       this.toggleDraftDrawer = false
+      this.selectedBangumi = this.bangumiSource.result[0]
       this.$nextTick(() => {
         this.renderEditor = true
       })
@@ -379,11 +381,22 @@ export default {
       this.title = data.title
       this.last_edit_at = data.last_edit_at
       this.published_at = data.published_at
+      this.bangumi_slug = data.bangumi_slug
       this.content = data.content
       this.toggleDraftDrawer = false
+      if (this.bangumi_slug) {
+        this.selectedBangumi = this.bangumiSource.find(_ => _.slug === this.bangumi_slug)
+      } else {
+        this.selectedBangumi = this.bangumiSource.result[0]
+      }
       this.$nextTick(() => {
         this.renderEditor = true
       })
+    },
+    switchBangumi(item) {
+      this.toggleBangumiDrawer = false
+      this.selectedBangumi = item
+      this.bangumi_slug = item.slug
     },
     switchDraft(slug, conformed = false) {
       if (this.slug) {
