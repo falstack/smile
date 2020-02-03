@@ -10,6 +10,8 @@ import NuxtLoading from './components/nuxt-loading.vue'
 
 import '../assets/css/global.scss'
 
+import '../assets/font/iconfont.css'
+
 import _6f6c098b from '../layouts/default.vue'
 
 const layouts = { "_default": _6f6c098b }
