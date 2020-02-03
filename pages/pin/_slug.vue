@@ -57,21 +57,20 @@
         <span class="dot">&nbsp;·&nbsp;</span>
         <span v-text="`${$utils.shortenNumber(visit_count)}阅读`" />
       </template>
-      <template v-if="isMine || isAdmin">
-        <span style="float:right" @click="openEditDrawer = true">···</span>
+      <template v-if="isAdmin">
+        <span style="float:right" @click="openAdminDrawer = true">···</span>
         <VDrawer
-          v-model="openEditDrawer"
-          :count="controlMenu.length"
+          v-model="openAdminDrawer"
+          :count="2"
           strict
           cancel="取消"
         >
-          <div
-            v-for="(item, index) in controlMenu"
-            :key="index"
-            :slot="`${index}`"
-            class="drawer-item"
-            v-text="item"
-          />
+          <div slot="0" class="drawer-item" @click="handleAction('recommend')">
+            {{ recommended_at ? '取消推荐' : '推荐' }}
+          </div>
+          <div slot="1" class="drawer-item" @click="handleAction('delete')">
+            删除
+          </div>
         </VDrawer>
       </template>
     </div>
@@ -80,14 +79,32 @@
       <div class="intro">
         <UserNickname :user="author" @click="handleUserClick" />
       </div>
-      <UserFollowBtn v-if="!isMine" :slug="author.slug" />
+      <template v-if="isMine">
+        <VButton size="small" theme="warning" plain @click="openEditDrawer = true">
+          编辑
+        </VButton>
+        <VDrawer
+          v-model="openEditDrawer"
+          :count="2"
+          strict
+          cancel="取消"
+        >
+          <div slot="0" class="drawer-item" @click="handleAction('edit')">
+            编辑
+          </div>
+          <div slot="1" class="drawer-item" @click="handleAction('delete')">
+            删除
+          </div>
+        </VDrawer>
+      </template>
+      <UserFollowBtn v-else :slug="author.slug" />
     </div>
     <JsonContent :slug="slug" :content="content" :reward="reward_status" :vote="vote_hash" />
   </div>
 </template>
 
 <script>
-import { VDrawer } from '@calibur/sakura'
+import { VButton, VDrawer } from '@calibur/sakura'
 import JsonContent from '~/components/editor/JsonContent'
 import UserFollowBtn from '~/components/button/UserFollowBtn'
 import UserAvatar from '~/components/user/UserAvatar'
@@ -96,6 +113,7 @@ import UserNickname from '~/components/user/UserNickname'
 export default {
   name: 'PinShow',
   components: {
+    VButton,
     VDrawer,
     UserFollowBtn,
     UserAvatar,
@@ -134,7 +152,8 @@ export default {
       comment_count: 0,
       reward_count: 0,
       vote_hash: [],
-      openEditDrawer: false
+      openEditDrawer: false,
+      openAdminDrawer: false
     }
   },
   computed: {
@@ -143,16 +162,6 @@ export default {
     },
     isAdmin() {
       return this.$store.getters.isAdmin
-    },
-    controlMenu() {
-      const result = ['删除']
-      if (this.isMine) {
-        result.unshift('编辑')
-      }
-      if (this.isAdmin) {
-        result.unshift(this.recommended_at ? '取消推荐' : '推荐')
-      }
-      return result
     }
   },
   beforeMount() {
@@ -169,6 +178,42 @@ export default {
       this.$bridge.navigateTo({
         url: `/pages/user/show/index?slug=${this.author.slug}`
       })
+    },
+    handleEditClick() {
+      this.$bridge.navigateTo({
+        url: `/pages/webview/index?url=${encodeURIComponent(`/write/pin?slug=${this.slug}`)}`
+      })
+    },
+    handleDeletePin() {
+      this.$alert({
+        title: '删除文章',
+        message: '删除后不可恢复，确认要删除吗？',
+        buttons: ['取消', '确认'],
+        callback: (index) => {
+          if (!index) {
+            return
+          }
+          this.$axios
+            .$post('v1/pin/delete', {
+              slug: this.slug
+            })
+            .then(() => {
+              this.$bridge.navigateBack()
+            })
+            .catch((err) => {
+              this.$toast.error(err.message)
+            })
+        }
+      })
+    },
+    handleAction(type) {
+      this.openAdminDrawer = false
+      this.openEditDrawer = false
+      if (type === 'edit') {
+        this.handleEditClick()
+      } else if (type === 'delete') {
+        this.handleDeletePin()
+      }
     },
     patchPin() {
       this.$axios

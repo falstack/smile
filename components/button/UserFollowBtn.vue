@@ -99,9 +99,17 @@ export default {
         this.submit()
         return
       }
-      this.$confirm('确定要取消关注吗？', '提示')
-        .then(() => this.submit())
-        .catch(() => {})
+      this.$alert({
+        title: '提示',
+        message: '确定要取消关注吗？',
+        buttons: ['取消', '确定'],
+        callback: (index) => {
+          if (!index) {
+            return
+          }
+          this.submit()
+        }
+      })
     },
     async submit() {
       const data = await this.$store.dispatch('social/toggle', {
