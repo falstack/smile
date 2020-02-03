@@ -57,9 +57,11 @@
 
 <template>
   <div class="user-nickname" @click="handleClick">
-    <span v-for="(item, index) in user.title" :key="index" :class="[$style.title, $style['ic-title']]" v-text="item" />
+    <template v-if="showTitle">
+      <span v-for="(item, index) in user.title" :key="index" :class="[$style.title, $style['ic-title']]" v-text="item" />
+    </template>
     <span :class="[$style.title, $style['ic-level']]" v-text="`Lv${user.level2}`" />
-    <span :class="$style['ic-sex']">
+    <span v-if="showSex" :class="$style['ic-sex']">
       <i class="iconfont" :class="`ic-${sexClass.name}`" :style="{ backgroundColor: sexClass.color }" />
     </span>
     <div class="name">
@@ -75,6 +77,14 @@ export default {
     user: {
       type: Object,
       required: true
+    },
+    showSex: {
+      type: Boolean,
+      default: false
+    },
+    showTitle: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
