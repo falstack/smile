@@ -82,10 +82,6 @@
   animation: link-in 450ms 1 cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-.link-tool__content--rendered:hover {
-  box-shadow: 0 0 3px rgba(0,0,0, .16);
-}
-
 .link-tool__image {
   background-position: center center;
   background-repeat: no-repeat;

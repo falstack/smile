@@ -2,6 +2,7 @@
 .h2 {
   padding-bottom: 10px;
   padding-top: 1.5em;
+  @extend %breakWord;
 }
 </style>
 

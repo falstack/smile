@@ -27,10 +27,6 @@
   user-select: none;
 }
 
-.cdx-checklist__item-checkbox:hover {
-  border-color: #b5b5b5;
-}
-
 .cdx-checklist__item-checkbox::after {
   position: absolute;
   top: 5px;
@@ -49,10 +45,6 @@
 .cdx-checklist__item--checked .cdx-checklist__item-checkbox {
   background: $color-main;
   border-color: $color-main;
-}
-
-.cdx-checklist__item--checked .cdx-checklist__item-checkbox:hover {
-  background: $color-main;
 }
 
 .cdx-checklist__item--checked .cdx-checklist__item-checkbox::after {
