@@ -57,16 +57,8 @@
         <span class="dot">&nbsp;·&nbsp;</span>
         <span v-text="`${$utils.shortenNumber(visit_count)}阅读`" />
       </template>
-    </div>
-    <div v-if="author" class="author">
-      <UserAvatar :user="author" @click="handleUserClick" />
-      <div class="intro">
-        <UserNickname :user="author" @click="handleUserClick" />
-      </div>
       <template v-if="isMine || isAdmin">
-        <VButton theme="warning" size="small" @click="openEditDrawer = true">
-          操作
-        </VButton>
+        <span style="float:right" @click="openEditDrawer = true">···</span>
         <VDrawer
           v-model="openEditDrawer"
           :count="controlMenu.length"
@@ -82,6 +74,12 @@
           />
         </VDrawer>
       </template>
+    </div>
+    <div v-if="author" class="author">
+      <UserAvatar :user="author" @click="handleUserClick" />
+      <div class="intro">
+        <UserNickname :user="author" @click="handleUserClick" />
+      </div>
       <UserFollowBtn v-if="!isMine" :slug="author.slug" />
     </div>
     <JsonContent :slug="slug" :content="content" :reward="reward_status" :vote="vote_hash" />
@@ -89,7 +87,7 @@
 </template>
 
 <script>
-import { VButton, VDrawer } from '@calibur/sakura'
+import { VDrawer } from '@calibur/sakura'
 import JsonContent from '~/components/editor/JsonContent'
 import UserFollowBtn from '~/components/button/UserFollowBtn'
 import UserAvatar from '~/components/user/UserAvatar'
@@ -98,7 +96,6 @@ import UserNickname from '~/components/user/UserNickname'
 export default {
   name: 'PinShow',
   components: {
-    VButton,
     VDrawer,
     UserFollowBtn,
     UserAvatar,
