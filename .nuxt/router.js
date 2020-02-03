@@ -21,6 +21,7 @@ const _451bd3ab = () => interopDefault(import('../pages/public/rule.vue' /* webp
 const _a42e7e52 = () => interopDefault(import('../pages/user/edit.vue' /* webpackChunkName: "pages/user/edit" */))
 const _c2becd2a = () => interopDefault(import('../pages/user/list.vue' /* webpackChunkName: "pages/user/list" */))
 const _d26dfa24 = () => interopDefault(import('../pages/write/pin.vue' /* webpackChunkName: "pages/write/pin" */))
+const _3b54ec99 = () => interopDefault(import('../pages/pin/_slug.vue' /* webpackChunkName: "pages/pin/_slug" */))
 const _6f94ae5b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 // TODO: remove in Nuxt 3
@@ -129,6 +130,11 @@ export const routerOptions = {
     component: _d26dfa24,
     props: false,
     name: "write-pin"
+  }, {
+    path: "/pin/:slug?",
+    component: _3b54ec99,
+    props: true,
+    name: "pin-slug"
   }, {
     path: "/",
     component: _6f94ae5b,
