@@ -18,10 +18,6 @@
       margin-left: -10px;
       border-radius: 5px;
 
-      &:hover {
-        background-color: $color-gray-3;
-      }
-
       i {
         position: absolute;
         top: 10px;

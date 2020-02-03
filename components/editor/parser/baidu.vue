@@ -2,17 +2,13 @@
 .baidu {
   padding: 0.7em 0;
 
-  a {
+  .a {
     display: block;
     background-color: #fff;
     border: 1px solid rgba(201, 201, 204, 0.48);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     border-radius: 6px;
     padding: 25px;
-
-    &:hover {
-      box-shadow: 0 0 3px rgba(0, 0, 0, 0.16);
-    }
   }
 
   .logo {
@@ -33,28 +29,45 @@
   .content {
     overflow: hidden;
     height: 65px;
-    line-height: 65px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+
+    .link {
+      width: 100%;
+    }
   }
 }
 </style>
 
 <template>
   <div :class="$style.baidu">
-    <a :href="item.data.url" target="_blank">
+    <div :class="$style.a">
       <i :class="$style.logo" class="iconfont ic-baidu-cloud" />
-      <div :class="$style.content">
-        <template v-if="item.data.visit_type !== 0 && !reward">
-          密码投食后可见
-        </template>
-        <template v-else> 密码：{{ item.data.password }} </template>
+      <div v-copy="item.data.url" v-copy:callback="handleCopySuccess" :class="$style.content">
+        <p :class="$style.link" class="oneline" v-text="item.data.url" />
+        <p :class="$style.password">
+          <template v-if="item.data.visit_type !== 0 && !reward">
+            密码投食后可见
+          </template>
+          <template v-else>
+            密码：{{ item.data.password }}
+          </template>
+        </p>
       </div>
-    </a>
+    </div>
   </div>
 </template>
 
 <script>
+import { copy } from 'v-copy'
+
 export default {
   name: 'JsonBaidu',
+  directives: {
+    copy
+  },
   props: {
     item: {
       type: Object,
@@ -63,6 +76,11 @@ export default {
     reward: {
       type: Boolean,
       required: true
+    }
+  },
+  methods: {
+    handleCopySuccess() {
+      this.$toast.info('链接已复制到剪切板')
     }
   }
 }
