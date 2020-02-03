@@ -32,12 +32,12 @@
 .ic-level {
   float: right;
   display: block;
-  background-color: $color-orange;
+  background-color: #FFC83F;
   color: #fff;
   padding: 0 5px;
-  border-radius: 4px;
   font-size: 12px;
   height: 16px;
+  border-radius: 8px;
   line-height: 16px;
   margin-left: 5px;
 }
@@ -61,7 +61,7 @@
     <template v-if="showTitle">
       <span v-for="(item, index) in user.title" :key="index" :class="[$style.title, $style['ic-title']]" v-text="item" />
     </template>
-    <span :class="[$style.title, $style['ic-level']]" v-text="`Lv${user.level2}`" />
+    <span v-if="showLevel" :class="[$style.title, $style['ic-level']]" v-text="`Lv${user.level2}`" />
     <span v-if="showSex" :class="$style['ic-sex']">
       <i class="iconfont" :class="`ic-${sexClass.name}`" :style="{ backgroundColor: sexClass.color }" />
     </span>
@@ -84,6 +84,10 @@ export default {
       default: false
     },
     showTitle: {
+      type: Boolean,
+      default: false
+    },
+    showLevel: {
       type: Boolean,
       default: false
     }

@@ -2,6 +2,7 @@
 .image {
   padding: 0.7em 0;
   margin: 0 -$page-padding;
+  text-align: center;
 
   picture {
     margin: 0 auto;
