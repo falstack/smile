@@ -3,7 +3,7 @@
   background-image: url(~assets/img/divider.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 50%;
+  background-size: contain;
   height: 100px;
 }
 </style>

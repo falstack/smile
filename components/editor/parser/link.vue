@@ -2,7 +2,7 @@
 .link {
   padding: 0.7em 0;
 
-  a {
+  .a {
     display: block;
     background-color: #fff;
     border: 1px solid rgba(201, 201, 204, 0.48);
@@ -51,24 +51,34 @@
 
 <template>
   <div :class="$style.link">
-    <a target="_blank" :href="item.data.link">
+    <div v-copy="item.data.link" v-copy:callback="handleCopySuccess" :class="$style.a">
       <img v-if="item.data.meta.image && item.data.meta.image.url" :class="$style.logo" :src="item.data.meta.image.url" width="65" height="65">
       <div :class="$style.content">
         <h3 v-text="item.data.meta.title" />
         <p v-text="item.data.meta.description" />
         <span v-text="item.data.link.replace(/https?:\/\//, '')" />
       </div>
-    </a>
+    </div>
   </div>
 </template>
 
 <script>
+import { copy } from 'v-copy'
+
 export default {
   name: 'JsonLink',
+  directives: {
+    copy
+  },
   props: {
     item: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    handleCopySuccess() {
+      this.$toast.info('链接已复制到剪切板')
     }
   }
 }

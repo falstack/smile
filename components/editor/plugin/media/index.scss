@@ -88,6 +88,7 @@
     transform: translateX(-50%);
   }
 }
+
 .embed-tool__caption[contentEditable=true][data-placeholder]::before{
   position: absolute !important;
   content: '视频描述';

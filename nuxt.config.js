@@ -95,6 +95,7 @@ module.exports = {
    ** Build configuration
    */
   build: {
+    extractCSS: true,
     loaders: {
       cssModules: {
         localsConvention: 'camelCase'

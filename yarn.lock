@@ -785,10 +785,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@calibur/sakura@^1.0.16":
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/@calibur/sakura/-/sakura-1.0.16.tgz#db8e35abfe74c98ef8b20eb3977b3f439d7b308f"
-  integrity sha512-uIs2gdxCR75FcZnbVTg9gVNgsZEBk9j+N+C8CyDl22YhozFbxvMbU/ev7PKcRGRN6XHK+f/sghXVnxC4S/Yqag==
+"@calibur/sakura@^1.0.17":
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/@calibur/sakura/-/sakura-1.0.17.tgz#35ede548c00653d67e813f92397308cd4e4cb81f"
+  integrity sha512-btnBO7J8G3uduD1FtP3jt0BLNDVecQmITsH2JO1Z8h6FqrCzuHKOgsAWy0zUV+M4VtnlvGrOx5S3qlhFdTAyQg==
   dependencies:
     luxon "^1.22.0"
     throttle-debounce "^2.1.0"
@@ -827,10 +827,10 @@
   resolved "https://registry.yarnpkg.com/@editorjs/embed/-/embed-2.2.1.tgz#90dbcac6e163d20c665fcc1a218d4ba1db80e2f1"
   integrity sha512-jjhgJf+LkYr8UfsQPavfukCq0+SIkz1MD8vmWkN29uU2zItWsScmfRis3YoLZJ7Rrz+yDeS8GyUjxTg2iQa0Vg==
 
-"@editorjs/header@^2.3.2":
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/@editorjs/header/-/header-2.3.2.tgz#419b24196ce7142c0ae8bac837e6b5f68977dc8f"
-  integrity sha512-Chsnwo3kRTJGtWQdxikYfPCjgA3FtFmZM5mmFno7Pwjk0AQWBnU+Vb9TCIkYw+LpchWm+D+3Px7saRchCF2jnQ==
+"@editorjs/header@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@editorjs/header/-/header-2.4.0.tgz#0ac14bf68e4a01305bbb20c8ffb754a75a3d374a"
+  integrity sha512-gXq7LkMWWno0c6vYDIROn0vqGnbQ/sGENljdtTWSBefCUqzKlqbQaeN4x4IqqvxCvOiH3RtdjJvfv92/ziIxmg==
 
 "@editorjs/image@^2.3.3":
   version "2.3.3"
@@ -1091,16 +1091,16 @@
     webpack-node-externals "^1.7.2"
     webpackbar "^4.0.0"
 
-"@nuxtjs/axios@5.9.4":
-  version "5.9.4"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/axios/-/axios-5.9.4.tgz#45e7a44da38ea420685842268eb0298102acc64b"
-  integrity sha512-lwugsdVU4BEyY7rnYSsipGh4qlqEJOyForxF9C9wttVVT5IBvLlHiPE6Ownxl7gbqXKa819UKOqIPmb94DVV9A==
+"@nuxtjs/axios@5.9.5":
+  version "5.9.5"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/axios/-/axios-5.9.5.tgz#5adc0acc4deb7e1d67ab7240c741a401a6c01823"
+  integrity sha512-5sMsl5PbNSbAOou75wN2ztDAfGi6pU12zZQvfkDBz3s9KnKST/Azfc1FLw2Y8TR4UaDv074vt20oxK+z7AnH1A==
   dependencies:
     "@nuxtjs/proxy" "^1.3.3"
     axios "^0.19.2"
     axios-retry "^3.1.2"
     consola "^2.11.3"
-    defu "^0.0.4"
+    defu "^1.0.0"
 
 "@nuxtjs/eslint-config@2.0.0":
   version "2.0.0"
@@ -3128,10 +3128,10 @@ defu@^0.0.1:
   resolved "https://registry.yarnpkg.com/defu/-/defu-0.0.1.tgz#74dc4d64e401d7f95c6755fe98bc5cd688833a8f"
   integrity sha512-Pz9yznbSzVTNA67lcfqVnktROx2BrrBBcmQqGrfe0zdiN5pl5GQogLA4uaP3U1pR1LHIZpEYTAh2sn+v4rH1dA==
 
-defu@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/defu/-/defu-0.0.4.tgz#9294753fff9a88217635ed387e4a451f1738e6ff"
-  integrity sha512-rgzSYjB7bq5P6uPTPOlFYy/hw4SR/Ml+SM/ZlRx1BEcgUmcTA8yqnzByRiA4npIuJPb1uRJo6ROx++Xs5QooqQ==
+defu@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/defu/-/defu-1.0.0.tgz#43acb09dfcf81866fa3b0fc047ece18e5c30df71"
+  integrity sha512-1Y1KRFxiiq+LYsZ3iP7xYSR8bHfmHFOUpDunZCN1ld1fGfDJWJIvkUBtjl3apnBwPuJtL/H7cwwlLYX8xPkraQ==
 
 delayed-stream@~1.0.0:
   version "1.0.0"
@@ -3487,7 +3487,25 @@ eslint-plugin-es@^3.0.0:
     eslint-utils "^2.0.0"
     regexpp "^3.0.0"
 
-eslint-plugin-import@2.20.0, eslint-plugin-import@^2.18.2:
+eslint-plugin-import@2.20.1:
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.20.1.tgz#802423196dcb11d9ce8435a5fc02a6d3b46939b3"
+  integrity sha512-qQHgFOTjguR+LnYRoToeZWT62XM55MBVXObHM6SKFd1VzDcX/vqT1kAz8ssqigh5eMj8qXcRoXXGZpPP6RfdCw==
+  dependencies:
+    array-includes "^3.0.3"
+    array.prototype.flat "^1.2.1"
+    contains-path "^0.1.0"
+    debug "^2.6.9"
+    doctrine "1.5.0"
+    eslint-import-resolver-node "^0.3.2"
+    eslint-module-utils "^2.4.1"
+    has "^1.0.3"
+    minimatch "^3.0.4"
+    object.values "^1.1.0"
+    read-pkg-up "^2.0.0"
+    resolve "^1.12.0"
+
+eslint-plugin-import@^2.18.2:
   version "2.20.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.20.0.tgz#d749a7263fb6c29980def8e960d380a6aa6aecaa"
   integrity sha512-NK42oA0mUc8Ngn4kONOPsPB1XhbUvNHqF+g307dPV28aknPoiNnKLFd9em4nkswwepdF5ouieqv5Th/63U7YJQ==
@@ -5870,6 +5888,11 @@ mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
+
+modern-copy@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/modern-copy/-/modern-copy-1.0.3.tgz#1b0a3e8548316cae95e76f9f75cacb561d193b8e"
+  integrity sha512-2JGQcw7PFY74QsVupT1xzR09w7JGWjO9/XxFr42gCVuqPdeSmtRUlfcJnZTTPyRi0dbIXJ5Gotp1Pij4llMNWQ==
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -9186,6 +9209,13 @@ uuid@^3.3.2:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
+
+v-copy@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/v-copy/-/v-copy-0.1.0.tgz#05214524346be27bf149f10fff4660bbd7e69e67"
+  integrity sha512-ZW2niLJYVYSiUSlG/aweI/iQ4nr3HcfGnIHxGjCbdSSV3YQOk2AjVK09ba/WrlprCispWagpkLoOBaNqphsEYA==
+  dependencies:
+    modern-copy "^1.0.3"
 
 v8-compile-cache@^2.0.3:
   version "2.1.0"

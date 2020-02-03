@@ -270,7 +270,7 @@ export default {
         }
         await this.$refs.areaLoader.initData()
         if (this.bangumi_slug) {
-          this.selectedBangumi = this.bangumiSource.find(_ => _.slug === this.bangumi_slug)
+          this.selectedBangumi = this.bangumiSource.result.find(_ => _.slug === this.bangumi_slug)
         } else {
           this.selectedBangumi = this.bangumiSource.result[0]
         }

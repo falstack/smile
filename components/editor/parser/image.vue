@@ -1,7 +1,7 @@
 <style lang="scss" module>
 .image {
   padding: 0.7em 0;
-  text-align: center;
+  margin: 0 -$page-padding;
 
   picture {
     margin: 0 auto;
@@ -20,30 +20,12 @@
     display: inline-block;
     @extend %breakWord;
   }
-
-  .border {
-    border: 1px solid $color-gray-border;
-  }
-
-  .bg {
-    padding: 15px;
-    background-color: $color-gray-bg;
-
-    > div {
-      width: 60%;
-      margin: 0 auto;
-    }
-  }
 }
 </style>
 
 <template>
   <div :class="$style.image">
-    <div :class="[{ [$style.border]: item.data.withBorder }, { [$style.bg]: item.data.withBackground }]">
-      <div>
-        <VImg :src="item.data.file.url" :stretched="item.data.stretched" :width="item.data.file.width" :height="item.data.file.height" />
-      </div>
-    </div>
+    <VImg :src="item.data.file.url" :stretched="item.data.stretched" :width="item.data.file.width" :height="item.data.file.height" />
     <p v-if="item.data.caption" v-text="item.data.caption" />
   </div>
 </template>

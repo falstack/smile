@@ -139,7 +139,7 @@ export default class Embed {
     container.appendChild(preloader)
 
     caption.contentEditable = true
-    caption.dataset.placeholder = 'Enter a caption'
+    caption.dataset.placeholder = ''
     caption.innerHTML = this.data.caption || ''
 
     template.innerHTML = html
