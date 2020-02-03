@@ -5,6 +5,7 @@
   .name {
     overflow: hidden;
     vertical-align: middle;
+    line-height: 16px;
   }
 }
 </style>
@@ -16,14 +17,14 @@
   float: right;
 
   i {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     display: block;
     font-size: 12px;
     color: #fff;
     border-radius: 50%;
     text-align: center;
-    line-height: 18px;
+    line-height: 16px;
     font-weight: bold;
   }
 }
