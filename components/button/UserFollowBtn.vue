@@ -103,6 +103,7 @@ export default {
         title: '提示',
         message: '确定要取消关注吗？',
         buttons: ['取消', '确定'],
+        maskClose: true,
         callback: (index) => {
           if (!index) {
             return

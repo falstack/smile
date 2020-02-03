@@ -189,6 +189,7 @@ export default {
         title: '删除文章',
         message: '删除后不可恢复，确认要删除吗？',
         buttons: ['取消', '确认'],
+        maskClose: true,
         callback: (index) => {
           if (!index) {
             return
@@ -206,6 +207,38 @@ export default {
         }
       })
     },
+    handleRecommendPin() {
+      const result = !this.recommended_at
+      const request = () => {
+        this.$axios.$post('v1/pin/recommend', {
+          slug: this.slug,
+          result
+        })
+          .then(() => {
+            this.$toast.info(result ? '推荐成功' : '取消推荐成功')
+            this.recommended_at = result
+          })
+          .catch((err) => {
+            this.$toast.error(err.message)
+          })
+      }
+      if (result) {
+        request()
+      } else {
+        this.$alert({
+          title: '取消文章推荐',
+          message: '确认要取消吗？',
+          buttons: ['取消', '确认'],
+          maskClose: true,
+          callback: (index) => {
+            if (!index) {
+              return
+            }
+            request()
+          }
+        })
+      }
+    },
     handleAction(type) {
       this.openAdminDrawer = false
       this.openEditDrawer = false
@@ -213,6 +246,8 @@ export default {
         this.handleEditClick()
       } else if (type === 'delete') {
         this.handleDeletePin()
+      } else if (type === 'recommend') {
+        this.handleRecommendPin()
       }
     },
     patchPin() {
