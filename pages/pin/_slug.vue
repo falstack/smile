@@ -39,7 +39,6 @@
   }
 
   .v-affix--fixed {
-    border-bottom: 1px solid $color-gray-border;
     left: 0 !important;
     right: 0 !important;
     width: auto !important;
@@ -87,7 +86,7 @@
       <div class="author">
         <UserAvatar :user="author" @click="handleUserClick" />
         <div class="intro">
-          <UserNickname :user="author" @click="handleUserClick" />
+          <UserNickname :user="author" show-level @click="handleUserClick" />
         </div>
         <template v-if="isMine">
           <VButton size="small" theme="warning" plain @click="openEditDrawer = true">
@@ -111,6 +110,7 @@
       </div>
     </VAffix>
     <JsonContent :slug="slug" :content="content" :reward="reward_status" :vote="vote_hash" />
+    <CommentMain :slug="slug" />
   </div>
 </template>
 
@@ -120,6 +120,7 @@ import JsonContent from '~/components/editor/JsonContent'
 import UserFollowBtn from '~/components/button/UserFollowBtn'
 import UserAvatar from '~/components/user/UserAvatar'
 import UserNickname from '~/components/user/UserNickname'
+import CommentMain from '~/components/comment/CommentMain'
 
 export default {
   name: 'PinShow',
@@ -130,7 +131,8 @@ export default {
     UserFollowBtn,
     UserAvatar,
     UserNickname,
-    JsonContent
+    JsonContent,
+    CommentMain
   },
   asyncData({ app, error, params }) {
     return app.$axios
