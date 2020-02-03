@@ -20,7 +20,6 @@ import list from './parser/list'
 import delimiter from './parser/delimiter'
 import checklist from './parser/checklist'
 import link from './parser/link'
-import video from './parser/video'
 import baidu from './parser/baidu'
 import vote from './parser/vote'
 import Copyright from '~/assets/js/copyright'
@@ -35,7 +34,6 @@ export default {
     'v-delimiter': delimiter,
     'v-checklist': checklist,
     'v-link': link,
-    'v-video': video,
     'v-baidu': baidu,
     'v-vote': vote
   },
