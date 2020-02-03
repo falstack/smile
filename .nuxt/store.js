@@ -16,6 +16,7 @@ let store = {};
   store.modules = store.modules || {}
 
   resolveStoreModules(require('../store/flow.js'), 'flow.js')
+  resolveStoreModules(require('../store/social.js'), 'social.js')
 
   // If the environment supports hot reloading...
 })()
