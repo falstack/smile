@@ -15,12 +15,12 @@
 
   .state {
     font-size: 12px;
-    margin-bottom: $page-padding;
     color: $color-text-3;
   }
 
   .author {
-    margin-bottom: $page-padding;
+    padding-bottom: $page-padding;
+    padding-top: $page-padding;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -36,6 +36,15 @@
       align-items: flex-start;
       overflow: hidden;
     }
+  }
+
+  .v-affix--fixed {
+    border-bottom: 1px solid $color-gray-border;
+    left: 0 !important;
+    right: 0 !important;
+    width: auto !important;
+    padding: 0 $page-padding;
+    background-color: #fff;
   }
 }
 
@@ -74,37 +83,39 @@
         </VDrawer>
       </template>
     </div>
-    <div v-if="author" class="author">
-      <UserAvatar :user="author" @click="handleUserClick" />
-      <div class="intro">
-        <UserNickname :user="author" @click="handleUserClick" />
-      </div>
-      <template v-if="isMine">
-        <VButton size="small" theme="warning" plain @click="openEditDrawer = true">
-          编辑
-        </VButton>
-        <VDrawer
-          v-model="openEditDrawer"
-          :count="2"
-          strict
-          cancel="取消"
-        >
-          <div slot="0" class="drawer-item" @click="handleAction('edit')">
+    <VAffix v-if="author" :fixed-top="0">
+      <div class="author">
+        <UserAvatar :user="author" @click="handleUserClick" />
+        <div class="intro">
+          <UserNickname :user="author" @click="handleUserClick" />
+        </div>
+        <template v-if="isMine">
+          <VButton size="small" theme="warning" plain @click="openEditDrawer = true">
             编辑
-          </div>
-          <div slot="1" class="drawer-item" @click="handleAction('delete')">
-            删除
-          </div>
-        </VDrawer>
-      </template>
-      <UserFollowBtn v-else :slug="author.slug" />
-    </div>
+          </VButton>
+          <VDrawer
+            v-model="openEditDrawer"
+            :count="2"
+            strict
+            cancel="取消"
+          >
+            <div slot="0" class="drawer-item" @click="handleAction('edit')">
+              编辑
+            </div>
+            <div slot="1" class="drawer-item" @click="handleAction('delete')">
+              删除
+            </div>
+          </VDrawer>
+        </template>
+        <UserFollowBtn v-else :slug="author.slug" />
+      </div>
+    </VAffix>
     <JsonContent :slug="slug" :content="content" :reward="reward_status" :vote="vote_hash" />
   </div>
 </template>
 
 <script>
-import { VButton, VDrawer } from '@calibur/sakura'
+import { VButton, VDrawer, VAffix } from '@calibur/sakura'
 import JsonContent from '~/components/editor/JsonContent'
 import UserFollowBtn from '~/components/button/UserFollowBtn'
 import UserAvatar from '~/components/user/UserAvatar'
@@ -113,6 +124,7 @@ import UserNickname from '~/components/user/UserNickname'
 export default {
   name: 'PinShow',
   components: {
+    VAffix,
     VButton,
     VDrawer,
     UserFollowBtn,
