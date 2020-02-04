@@ -22,7 +22,6 @@ import checklist from './parser/checklist'
 import link from './parser/link'
 import baidu from './parser/baidu'
 import vote from './parser/vote'
-import Copyright from '~/assets/js/copyright'
 
 export default {
   name: 'JsonContent',
@@ -54,10 +53,6 @@ export default {
       type: String,
       default: ''
     }
-  },
-  mounted() {
-    const copyright = new Copyright()
-    copyright.bind(this.$el)
   }
 }
 </script>
