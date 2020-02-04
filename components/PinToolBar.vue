@@ -71,7 +71,7 @@
         <div class="comment" @click="handleCommentClick">
           <span>说点什么</span>
         </div>
-        <div class="tool-item">
+        <div class="tool-item" @click="pageScroll">
           <i class="iconfont ic-message" />
           <p v-text="commentCount || '评论'" />
         </div>
@@ -93,6 +93,8 @@
 </template>
 
 <script>
+import { VScrolly } from '@calibur/sakura'
+
 export default {
   name: 'PinToolBar',
   components: {},
@@ -117,6 +119,9 @@ export default {
   methods: {
     handleCommentClick() {
       this.$emit('comment')
+    },
+    pageScroll() {
+      VScrolly(document.querySelector('.comment-main').offsetTop - 40, window, 2000)
     }
   }
 }
