@@ -110,7 +110,7 @@
       </div>
     </VAffix>
     <JsonContent :slug="slug" :content="content" :reward="reward_status" :vote="vote_hash" />
-    <CommentMain :slug="slug" />
+    <CommentMain ref="comment" :slug="slug" />
     <PinToolBar
       v-if="author"
       :slug="slug"
@@ -122,6 +122,7 @@
       :mark-status="mark_status"
       :author-slug="author.slug"
       :reward-status="reward_status"
+      @comment="handleCreateComment"
     />
   </div>
 </template>
@@ -210,6 +211,9 @@ export default {
           this[`${type}_status`] = result > 0
         }
       })
+    },
+    handleCreateComment() {
+      this.$refs.comment.showForm()
     },
     handleBangumiClick() {
       this.$bridge.navigateTo({
