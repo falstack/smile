@@ -8,10 +8,6 @@
 export default {
   name: 'PinRewardBtn',
   props: {
-    value: {
-      type: [String, Number],
-      required: true
-    },
     pinSlug: {
       type: String,
       required: true
@@ -19,11 +15,6 @@ export default {
     userSlug: {
       type: String,
       required: true
-    }
-  },
-  data() {
-    return {
-      count: +this.value
     }
   },
   computed: {
@@ -35,14 +26,6 @@ export default {
     },
     user() {
       return this.$store.state.user
-    }
-  },
-  watch: {
-    value(val) {
-      this.count = +val
-    },
-    count(val) {
-      this.$emit('input', val)
     }
   },
   methods: {
@@ -86,16 +69,19 @@ export default {
             }
           })
           if (data.success) {
-            this.count += data.result
+            this.$channel.$emit('pin-toggle', {
+              type: 'reward',
+              result: data.result
+            })
             if (hasVirtualCoin) {
               this.$store.commit('UPDATE_USER_INFO', {
                 key: 'wallet_coin',
-                value: this.$store.state.user.wallet_coin - 1
+                value: this.user.wallet_coin - 1
               })
             } else {
               this.$store.commit('UPDATE_USER_INFO', {
                 key: 'wallet_money',
-                value: this.$store.state.user.wallet_money - 1
+                value: this.user.wallet_money - 1
               })
             }
           } else {

@@ -198,8 +198,19 @@ export default {
   beforeMount() {
     this.patchPin()
     this.patchUser()
+    this.watchPinToggle()
   },
   methods: {
+    watchPinToggle() {
+      this.$channel.$on('pin-toggle', ({ type, result }) => {
+        this[`${type}_count`] += result
+        if (type === 'like') {
+          this.up_vote_status = result > 0
+        } else {
+          this[`${type}_status`] = result > 0
+        }
+      })
+    },
     handleBangumiClick() {
       this.$bridge.navigateTo({
         url: `/pages/bangumi/show/index?slug=${this.bangumi.slug}`

@@ -72,15 +72,12 @@
     <div class="pin-tool-shim" />
     <div class="pin-tool-wrap">
       <div class="pin-tool-core">
-        <div class="comment" @click="handleCommentClick">
-          <span>说点什么</span>
-        </div>
+        <div class="comment" @click="handleCommentClick">说点什么</div>
         <div class="tool-item" @click="pageScroll">
           <i class="iconfont ic-talk" />
           <p v-text="commentCount" />
         </div>
         <PinRewardBtn
-          v-model="rewardCount"
           :pin-slug="slug"
           :user-slug="authorSlug"
           :class="{ active: rewardStatus }"
@@ -95,8 +92,7 @@
           <p v-text="markCount" />
         </div>
         -->
-        <PinVoteBtn
-          v-model="likeCount"
+        <PinLikeBtn
           :pin-slug="slug"
           :user-slug="authorSlug"
           :class="{ active: likeStatus }"
@@ -104,7 +100,7 @@
         >
           <i class="iconfont ic-good" />
           <p v-text="likeCount" />
-        </PinVoteBtn>
+        </PinLikeBtn>
       </div>
     </div>
   </div>
@@ -113,12 +109,12 @@
 <script>
 import { VScrolly } from '@calibur/sakura'
 import PinRewardBtn from '~/components/button/PinRewardBtn'
-import PinVoteBtn from '~/components/button/PinVoteBtn'
+import PinLikeBtn from '~/components/button/PinLikeBtn'
 
 export default {
   name: 'PinToolBar',
   components: {
-    PinVoteBtn,
+    PinLikeBtn,
     PinRewardBtn
   },
   props: {

@@ -1,17 +1,13 @@
 <template>
-  <div class="pin-vote-btn" @click="upvote">
+  <div class="pin-like-btn" @click="upvote">
     <slot />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'PinVoteBtn',
+  name: 'PinLikeBtn',
   props: {
-    value: {
-      type: [String, Number],
-      required: true
-    },
     pinSlug: {
       type: String,
       required: true
@@ -21,25 +17,12 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      count: +this.value
-    }
-  },
   computed: {
     state() {
       return this.$store.getters['social/get']('pin', this.pinSlug)
     },
     isMine() {
       return this.$store.getters.isMine(this.userSlug)
-    }
-  },
-  watch: {
-    value(val) {
-      this.count = +val
-    },
-    count(val) {
-      this.$emit('input', val)
     }
   },
   methods: {
@@ -66,7 +49,10 @@ export default {
         }
       })
       if (data.success) {
-        this.count += data.result
+        this.$channel.$emit('pin-toggle', {
+          type: 'like',
+          result: data.result
+        })
       } else {
         this.$toast.error('服务器休息中')
       }
