@@ -14,7 +14,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@calibur/sakura": "^1.0.18",
+    "@calibur/sakura": "^1.1.1",
     "@codexteam/ajax": "^4.1.0",
     "@editorjs/checklist": "^1.1.0",
     "@editorjs/delimiter": "^1.1.0",
