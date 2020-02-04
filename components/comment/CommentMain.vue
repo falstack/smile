@@ -31,10 +31,21 @@
 
   .flow-loader-state {
     &-nothing {
+      margin: 50px 0;
+
       p {
         font-size: 12px;
         margin-top: 10px;
         color: $color-text-3;
+      }
+    }
+
+    &-loading {
+      img {
+        display: block;
+        margin: 50px auto;
+        width: 150px;
+        height: auto;
       }
     }
   }
@@ -44,7 +55,14 @@
 <template>
   <div class="comment-main">
     <div class="hr" />
-    <FlowLoader ref="loader" func="getPinComments" type="page" :query="query" :callback="handlePatch">
+    <FlowLoader
+      ref="loader"
+      func="getPinComments"
+      type="page"
+      :query="query"
+      :callback="handlePatch"
+      use-first-loading
+    >
       <header slot="header" slot-scope="{ source }" class="comment-header">
         <h2 class="total" v-text="`评论 ${source.total}`" />
         <span v-if="sortable" class="sort" v-text="sorts.find(_ => _.value === sort).label" />
@@ -62,6 +80,9 @@
       <template slot="nothing">
         <img src="~assets/img/error/no-comment.png">
         <p>还没有评论，快来抢沙发吧！</p>
+      </template>
+      <template slot="first-loading">
+        <img src="~assets/img/loading.gif">
       </template>
     </FlowLoader>
   </div>
