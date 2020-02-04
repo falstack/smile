@@ -45,7 +45,8 @@
         color: $color-text-3;
 
         .cc {
-          margin-right: 5px;
+          margin-right: 3px;
+          margin-left: 3px;
         }
       }
     }
@@ -65,7 +66,7 @@
 </style>
 
 <template>
-  <li class="comment-item">
+  <li :id="`comment-${item.id}`" class="comment-item">
     <aside>
       <UserAvatar :user="item.author" />
     </aside>
@@ -74,20 +75,17 @@
         <div class="intro">
           <UserNickname :user="item.author" />
           <div class="desc">
-            <time v-text="$utils.timeAgo(item.created_at)" />
+            <span v-text="$utils.timeAgo(item.created_at)" />
             <template v-if="item.getter">
               <span class="cc">回复</span>
-              <span class="fade-link" @click="clickGetter" v-html="item.getter.nickname" />
+              <span @click="clickGetter" v-html="item.getter.nickname" />
             </template>
           </div>
         </div>
         <span />
       </header>
-      <JsonContent :content="item.content" />
+      <JsonContent :content="item.content" @click.native="commentClick" />
       <footer>
-        <div @click="showCreate = !showCreate">
-          <i class="iconfont ic-talk" />
-        </div>
         <div v-if="isMine || isAdmin" @click="deleteComment">
           <i class="iconfont ic-trash" />
         </div>
@@ -120,7 +118,6 @@ export default {
   },
   data() {
     return {
-      showCreate: false,
       deleting: false,
       loading: false
     }
@@ -134,12 +131,15 @@ export default {
     }
   },
   methods: {
-    handleCreate(value) {
+    commentClick() {
+      if (this.isMine) {
+        this.$emit('create')
+        return
+      }
       this.$emit('create', {
-        id: this.item.id,
-        value
+        comment_id: this.item.id,
+        target: this.item.author
       })
-      this.showCreate = false
     },
     clickAgree() {
       if (!this.$store.state.isAuth) {

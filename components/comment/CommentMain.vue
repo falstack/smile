@@ -49,6 +49,18 @@
       }
     }
   }
+
+  .v-dialog {
+    border-radius: 5px;
+
+    .footer {
+      padding: 0 $page-padding $page-padding;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
 }
 </style>
 
@@ -72,28 +84,50 @@
           v-for="item in flow"
           :key="item.id"
           :item="item"
-          @create="createInner"
+          @create="showForm"
           @delete="handleDelete"
           @agree="handleAgree"
         />
       </ul>
       <template slot="nothing">
-        <img src="~assets/img/error/no-comment.png">
+        <img src="~assets/img/error/no-comment.png" @click="showForm({})">
         <p>还没有评论，快来抢沙发吧！</p>
       </template>
       <template slot="first-loading">
         <img src="~assets/img/loading.gif">
       </template>
     </FlowLoader>
+    <VDialog
+      v-model="showCreateForm"
+      height="auto"
+    >
+      <VField
+        v-model="replyForm.content"
+        :placeholder="replyUser ? `回复：${replyUser.nickname}` : '发布评论'"
+        :max-len="1500"
+        :max-row="6"
+        :min-row="3"
+      />
+      <div class="footer">
+        <span />
+        <VButton size="small" @click="createComment">
+          发送
+        </VButton>
+      </div>
+    </VDialog>
   </div>
 </template>
 
 <script>
+import { VDialog, VField, VButton } from '@calibur/sakura'
 import CommentItem from '~/components/comment/CommentItem'
 
 export default {
   name: 'CommentMain',
   components: {
+    VField,
+    VDialog,
+    VButton,
     CommentItem
   },
   props: {
@@ -108,7 +142,16 @@ export default {
   },
   data() {
     return {
-      sort: 'time_asc'
+      sort: 'time_asc',
+      replyForm: {
+        images: [],
+        content: '',
+        comment_id: '',
+        pin_slug: this.slug
+      },
+      replyUser: null,
+      creating: false,
+      showCreateForm: false
     }
   },
   computed: {
@@ -139,8 +182,46 @@ export default {
     }
   },
   methods: {
-    createInner(data) {
-      this.$refs.loader.insertAfter(data)
+    showForm(params = {}) {
+      if (!this.$store.state.isAuth) {
+        this.$channel.$emit('sign-in')
+        return
+      }
+      const commentId = params.comment_id || ''
+      if (commentId !== this.replyForm.comment_id) {
+        this.replyForm.content = ''
+        this.replyForm.images = []
+      }
+      this.replyForm.comment_id = commentId
+      this.replyUser = params.target || null
+      this.showCreateForm = true
+    },
+    createComment() {
+      if (!this.replyForm.content || this.creating) {
+        return
+      }
+      this.creating = true
+      this.$axios
+        .$post('v1/comment/create', this.replyForm)
+        .then((value) => {
+          if (this.replyUser) {
+            this.$refs.loader.insertAfter({
+              id: this.replyForm.comment_id,
+              value
+            })
+          } else {
+            this.$refs.loader.append(value)
+          }
+          this.replyForm.content = ''
+          this.replyForm.images = []
+          this.creating = false
+          this.showCreateForm = false
+        })
+        .catch((err) => {
+          this.$toast.error(err.message)
+          this.creating = false
+          this.showCreateForm = false
+        })
     },
     handleAgree({ id, result, count }) {
       this.$refs.loader.update({
