@@ -2,7 +2,16 @@
 .comment-item {
   &:not(:last-child) {
     main {
-      border-bottom: 1px solid $color-gray-border;
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background-color: $color-gray-border;
+        transform: scaleY(0.5);
+      }
     }
   }
 
@@ -13,6 +22,7 @@
   }
 
   main {
+    position: relative;
     overflow: hidden;
     padding: $page-padding 0;
 
@@ -41,7 +51,8 @@
     }
 
     footer {
-      button {
+      div {
+        display: inline-block;
         margin-right: 18px;
       }
 
@@ -74,16 +85,16 @@
       </header>
       <JsonContent :content="item.content" />
       <footer>
-        <button @click="showCreate = !showCreate">
+        <div @click="showCreate = !showCreate">
           <i class="iconfont ic-message" />
-        </button>
-        <button v-if="isMine || isAdmin" @click="deleteComment">
+        </div>
+        <div v-if="isMine || isAdmin" @click="deleteComment">
           <i class="iconfont ic-trash" />
-        </button>
-        <button @click="clickAgree">
+        </div>
+        <div @click="clickAgree">
           <i class="iconfont" :class="[item.up_vote_status ? 'ic-good_fill' : 'ic-good']" />
           <span v-if="item.like_count" v-text="item.like_count" />
-        </button>
+        </div>
       </footer>
     </main>
   </li>

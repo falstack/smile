@@ -1,7 +1,6 @@
 <style lang="scss" module>
 .image {
   padding: 0.7em 0;
-  margin: 0 -$page-padding;
   text-align: center;
 
   picture {

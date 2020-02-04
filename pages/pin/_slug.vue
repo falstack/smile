@@ -111,6 +111,13 @@
     </VAffix>
     <JsonContent :slug="slug" :content="content" :reward="reward_status" :vote="vote_hash" />
     <CommentMain :slug="slug" />
+    <PinToolBar
+      :slug="slug"
+      :comment-count="comment_count"
+      :like-count="like_count"
+      :mark-count="mark_count"
+      :reward-count="reward_count"
+    />
   </div>
 </template>
 
@@ -121,6 +128,7 @@ import UserFollowBtn from '~/components/button/UserFollowBtn'
 import UserAvatar from '~/components/user/UserAvatar'
 import UserNickname from '~/components/user/UserNickname'
 import CommentMain from '~/components/comment/CommentMain'
+import PinToolBar from '~/components/PinToolBar'
 
 export default {
   name: 'PinShow',
@@ -132,7 +140,8 @@ export default {
     UserAvatar,
     UserNickname,
     JsonContent,
-    CommentMain
+    CommentMain,
+    PinToolBar
   },
   asyncData({ app, error, params }) {
     return app.$axios
