@@ -112,11 +112,16 @@
     <JsonContent :slug="slug" :content="content" :reward="reward_status" :vote="vote_hash" />
     <CommentMain :slug="slug" />
     <PinToolBar
+      v-if="author"
       :slug="slug"
       :comment-count="comment_count"
       :like-count="like_count"
       :mark-count="mark_count"
       :reward-count="reward_count"
+      :like-status="up_vote_status"
+      :mark-status="mark_status"
+      :author-slug="author.slug"
+      :reward-status="reward_status"
     />
   </div>
 </template>
@@ -168,13 +173,16 @@ export default {
       recommended_at: 0,
       published_at: '',
       last_edit_at: '',
-      reward_status: false,
-      like_count: 0,
       visit_count: 0,
-      mark_count: 0,
       comment_count: 0,
+      mark_count: 0,
       reward_count: 0,
+      like_count: 0,
       vote_hash: [],
+      up_vote_status: false,
+      down_vote_status: false,
+      mark_status: false,
+      reward_status: false,
       openEditDrawer: false,
       openAdminDrawer: false
     }

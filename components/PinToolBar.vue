@@ -1,6 +1,5 @@
 <style lang="scss">
 .pin-tool-bar {
-
   .pin-tool-wrap,
   .pin-tool-shim {
     height: 50px;
@@ -58,6 +57,11 @@
       padding-left: $page-padding / 2;
       padding-right: $page-padding / 2;
       font-size: 12px;
+      color: $color-text-3;
+
+      &.active {
+        color: #ff6881;
+      }
     }
   }
 }
@@ -72,21 +76,35 @@
           <span>说点什么</span>
         </div>
         <div class="tool-item" @click="pageScroll">
-          <i class="iconfont ic-message" />
-          <p v-text="commentCount || '评论'" />
+          <i class="iconfont ic-talk" />
+          <p v-text="commentCount" />
         </div>
-        <div class="tool-item">
-          <i class="iconfont ic-message" />
-          <p v-text="rewardCount || '投食'" />
+        <PinRewardBtn
+          v-model="rewardCount"
+          :pin-slug="slug"
+          :user-slug="authorSlug"
+          :class="{ active: rewardStatus }"
+          class="tool-item"
+        >
+          <i class="iconfont ic-reward" />
+          <p v-text="rewardCount" />
+        </PinRewardBtn>
+        <!--
+        <div class="tool-item" :class="{ active: markStatus }">
+          <i class="iconfont ic-mark" />
+          <p v-text="markCount" />
         </div>
-        <div class="tool-item">
-          <i class="iconfont ic-message" />
-          <p v-text="markCount || '收藏'" />
-        </div>
-        <div class="tool-item">
+        -->
+        <PinVoteBtn
+          v-model="likeCount"
+          :pin-slug="slug"
+          :user-slug="authorSlug"
+          :class="{ active: likeStatus }"
+          class="tool-item"
+        >
           <i class="iconfont ic-good" />
-          <p v-text="likeCount || '点赞'" />
-        </div>
+          <p v-text="likeCount" />
+        </PinVoteBtn>
       </div>
     </div>
   </div>
@@ -94,11 +112,20 @@
 
 <script>
 import { VScrolly } from '@calibur/sakura'
+import PinRewardBtn from '~/components/button/PinRewardBtn'
+import PinVoteBtn from '~/components/button/PinVoteBtn'
 
 export default {
   name: 'PinToolBar',
-  components: {},
+  components: {
+    PinVoteBtn,
+    PinRewardBtn
+  },
   props: {
+    slug: {
+      type: String,
+      default: ''
+    },
     commentCount: {
       type: Number,
       default: 0
@@ -114,6 +141,22 @@ export default {
     rewardCount: {
       type: Number,
       default: 0
+    },
+    likeStatus: {
+      type: Boolean,
+      default: false
+    },
+    markStatus: {
+      type: Boolean,
+      default: false
+    },
+    rewardStatus: {
+      type: Boolean,
+      default: false
+    },
+    authorSlug: {
+      type: String,
+      default: ''
     }
   },
   methods: {

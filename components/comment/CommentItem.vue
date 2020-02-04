@@ -86,13 +86,13 @@
       <JsonContent :content="item.content" />
       <footer>
         <div @click="showCreate = !showCreate">
-          <i class="iconfont ic-message" />
+          <i class="iconfont ic-talk" />
         </div>
         <div v-if="isMine || isAdmin" @click="deleteComment">
           <i class="iconfont ic-trash" />
         </div>
         <div @click="clickAgree">
-          <i class="iconfont" :class="[item.up_vote_status ? 'ic-good_fill' : 'ic-good']" />
+          <i class="iconfont ic-good" />
           <span v-if="item.like_count" v-text="item.like_count" />
         </div>
       </footer>
