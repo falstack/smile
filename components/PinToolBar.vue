@@ -72,7 +72,9 @@
     <div class="pin-tool-shim" />
     <div class="pin-tool-wrap">
       <div class="pin-tool-core">
-        <div class="comment" @click="handleCommentClick">说点什么</div>
+        <div class="comment" @click="handleCommentClick">
+          说点什么
+        </div>
         <div class="tool-item" @click="pageScroll">
           <i class="iconfont ic-talk" />
           <p v-text="commentCount" />
@@ -160,7 +162,7 @@ export default {
       this.$emit('comment')
     },
     pageScroll() {
-      VScrolly(document.querySelector('.comment-main').offsetTop - 40, window, 2000)
+      VScrolly(document.querySelector('.comment-main').offsetTop - 40)
     }
   }
 }
