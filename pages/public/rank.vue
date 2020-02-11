@@ -36,8 +36,10 @@ export default {
   created() {},
   mounted() {},
   methods: {},
-  head: {
-    title: '榜单'
+  head() {
+    return {
+      title: '榜单'
+    }
   }
 }
 </script>

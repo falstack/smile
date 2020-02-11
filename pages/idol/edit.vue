@@ -1,18 +1,12 @@
 <style lang="scss">
 #edit-idol {
-  padding: 15px;
+  padding: $page-padding;
 
-  .avatar-field {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+  .alias {
+    line-height: 44px;
 
-    .avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 10%;
-      margin-right: 15px;
+    button {
+      margin-right: 5px;
     }
   }
 }
@@ -20,40 +14,37 @@
 
 <template>
   <div v-if="idol" id="edit-idol">
-    <div ref="form" label-position="top" label-width="80px">
-      <div label="名称">
-        <VField v-model="idol.name" disabled />
-      </div>
-      <div label="头像">
-        <div class="avatar-field">
-          <img :src="$resize(idol.avatar, { width: 100 })" class="avatar">
-          <VUploader
-            :show-file-list="false"
-            :action="imageUploadAction"
-            :limit="uploadImageLimit"
-            :data="uploadHeaders"
-            :accept="imageUploadAccept"
-            :before-upload="handleImageUploadBefore"
-            :on-success="avatarUploadSuccess"
-            :on-error="handleImageUploadError"
-          >
-            <VButton :loading="!!uploadPending" type="success" plain round size="mini">
-              {{ uploadPending ? '图片上传中...' : '点击上传头像' }}
-            </VButton>
-          </VUploader>
-        </div>
-      </div>
-      <div label="别名">
-        {{ idol.alias }}
-      </div>
-      <div label="简介">
-        <VField v-model="idol.intro" type="textarea" rows="4" resize="vertical" />
-      </div>
-      <div>
-        <VButton @click="handleSubmit">
-          提交
+    <VField v-model="idol.name" disabled label="名称" />
+    <VField v-model="idol.avatar" disabled label="头像">
+      <VUploader
+        v-model="idol.avatar"
+        :cookie="false"
+        required
+        :url="imageUploadAction"
+        :accept="imageUploadAccept"
+        :transform-request="imageUploadRequest"
+        :transform-response="imageUploadResponse"
+      />
+    </VField>
+    <VField v-model="alias" disabled label="别名">
+      <div class="alias">
+        <VButton v-for="name in idol.alias" :key="name" size="small" plain>
+          {{ name }}
         </VButton>
       </div>
+      <VField v-model="alias" :close="false">
+        <template #after>
+          <VButton @click="addAlias">
+            添加
+          </VButton>
+        </template>
+      </VField>
+    </VField>
+    <VField v-model="idol.intro" label="简介" :min-row="4" :max-row="10" />
+    <div>
+      <VButton block @click="handleSubmit">
+        提交
+      </VButton>
     </div>
   </div>
 </template>
@@ -64,7 +55,7 @@ import mustSign from '~/mixins/mustSign'
 import upload from '~/mixins/upload'
 
 export default {
-  name: 'EditBangumi',
+  name: 'EditIdol',
   components: {
     VButton,
     VUploader,
@@ -88,14 +79,11 @@ export default {
   data() {
     return {
       idol: null,
-      loading: false
+      loading: false,
+      alias: ''
     }
   },
   methods: {
-    avatarUploadSuccess(res, file) {
-      this.handleImageUploadSuccess(res, file)
-      this.idol.avatar = res.data.url
-    },
     handleSubmit() {
       if (this.loading) {
         return
@@ -112,10 +100,22 @@ export default {
         .finally(() => {
           this.loading = false
         })
+    },
+    addAlias() {
+      if (!this.alias) {
+        return
+      }
+      if (this.idol.alias.includes(this.alias)) {
+        return
+      }
+      this.idol.alias.push(this.alias)
+      this.alias = ''
     }
   },
-  head: {
-    title: '编辑偶像'
+  head() {
+    return {
+      title: '编辑偶像'
+    }
   }
 }
 </script>

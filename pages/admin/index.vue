@@ -52,8 +52,10 @@ export default {
         .catch()
     }
   },
-  head: {
-    title: '控制台'
+  head() {
+    return {
+      title: '控制台'
+    }
   }
 }
 </script>

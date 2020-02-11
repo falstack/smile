@@ -114,8 +114,10 @@ export default {
         })
     }
   },
-  head: {
-    title: '编辑番剧'
+  head() {
+    return {
+      title: '编辑番剧'
+    }
   }
 }
 </script>

@@ -175,8 +175,10 @@ export default {
       })
     }
   },
-  head: {
-    title: '创建角色'
+  head() {
+    return {
+      title: '创建角色'
+    }
   }
 }
 </script>

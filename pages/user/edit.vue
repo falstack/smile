@@ -300,8 +300,10 @@ export default {
       })
     }
   },
-  head: {
-    title: '个人简介'
+  head() {
+    return {
+      title: '个人简介'
+    }
   }
 }
 </script>

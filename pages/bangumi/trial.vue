@@ -138,8 +138,10 @@ export default {
       return result
     }
   },
-  head: {
-    title: '审核题目'
+  head() {
+    return {
+      title: '审核题目'
+    }
   }
 }
 </script>
