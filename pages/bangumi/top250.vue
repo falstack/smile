@@ -41,8 +41,10 @@ export default {
   created() {},
   mounted() {},
   methods: {},
-  head: {
-    title: '动漫排行榜'
+  head() {
+    return {
+      title: '动漫排行榜'
+    }
   }
 }
 </script>

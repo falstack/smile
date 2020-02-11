@@ -14,7 +14,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@calibur/sakura": "^1.1.2",
+    "@calibur/sakura": "^1.2.11",
     "@codexteam/ajax": "^4.1.0",
     "@editorjs/checklist": "^1.1.0",
     "@editorjs/delimiter": "^1.1.0",
@@ -33,7 +33,7 @@
     "vue-mixin-store": "^1.2.0"
   },
   "devDependencies": {
-    "@nuxtjs/eslint-config": "2.0.0",
+    "@nuxtjs/eslint-config": "2.0.2",
     "@nuxtjs/eslint-module": "1.1.0",
     "@nuxtjs/style-resources": "^1.0.0",
     "babel-eslint": "10.0.3",
@@ -42,9 +42,9 @@
     "eslint": "6.8.0",
     "eslint-config-standard": "14.1.0",
     "eslint-plugin-import": "2.20.1",
-    "eslint-plugin-jest": "23.6.0",
+    "eslint-plugin-jest": "23.7.0",
     "eslint-plugin-node": "11.0.0",
-    "eslint-plugin-nuxt": "0.5.0",
+    "eslint-plugin-nuxt": "0.5.1",
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-standard": "4.0.1",
     "eslint-plugin-vue": "6.1.2",

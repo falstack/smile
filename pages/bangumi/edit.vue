@@ -160,8 +160,10 @@ export default {
         .catch()
     }
   },
-  head: {
-    title: '番剧介绍'
+  head() {
+    return {
+      title: '番剧介绍'
+    }
   }
 }
 </script>

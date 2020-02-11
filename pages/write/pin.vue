@@ -450,8 +450,10 @@ export default {
         })
     }
   },
-  head: {
-    title: '投稿'
+  head() {
+    return {
+      title: '投稿'
+    }
   }
 }
 </script>
