@@ -28,8 +28,9 @@
     </VField>
     <VField v-model="alias" disabled label="别名">
       <div class="alias">
-        <VButton v-for="name in idol.alias" :key="name" size="small" plain>
-          {{ name }}
+        <VButton v-for="(name, index) in idol.alias" :key="name" size="small" plain>
+          <span v-text="name" />
+          <i class="bili-font ic_input_close" @click="removeAlias(index)" />
         </VButton>
       </div>
       <VField v-model="alias" :close="false">
@@ -40,12 +41,17 @@
         </template>
       </VField>
     </VField>
-    <VField v-model="idol.intro" label="简介" :min-row="4" :max-row="10" />
-    <div>
-      <VButton block @click="handleSubmit">
-        提交
-      </VButton>
-    </div>
+    <VField
+      v-model="idol.intro"
+      label="简介"
+      :min-row="4"
+      :max-row="10"
+      :max-len="500"
+      counter
+    />
+    <VButton block @click="handleSubmit">
+      提交
+    </VButton>
   </div>
 </template>
 
@@ -100,6 +106,9 @@ export default {
         .finally(() => {
           this.loading = false
         })
+    },
+    removeAlias(index) {
+      this.idol.alias.splice(index, 1)
     },
     addAlias() {
       if (!this.alias) {
