@@ -137,18 +137,24 @@ export default {
           }
         })
         .catch((err) => {
-          if (err.statusCode === 400) {
-            this.$toast.stop()
-            this.$confirm('该角色已存在，是否跳转？')
-              .then(() => {
-                this.$bridge.navigateTo({
-                  url: `/pages/idol/show/index?slug=${err.message}`
-                })
-              })
-              .catch(() => {})
+          if (err.statusCode !== 400) {
+            this.$toast.error(err.message)
             return
           }
-          return this.$toast.error(err.message)
+          this.$toast.stop()
+          this.$alert({
+            title: '角色已存在',
+            message: '是否跳转到相应页面？',
+            buttons: ['取消', '确定'],
+            callback: (index) => {
+              if (!index) {
+                return
+              }
+              this.$bridge.navigateTo({
+                url: `/pages/idol/show/index?slug=${err.message}`
+              })
+            }
+          })
         })
     },
     submit() {
