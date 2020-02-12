@@ -13,7 +13,7 @@
 </style>
 
 <template>
-  <div id="create-bangumi">
+  <VForm id="create-bangumi" :form="tag" :rule="rule" :loading="loading" @submit="handleSubmit">
     <VField label="类型" align="center">
       <VRadio
         v-model="tag.type"
@@ -27,7 +27,7 @@
     </VField>
     <VField v-model="tag.id" placeholder="bgm.tv 的资源 id" label="来源">
       <template #after>
-        <VButton :loading="submitting" size="small" @click="fetch">
+        <VButton :loading="loading" size="small" @click="fetch">
           抓取资源
         </VButton>
       </template>
@@ -67,14 +67,11 @@
       :max-len="500"
       counter
     />
-    <VButton :loading="submitting" block @click="handleSubmit">
-      提交
-    </VButton>
-  </div>
+  </VForm>
 </template>
 
 <script>
-import { VButton, VUploader, VRadio, VField } from '@calibur/sakura'
+import { VButton, VUploader, VRadio, VField, VForm } from '@calibur/sakura'
 import upload from '~/mixins/upload'
 
 export default {
@@ -83,10 +80,23 @@ export default {
     VButton,
     VUploader,
     VRadio,
-    VField
+    VField,
+    VForm
   },
   mixins: [upload],
   data() {
+    const validateAlias = (rule, value, callback) => {
+      if (!value || !value.length) {
+        callback(new Error('别名不能为空'))
+      }
+      if (value.some(_ => /,/.test(_))) {
+        callback(new Error('别名不能包含英文逗号'))
+      }
+      if (value.join('').length > 100) {
+        callback(new Error('别名最多100个字符'))
+      }
+      callback()
+    }
     return {
       tag: {
         id: '',
@@ -96,8 +106,14 @@ export default {
         intro: '',
         type: 0
       },
+      rule: {
+        alias: {
+          type: 'array',
+          validator: validateAlias
+        }
+      },
       alias: '',
-      submitting: false
+      loading: false
     }
   },
   methods: {
@@ -157,26 +173,22 @@ export default {
         })
     },
     handleSubmit() {
-      this.$refs.form.validate((valid) => {
-        if (valid) {
-          this.submitting = true
-          this.$axios
-            .$post('v1/bangumi/create', {
-              ...this.tag,
-              alias: [this.tag.name, ...this.tag.alias]
-            })
-            .then((slug) => {
-              this.$toast.info('创建成功')
-              this.$bridge.navigateTo({
-                url: `/pages/bangumi/show/index?slug=${slug}`
-              })
-            })
-            .catch((err) => {
-              this.$toast.error(err.message)
-              this.submitting = false
-            })
-        }
-      })
+      this.loading = true
+      this.$axios
+        .$post('v1/bangumi/create', {
+          ...this.tag,
+          alias: [this.tag.name, ...this.tag.alias]
+        })
+        .then((slug) => {
+          this.$toast.info('创建成功')
+          this.$bridge.navigateTo({
+            url: `/pages/bangumi/show/index?slug=${slug}`
+          })
+        })
+        .catch((err) => {
+          this.$toast.error(err.message)
+          this.loading = false
+        })
     }
   },
   head() {
