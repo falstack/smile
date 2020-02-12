@@ -15,7 +15,7 @@
 <template>
   <div v-if="idol" id="edit-idol">
     <VField v-model="idol.name" disabled label="名称" />
-    <VField v-model="idol.avatar" disabled label="头像">
+    <VField label="头像">
       <VUploader
         v-model="idol.avatar"
         :cookie="false"
@@ -26,7 +26,7 @@
         :transform-response="imageUploadResponse"
       />
     </VField>
-    <VField v-model="alias" disabled label="别名">
+    <VField label="别名">
       <div class="alias">
         <VButton v-for="(name, index) in idol.alias" :key="name" size="small" plain>
           <span v-text="name" />
@@ -49,7 +49,7 @@
       :max-len="500"
       counter
     />
-    <VButton block @click="handleSubmit">
+    <VButton :loading="submitting" block @click="handleSubmit">
       提交
     </VButton>
   </div>
@@ -85,16 +85,16 @@ export default {
   data() {
     return {
       idol: null,
-      loading: false,
+      submitting: false,
       alias: ''
     }
   },
   methods: {
     handleSubmit() {
-      if (this.loading) {
+      if (this.submitting) {
         return
       }
-      this.loading = true
+      this.submitting = true
       this.$axios
         .$post('v1/idol/update', this.idol)
         .then(() => {
@@ -104,7 +104,7 @@ export default {
           this.$toast.error(err.message)
         })
         .finally(() => {
-          this.loading = false
+          this.submitting = false
         })
     },
     removeAlias(index) {

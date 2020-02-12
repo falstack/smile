@@ -46,7 +46,7 @@
         <div :class="$style.title" class="oneline" v-text="item.name" />
       </div>
       <div :class="$style.extra">
-        <VRadio v-if="type === 'select'" v-model="isSelected" text="" circle readonly />
+        <VRadio v-if="type === 'select'" v-model="isSelected" label="" circle readonly />
       </div>
     </div>
   </div>

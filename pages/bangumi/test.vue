@@ -43,7 +43,7 @@
       </p>
     </div>
     <div label="答案">
-      <VRadio v-model="rightOpt" :text="rightAnswerOpts" />
+      <VRadio v-model="rightOpt" :label="rightAnswerOpts" />
     </div>
     <div>
       <VButton :loading="submitting" type="success" round @click="submit">
