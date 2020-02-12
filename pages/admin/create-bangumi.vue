@@ -1,82 +1,74 @@
 <style lang="scss">
 #create-bangumi {
-  padding: 15px;
+  padding: $page-padding;
+
+  .alias {
+    line-height: 44px;
+
+    button {
+      margin-right: 5px;
+    }
+  }
 }
 </style>
 
 <template>
   <div id="create-bangumi">
-    <div
-      ref="form"
-      :model="tag"
-      :rules="rules"
-      :disabled="submitting"
-      label-position="top"
-      class="edit-tag-info-form"
-    >
-      <div label="类型">
-        <VRadio
-          v-model="radio"
-          :text="[
-            { label: '动漫', value: 0 },
-            { label: '游戏', value: 1 },
-            { label: '其它', value: 9 }
-          ]"
-        />
-      </div>
-      <div label="来源" required>
-        <VField v-model="tag.id" placeholder="去 bgm.tv 寻找那个番剧吧！" />
-      </div>
-      <div>
-        <VButton :loading="submitting" type="success" round @click="fetch">
+    <VField label="类型">
+      <VRadio
+        v-model="radio"
+        :label="[
+          { label: '动漫', value: 0 },
+          { label: '游戏', value: 1 },
+          { label: '其它', value: 9 }
+        ]"
+      />
+    </VField>
+    <VField v-model="tag.id" placeholder="bgm.tv 的资源 id" label="来源">
+      <template #after>
+        <VButton :loading="submitting" size="small" @click="fetch">
           抓取资源
         </VButton>
-      </div>
-      <div label="头像" required>
-        <div class="avatar-field">
-          <img v-if="tag.avatar" :src="$resize(tag.avatar, { width: 100 })" class="avatar">
-          <VUploader
-            :show-file-list="false"
-            :action="imageUploadAction"
-            :limit="uploadImageLimit"
-            :data="uploadHeaders"
-            :accept="imageUploadAccept"
-            :before-upload="handleImageUploadBefore"
-            :on-success="avatarUploadSuccess"
-            :on-error="handleImageUploadError"
-          >
-            <VButton :loading="!!uploadPending" type="success" plain round size="mini">
-              {{ uploadPending ? '图片上传中...' : '点击上传封面' }}
-            </VButton>
-          </VUploader>
-        </div>
-      </div>
-      <div label="名称" required>
-        <VField v-model="tag.name" />
-      </div>
-      <div label="别名" prop="alias" required>
-        <p class="form-tip">
-          提示：按回车键生效
-        </p>
-        {{ tag.alias }}
-      </div>
-      <div label="简介" required>
-        <VField
-          v-model="tag.intro"
-          type="textarea"
-          :show-word-limit="true"
-          :rows="8"
-          maxlength="500"
-          resize="none"
-          placeholder="请输入板块介绍"
-        />
-      </div>
-      <div>
-        <VButton :loading="submitting" type="success" round @click="submit">
-          保存更改
+      </template>
+    </VField>
+    <VField v-model="tag.name" label="名称" />
+    <VField label="头像">
+      <VUploader
+        v-model="tag.avatar"
+        :cookie="false"
+        required
+        :url="imageUploadAction"
+        :accept="imageUploadAccept"
+        :transform-request="imageUploadRequest"
+        :transform-response="imageUploadResponse"
+      />
+    </VField>
+    <VField label="别名">
+      <div class="alias">
+        <VButton v-for="(name, index) in tag.alias" :key="name" size="small" plain>
+          <span v-text="name" />
+          <i class="bili-font ic_input_close" @click="removeAlias(index)" />
         </VButton>
       </div>
-    </div>
+      <VField v-model="alias" :close="false">
+        <template #after>
+          <VButton @click="addAlias">
+            添加
+          </VButton>
+        </template>
+      </VField>
+    </VField>
+    <VField
+      v-model="tag.intro"
+      label="简介"
+      :min-row="4"
+      :max-row="10"
+      :max-len="500"
+      counter
+    />
+    <VButton :loading="submitting" block @click="handleSubmit">
+      提交
+    </VButton>
   </div>
 </template>
 
@@ -121,13 +113,23 @@ export default {
       rules: {
         alias: [{ validator: validateAlias, trigger: 'submit' }]
       },
+      alias: '',
       submitting: false
     }
   },
   methods: {
-    avatarUploadSuccess(res, file) {
-      this.handleImageUploadSuccess(res, file)
-      this.tag.avatar = res.data.url
+    removeAlias(index) {
+      this.tag.alias.splice(index, 1)
+    },
+    addAlias() {
+      if (!this.alias) {
+        return
+      }
+      if (this.tag.alias.includes(this.alias)) {
+        return
+      }
+      this.tag.alias.push(this.alias)
+      this.alias = ''
     },
     fetch() {
       if (!this.tag.id) {
@@ -165,7 +167,7 @@ export default {
           return this.$toast.error(err.message)
         })
     },
-    submit() {
+    handleSubmit() {
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.submitting = true

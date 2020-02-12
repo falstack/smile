@@ -103,7 +103,7 @@
       <div label="性别">
         <VRadio
           v-model="sex"
-          :text="[
+          :label="[
             { label: '男', value: 1 },
             { label: '女', value: 2 }
           ]"
