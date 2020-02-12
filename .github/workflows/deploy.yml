@@ -68,7 +68,8 @@ jobs:
 
       - name: Install Qshell
         run: |
-          cd /usr/local/bin
+          echo $PATH
+          cd /opt/hostedtoolcache/node/12.16.0/x64/bin
           wget http://devtools.qiniu.com/qshell-darwin-x64-v2.4.1.zip
           unzip qshell-darwin-x64-v2.4.1.zip
           mv qshell-darwin-x64-v2.4.1 qshell
