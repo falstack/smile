@@ -68,13 +68,11 @@ jobs:
 
       - name: Install Qshell
         run: |
-          echo $PATH
           wget http://devtools.qiniu.com/qshell-darwin-x64-v2.4.1.zip
           unzip qshell-darwin-x64-v2.4.1.zip
           mv qshell-darwin-x64-v2.4.1 qshell
           chmod +x qshell
-          mv qshell /usr/local/sbin/qshell
-          qshell account ${{ secrets.QINIU_AK }} ${{ secrets.QINIU_SK }} falstack
+          ./qshell account ${{ secrets.QINIU_AK }} ${{ secrets.QINIU_SK }} falstack
 
       - name: Upload
         run: qshell qupload qiniu.json
