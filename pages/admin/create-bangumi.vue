@@ -14,9 +14,10 @@
 
 <template>
   <div id="create-bangumi">
-    <VField label="类型">
+    <VField label="类型" align="center">
       <VRadio
-        v-model="radio"
+        v-model="tag.type"
+        inline
         :label="[
           { label: '动漫', value: 0 },
           { label: '游戏', value: 1 },
@@ -86,32 +87,14 @@ export default {
   },
   mixins: [upload],
   data() {
-    const validateAlias = (rule, value, callback) => {
-      if (!value || !value.length) {
-        callback(new Error('别名不能为空'))
-      }
-      if (!~value.indexOf(this.tag.name)) {
-        callback(new Error('别名中必须包含名称'))
-      }
-      if (value.some(_ => /,/.test(_))) {
-        callback(new Error('别名不能包含英文逗号'))
-      }
-      if (value.join('').length > 100) {
-        callback(new Error('别名最多100个字符'))
-      }
-      callback()
-    }
     return {
-      radio: 0,
       tag: {
         id: '',
         avatar: '',
         name: '',
         alias: [],
-        intro: ''
-      },
-      rules: {
-        alias: [{ validator: validateAlias, trigger: 'submit' }]
+        intro: '',
+        type: 0
       },
       alias: '',
       submitting: false
@@ -153,18 +136,24 @@ export default {
           this.$toast.stop()
         })
         .catch((err) => {
-          if (err.statusCode === 400) {
-            this.$toast.stop()
-            this.$confirm('该番剧已存在，是否跳转？')
-              .then(() => {
-                this.$bridge.navigateTo({
-                  url: `/pages/bangumi/show/index?slug=${err.message}`
-                })
-              })
-              .catch(() => {})
+          if (err.statusCode !== 400) {
+            this.$toast.error(err.message)
             return
           }
-          return this.$toast.error(err.message)
+          this.$toast.stop()
+          this.$alert({
+            title: '番剧已存在',
+            message: '是否跳转到相应页面？',
+            buttons: ['取消', '确定'],
+            callback: (index) => {
+              if (!index) {
+                return
+              }
+              this.$bridge.navigateTo({
+                url: `/pages/bangumi/show/index?slug=${err.message}`
+              })
+            }
+          })
         })
     },
     handleSubmit() {
