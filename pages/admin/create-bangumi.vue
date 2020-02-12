@@ -1,6 +1,6 @@
 <style lang="scss">
 #create-bangumi {
-  padding: $page-padding;
+  padding: $page-padding 0;
 
   .alias {
     line-height: 44px;
