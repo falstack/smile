@@ -68,6 +68,7 @@ jobs:
 
       - name: Install Qshell
         run: |
+          cat ~/.bashrc
           wget http://devtools.qiniu.com/qshell-darwin-x64-v2.4.1.zip
           unzip qshell-darwin-x64-v2.4.1.zip
           mv qshell-darwin-x64-v2.4.1 qshell
