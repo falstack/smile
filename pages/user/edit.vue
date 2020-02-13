@@ -10,8 +10,8 @@
     id="user-edit"
     :form="user"
     :rule="rule"
-    :loading="submitting"
-    @submit="submit"
+    :loading="loading"
+    @submit="handleSubmit"
   >
     <VField label="头像">
       <VUploader
@@ -127,7 +127,7 @@ export default {
       callback()
     }
     return {
-      submitting: false,
+      loading: false,
       rule: {
         nickname: [{ validator: validateNickname, trigger: 'submit' }],
         signature: [{ validator: validateSignature, trigger: 'submit' }],
@@ -210,48 +210,30 @@ export default {
     }
   },
   methods: {
-    avatarUploadSuccess(res, file) {
-      this.handleImageUploadSuccess(res, file)
-      this.$store.commit('UPDATE_USER_INFO', {
-        key: 'avatar',
-        value: res.data.url
+    handleSubmit() {
+      if (this.loading) {
+        return
+      }
+      this.loading = true
+      settingProfile(this, {
+        nickname: this.nickname,
+        signature: this.signature,
+        birthday: new Date(this.$utils.adjustDate(this.birthday)).getTime() / 1000,
+        birth_secret: this.birthSecret,
+        sex_secret: this.sexSecret,
+        sex: this.sex,
+        avatar: this.user.avatar,
+        banner: this.user.banner
       })
-    },
-    bannerUploadSuccess(res, file) {
-      this.handleImageUploadSuccess(res, file)
-      this.$store.commit('UPDATE_USER_INFO', {
-        key: 'banner',
-        value: res.data.url
-      })
-    },
-    submit() {
-      this.$refs.form.validate(async(valid) => {
-        if (valid) {
-          if (this.submitting) {
-            return
-          }
-          this.submitting = true
-          try {
-            await settingProfile(this, {
-              nickname: this.nickname,
-              signature: this.signature,
-              birthday: new Date(this.$utils.adjustDate(this.birthday)).getTime() / 1000,
-              birth_secret: this.birthSecret,
-              sex_secret: this.sexSecret,
-              sex: this.sex,
-              avatar: this.user.avatar,
-              banner: this.user.banner
-            })
-            this.$toast.success('设置成功')
-          } catch (err) {
-            this.$toast.error(err.message)
-          } finally {
-            this.submitting = false
-          }
-        } else {
-          return false
-        }
-      })
+        .then(() => {
+          this.$toast.success('设置成功')
+        })
+        .catch((err) => {
+          this.$toast.error(err.message)
+        })
+        .finally(() => {
+          this.loading = false
+        })
     }
   },
   head() {
