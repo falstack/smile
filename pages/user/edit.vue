@@ -1,129 +1,83 @@
 <style lang="scss">
 #user-edit {
-  padding: 20px;
-
-  .avatar-field {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-
-    .avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin-right: 15px;
-    }
-  }
-
-  .banner-field {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-
-    .banner-wrap {
-      margin-right: 15px;
-    }
-
-    .banner {
-      width: auto;
-      height: 100px;
-      border-radius: 12px;
-    }
-  }
+  padding: $page-padding 0;
 }
 </style>
 
 <template>
-  <div id="user-edit">
-    <div
-      v-if="isAuth"
-      ref="form"
-      :disabled="submitting"
-      :model="user"
-      :rules="rule"
-      label-position="top"
-    >
-      <div label="头像">
-        <div class="avatar-field">
-          <img :src="$resize(user.avatar, { width: 100 })" class="avatar">
-          <VUploader
-            :show-file-list="false"
-            :action="imageUploadAction"
-            :limit="uploadImageLimit"
-            :data="uploadHeaders"
-            :accept="imageUploadAccept"
-            :before-upload="handleImageUploadBefore"
-            :on-success="avatarUploadSuccess"
-            :on-error="handleImageUploadError"
-          >
-            <VButton :loading="!!uploadPending" type="success" plain round size="mini">
-              {{ uploadPending ? '图片上传中...' : '点击更换头像' }}
-            </VButton>
-          </VUploader>
-        </div>
-      </div>
-      <div label="背景">
-        <div class="banner-field">
-          <div class="banner-wrap">
-            <img :src="$resize(user.banner, { height: 100, mode: 2 })" class="banner">
-          </div>
-          <VUploader
-            :show-file-list="false"
-            :action="imageUploadAction"
-            :limit="uploadImageLimit"
-            :data="uploadHeaders"
-            :accept="imageUploadAccept"
-            :before-upload="handleImageUploadBefore"
-            :on-success="bannerUploadSuccess"
-            :on-error="handleImageUploadError"
-          >
-            <VButton :loading="!!uploadPending" type="success" plain round size="mini">
-              {{ uploadPending ? '图片上传中...' : '点击更换背景' }}
-            </VButton>
-          </VUploader>
-        </div>
-      </div>
-      <div label="昵称" prop="nickname">
-        <VField v-model.trim="nickname" />
-      </div>
-      <div label="生日" prop="birthday">
-        <VDatetime
-          v-model="birthday"
-          :editable="false"
-          :clearable="false"
-          type="date"
-          format="yyyy 年 M 月 d 日"
-          value-format="yyyy-MM-dd"
-          placeholder="选择生日"
-        />
-        <VToggle v-model="birthSecret" active-text="私密" inactive-text="公开" />
-      </div>
-      <div label="性别">
-        <VRadio
-          v-model="sex"
-          :label="[
-            { label: '男', value: 1 },
-            { label: '女', value: 2 }
-          ]"
-        />
+  <VForm
+    v-if="isAuth"
+    id="user-edit"
+    :form="user"
+    :rule="rule"
+    :loading="submitting"
+    @submit="submit"
+  >
+    <VField label="头像">
+      <VUploader
+        v-model="user.avatar"
+        :cookie="false"
+        required
+        :url="imageUploadAction"
+        :accept="imageUploadAccept"
+        :transform-request="imageUploadRequest"
+        :transform-response="imageUploadResponse"
+      />
+    </VField>
+    <VField label="背景">
+      <VUploader
+        v-model="user.banner"
+        :cookie="false"
+        required
+        :url="imageUploadAction"
+        :accept="imageUploadAccept"
+        :transform-request="imageUploadRequest"
+        :transform-response="imageUploadResponse"
+      />
+    </VField>
+    <VField v-model="nickname" label="昵称" />
+    <VField label="生日" align="center">
+      <VDatetime
+        v-model="birthday"
+        :editable="false"
+        :clearable="false"
+        type="date"
+        format="yyyy 年 M 月 d 日"
+        value-format="yyyy-MM-dd"
+        placeholder="选择生日"
+      />
+      <template slot="after">
+        <span>{{ birthSecret ? '私密' : '公开' }}</span>
+        <VToggle v-model="birthSecret" />
+      </template>
+    </VField>
+    <VField label="性别" align="center">
+      <VRadio
+        v-model="sex"
+        inline
+        :label="[
+          { label: '男', value: 1 },
+          { label: '女', value: 2 }
+        ]"
+      />
+      <template slot="after">
+        <span>{{ sexSecret ? '私密' : '公开' }}</span>
         <VToggle v-model="sexSecret" active-text="私密" inactive-text="公开" />
-      </div>
-      <div label="签名" prop="signature">
-        <VField v-model="signature" :rows="5" type="textarea" placeholder="留下自己想说的话" maxlength="60" />
-      </div>
-      <div>
-        <VButton :loading="submitting" type="primary" @click="submit">
-          提交
-        </VButton>
-      </div>
-    </div>
-  </div>
+      </template>
+    </VField>
+    <VField
+      v-model="signature"
+      label="签名"
+      placeholder="留下自己想说的话"
+      :min-row="4"
+      :max-len="20"
+      counter
+    />
+  </VForm>
 </template>
 
 <script>
-import { VButton, VField, VDatetime, VUploader, VToggle, VRadio } from '@calibur/sakura'
+import { VField, VDatetime, VUploader, VToggle, VRadio, VForm } from '@calibur/sakura'
 import { settingProfile } from '~/api/userApi'
 import upload from '~/mixins/upload'
 import mustSign from '~/mixins/mustSign'
@@ -131,8 +85,8 @@ import mustSign from '~/mixins/mustSign'
 export default {
   name: 'UserEdit',
   components: {
+    VForm,
     VField,
-    VButton,
     VDatetime,
     VUploader,
     VToggle,
