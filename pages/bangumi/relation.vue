@@ -1,34 +1,25 @@
-<style lang="scss">
-#relation-bangumi {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-</style>
-
 <template>
-  <div v-if="bangumi" id="relation-bangumi">
-    <p>
-      <span>作为父节点：</span>
-      <VToggle v-model="bangumi.is_parent" @change="handleParentChange" />
-    </p>
-    <p>
-      <span>设置父节点：</span>
-      <VField v-model="bangumi.parent_slug" />
-      <VButton @click="handleSetParent">
+  <VForm v-if="bangumi" id="relation-bangumi" full>
+    <VField disabled placeholder="开启后，可作为其他版块的父节点">
+      <span slot="before">作为父节点</span>
+      <VToggle slot="after" v-model="bangumi.is_parent" @change="handleParentChange" />
+    </VField>
+    <VField v-model="bangumi.parent_slug" label="设置父节点" placeholder="填写父节点的 ID">
+      <VButton slot="after" size="small" @click="handleSetParent">
         确认
       </VButton>
-    </p>
-  </div>
+    </VField>
+    <span slot="submit" />
+  </VForm>
 </template>
 
 <script>
-import { VToggle, VField, VButton } from '@calibur/sakura'
+import { VToggle, VField, VButton, VForm } from '@calibur/sakura'
 
 export default {
   name: 'EditBangumi',
   components: {
+    VForm,
     VToggle,
     VField,
     VButton
