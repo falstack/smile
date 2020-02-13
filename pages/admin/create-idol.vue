@@ -1,84 +1,72 @@
 <style lang="scss">
 #create-idol {
-  padding: 15px;
+  padding: $page-padding 0;
+
+  .alias {
+    line-height: 44px;
+
+    button {
+      margin-right: 5px;
+    }
+  }
 }
 </style>
 
 <template>
-  <div id="create-idol">
-    <div
-      ref="form"
-      :model="tag"
-      :rules="rules"
-      :disabled="submitting"
-      label-position="top"
-      class="edit-tag-info-form"
-    >
-      <div label="来源" required>
-        <VField v-model="tag.id" placeholder="去 bgm.tv 寻找那个偶像吧！" />
-      </div>
-      <div>
-        <VButton :loading="submitting" type="success" round @click="fetch">
-          抓取资源
+  <VForm id="create-idol" :form="tag" :rule="rule" :loading="loading" @submit="handleSubmit">
+    <VField v-model="tag.id" placeholder="bgm.tv 的角色 id" label="来源">
+      <VButton slot="after" :loading="loading" type="success" round @click="fetch">
+        抓取资源
+      </VButton>
+    </VField>
+    <VField v-model="tag.name" label="名称" />
+    <VField label="头像">
+      <VUploader
+        v-model="tag.avatar"
+        :cookie="false"
+        required
+        :url="imageUploadAction"
+        :accept="imageUploadAccept"
+        :transform-request="imageUploadRequest"
+        :transform-response="imageUploadResponse"
+      />
+    </VField>
+    <VField label="别名">
+      <div class="alias">
+        <VButton v-for="(name, index) in tag.alias" :key="name" size="small" plain>
+          <span v-text="name" />
+          <i class="bili-font ic_input_close" @click="removeAlias(index)" />
         </VButton>
       </div>
-      <div label="头像" required>
-        <div class="avatar-field">
-          <img v-if="tag.avatar" :src="$resize(tag.avatar, { width: 100 })" class="avatar">
-          <VUploader
-            :show-file-list="false"
-            :action="imageUploadAction"
-            :limit="uploadImageLimit"
-            :data="uploadHeaders"
-            :accept="imageUploadAccept"
-            :before-upload="handleImageUploadBefore"
-            :on-success="avatarUploadSuccess"
-            :on-error="handleImageUploadError"
-          >
-            <VButton :loading="!!uploadPending" type="success" plain round size="mini">
-              {{ uploadPending ? '图片上传中...' : '点击上传封面' }}
-            </VButton>
-          </VUploader>
-        </div>
-      </div>
-      <div label="名称" required>
-        <VField v-model="tag.name" />
-      </div>
-      <div label="别名" prop="alias" required>
-        <p class="form-tip">
-          提示：按回车键生效
-        </p>
-        {{ tag.alias }}
-      </div>
-      <div label="简介" required>
-        <VField
-          v-model="tag.intro"
-          type="textarea"
-          :show-word-limit="true"
-          :rows="8"
-          maxlength="500"
-          resize="none"
-          placeholder="请输入板块介绍"
-        />
-      </div>
-      <div>
-        <VButton :loading="submitting" type="success" round @click="submit">
-          保存更改
-        </VButton>
-      </div>
-    </div>
-  </div>
+      <VField v-model="alias" :close="false">
+        <template #after>
+          <VButton @click="addAlias">
+            添加
+          </VButton>
+        </template>
+      </VField>
+    </VField>
+    <VField
+      v-model="tag.intro"
+      label="简介"
+      :min-row="4"
+      :max-row="10"
+      :max-len="500"
+      counter
+    />
+  </VForm>
 </template>
 
 <script>
-import { VButton, VField, VUploader } from '@calibur/sakura'
+import { VButton, VField, VUploader, VForm } from '@calibur/sakura'
 import upload from '~/mixins/upload'
 
 export default {
   name: 'CreateIdol',
   components: {
-    VButton,
+    VForm,
     VField,
+    VButton,
     VUploader
   },
   mixins: [upload],
@@ -86,9 +74,6 @@ export default {
     const validateAlias = (rule, value, callback) => {
       if (!value || !value.length) {
         callback(new Error('别名不能为空'))
-      }
-      if (!~value.indexOf(this.tag.name)) {
-        callback(new Error('别名中必须包含名称'))
       }
       if (value.some(_ => /,/.test(_))) {
         callback(new Error('别名不能包含英文逗号'))
@@ -106,16 +91,29 @@ export default {
         alias: [],
         intro: ''
       },
-      rules: {
-        alias: [{ validator: validateAlias, trigger: 'submit' }]
+      rule: {
+        alias: {
+          type: 'array',
+          validator: validateAlias
+        }
       },
-      submitting: false
+      alias: '',
+      loading: false
     }
   },
   methods: {
-    avatarUploadSuccess(res, file) {
-      this.handleImageUploadSuccess(res, file)
-      this.tag.avatar = res.data.url
+    removeAlias(index) {
+      this.tag.alias.splice(index, 1)
+    },
+    addAlias() {
+      if (!this.alias) {
+        return
+      }
+      if (this.tag.alias.includes(this.alias)) {
+        return
+      }
+      this.tag.alias.push(this.alias)
+      this.alias = ''
     },
     fetch() {
       if (!this.tag.id) {
@@ -157,10 +155,10 @@ export default {
           })
         })
     },
-    submit() {
+    handleSubmit() {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          this.submitting = true
+          this.loading = true
           this.$axios
             .$post('v1/idol/create', {
               ...this.tag,
@@ -175,7 +173,7 @@ export default {
             })
             .catch((err) => {
               this.$toast.error(err.message)
-              this.submitting = false
+              this.loading = false
             })
         }
       })

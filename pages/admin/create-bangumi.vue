@@ -25,7 +25,7 @@
         ]"
       />
     </VField>
-    <VField v-model="tag.id" placeholder="bgm.tv 的资源 id" label="来源">
+    <VField v-model="tag.id" placeholder="bgm.tv 的番剧 id" label="来源">
       <template #after>
         <VButton :loading="loading" size="small" @click="fetch">
           抓取资源
