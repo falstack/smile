@@ -80,12 +80,10 @@
         <i class="el-icon-connection" />
         <span>相关番剧</span>
       </NLink>
-      <!--
       <NLink v-if="changeTagRule" :to="`/bangumi/rule?slug=${bangumi.slug}`">
         <i class="el-icon-s-operation" />
         <span>入圈规则</span>
       </NLink>
-      -->
       <NLink :to="`/admin/create-idol?slug=${bangumi.slug}`">
         <i class="el-icon-plus" />
         <span>添加偶像</span>
