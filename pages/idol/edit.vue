@@ -1,6 +1,6 @@
 <style lang="scss">
 #edit-idol {
-  padding: $page-padding;
+  padding: $page-padding 0;
 
   .alias {
     line-height: 44px;
@@ -13,7 +13,14 @@
 </style>
 
 <template>
-  <div v-if="idol" id="edit-idol">
+  <VForm
+    v-if="idol"
+    id="edit-idol"
+    :form="idol"
+    :rule="rule"
+    :loading="loading"
+    @submit="handleSubmit"
+  >
     <VField v-model="idol.name" disabled label="名称" />
     <VField label="头像">
       <VUploader
@@ -49,20 +56,18 @@
       :max-len="500"
       counter
     />
-    <VButton :loading="submitting" block @click="handleSubmit">
-      提交
-    </VButton>
-  </div>
+  </VForm>
 </template>
 
 <script>
-import { VButton, VUploader, VField } from '@calibur/sakura'
+import { VButton, VUploader, VField, VForm } from '@calibur/sakura'
 import mustSign from '~/mixins/mustSign'
 import upload from '~/mixins/upload'
 
 export default {
   name: 'EditIdol',
   components: {
+    VForm,
     VButton,
     VUploader,
     VField
@@ -83,18 +88,36 @@ export default {
       .catch(error)
   },
   data() {
+    const validateAlias = (rule, value, callback) => {
+      if (!value || !value.length) {
+        callback(new Error('别名不能为空'))
+      }
+      if (value.some(_ => /,/.test(_))) {
+        callback(new Error('别名不能包含英文逗号'))
+      }
+      if (value.join('').length > 100) {
+        callback(new Error('别名最多100个字符'))
+      }
+      callback()
+    }
     return {
       idol: null,
-      submitting: false,
+      rule: {
+        alias: {
+          type: 'array',
+          validator: validateAlias
+        }
+      },
+      loading: false,
       alias: ''
     }
   },
   methods: {
     handleSubmit() {
-      if (this.submitting) {
+      if (this.loading) {
         return
       }
-      this.submitting = true
+      this.loading = true
       this.$axios
         .$post('v1/idol/update', this.idol)
         .then(() => {
@@ -104,7 +127,7 @@ export default {
           this.$toast.error(err.message)
         })
         .finally(() => {
-          this.submitting = false
+          this.loading = false
         })
     },
     removeAlias(index) {
