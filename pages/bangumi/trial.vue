@@ -88,9 +88,15 @@ export default {
   },
   methods: {
     handleDelete(id) {
-      this.$confirm('删除后不可恢复，确认要删除吗？', '提示')
-        .then(() => {
-          if (this.loading) {
+      if (this.loading) {
+        return
+      }
+      this.$alert({
+        title: '提示',
+        message: '删除后不可恢复，确认要删除吗？',
+        buttons: ['取消', '确定'],
+        callback: (index) => {
+          if (!index) {
             return
           }
           this.loading = true
@@ -106,8 +112,8 @@ export default {
             .finally(() => {
               this.loading = false
             })
-        })
-        .catch(() => {})
+        }
+      })
     },
     handlePass(id) {
       if (this.loading) {

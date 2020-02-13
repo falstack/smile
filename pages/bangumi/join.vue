@@ -142,8 +142,6 @@ export default {
       return this.$route.query.slug
     }
   },
-  watch: {},
-  created() {},
   mounted() {
     this.getBangumiInfo()
     this.getBangumiRule()
@@ -228,30 +226,6 @@ export default {
         .catch((err) => {
           this.$toast.error(err.message)
         })
-    },
-    restart() {
-      this.$confirm('你会获取一套新的试题，确定要重做吗？')
-        .then(() => {
-          if (this.loading) {
-            return
-          }
-          this.loading = true
-          this.$axios
-            .$post('v1/join/begin', {
-              slug: this.slug,
-              retry: true
-            })
-            .then(() => {
-              this.getQuestions()
-            })
-            .catch((err) => {
-              this.$toast.error(err.message)
-            })
-            .finally(() => {
-              this.loading = false
-            })
-        })
-        .catch(() => {})
     },
     submit() {
       if (Object.keys(this.selected).length < this.questions.length) {
