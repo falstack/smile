@@ -31,16 +31,8 @@
       />
     </VField>
     <VField v-model="nickname" label="昵称" />
-    <VField label="生日" align="center">
-      <VDatetime
-        v-model="birthday"
-        :editable="false"
-        :clearable="false"
-        type="date"
-        format="yyyy 年 M 月 d 日"
-        value-format="yyyy-MM-dd"
-        placeholder="选择生日"
-      />
+    <VField label="生日" align="center" placeholder="选择生日">
+      <VDatetime v-model="birthday" type="date" />
       <template slot="after">
         <span>{{ birthSecret ? '私密' : '公开' }}</span>
         <VToggle v-model="birthSecret" />
