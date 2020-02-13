@@ -156,27 +156,23 @@ export default {
         })
     },
     handleSubmit() {
-      this.$refs.form.validate((valid) => {
-        if (valid) {
-          this.loading = true
-          this.$axios
-            .$post('v1/idol/create', {
-              ...this.tag,
-              alias: [this.tag.name, ...this.tag.alias],
-              bangumi_slug: this.$route.query.slug
-            })
-            .then((slug) => {
-              this.$toast.info('创建成功')
-              this.$bridge.navigateTo({
-                url: `/pages/idol/show/index?slug=${slug}`
-              })
-            })
-            .catch((err) => {
-              this.$toast.error(err.message)
-              this.loading = false
-            })
-        }
-      })
+      this.loading = true
+      this.$axios
+        .$post('v1/idol/create', {
+          ...this.tag,
+          alias: [this.tag.name, ...this.tag.alias],
+          bangumi_slug: this.$route.query.slug
+        })
+        .then((slug) => {
+          this.$toast.info('创建成功')
+          this.$bridge.navigateTo({
+            url: `/pages/idol/show/index?slug=${slug}`
+          })
+        })
+        .catch((err) => {
+          this.$toast.error(err.message)
+          this.loading = false
+        })
     }
   },
   head() {
