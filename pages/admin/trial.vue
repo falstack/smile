@@ -1,6 +1,6 @@
 <style lang="scss">
 #admin-qa-trial {
-  padding: 15px;
+  padding: $page-padding;
 
   .trial-item {
     border-bottom: 1px solid $color-gray-line;
@@ -19,6 +19,10 @@
 
       .is-selected {
         background-color: $color-main;
+      }
+
+      li {
+        list-style-type: disc;
       }
     }
 
@@ -56,12 +60,12 @@
               <span v-text="item.bangumi.name" />
             </div>
             <div class="btn">
-              <button @click="handleDelete(item.id)">
+              <VButton size="small" theme="danger" plain @click="handleDelete(item.id)">
                 拒绝
-              </button>
-              <button @click="handlePass(item.id)">
+              </VButton>
+              <VButton size="small" theme="success" plain @click="handlePass(item.id)">
                 通过
-              </button>
+              </VButton>
             </div>
           </div>
         </div>
@@ -74,8 +78,13 @@
 </template>
 
 <script>
+import { VButton } from '@calibur/sakura'
+
 export default {
   name: 'AdminQaTrial',
+  components: {
+    VButton
+  },
   data() {
     return {
       loading: false
@@ -83,9 +92,15 @@ export default {
   },
   methods: {
     handleDelete(id) {
-      this.$confirm('删除后不可恢复，确认要删除吗？', '提示')
-        .then(() => {
-          if (this.loading) {
+      if (this.loading) {
+        return
+      }
+      this.$alert({
+        title: '提示',
+        message: '删除后不可恢复，确认要删除吗？',
+        buttons: ['取消', '确定'],
+        callback: (index) => {
+          if (!index) {
             return
           }
           this.loading = true
@@ -101,8 +116,8 @@ export default {
             .finally(() => {
               this.loading = false
             })
-        })
-        .catch(() => {})
+        }
+      })
     },
     handlePass(id) {
       if (this.loading) {
