@@ -1,7 +1,5 @@
 <style lang="scss">
 #edit-idol {
-  padding: $page-padding 0;
-
   .alias {
     line-height: 44px;
 
@@ -16,6 +14,7 @@
   <VForm
     v-if="idol"
     id="edit-idol"
+    full
     :form="idol"
     :rule="rule"
     :loading="loading"

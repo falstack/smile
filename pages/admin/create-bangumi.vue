@@ -1,7 +1,5 @@
 <style lang="scss">
 #create-bangumi {
-  padding: $page-padding 0;
-
   .alias {
     line-height: 44px;
 
@@ -13,7 +11,14 @@
 </style>
 
 <template>
-  <VForm id="create-bangumi" :form="tag" :rule="rule" :loading="loading" @submit="handleSubmit">
+  <VForm
+    id="create-bangumi"
+    full
+    :form="tag"
+    :rule="rule"
+    :loading="loading"
+    @submit="handleSubmit"
+  >
     <VField label="类型" align="center">
       <VRadio
         v-model="tag.type"

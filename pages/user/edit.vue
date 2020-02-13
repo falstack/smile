@@ -1,13 +1,8 @@
-<style lang="scss">
-#user-edit {
-  padding: $page-padding 0;
-}
-</style>
-
 <template>
   <VForm
     v-if="isAuth"
     id="user-edit"
+    full
     :form="user"
     :rule="rule"
     :loading="loading"

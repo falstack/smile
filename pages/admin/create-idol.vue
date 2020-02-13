@@ -1,7 +1,5 @@
 <style lang="scss">
 #create-idol {
-  padding: $page-padding 0;
-
   .alias {
     line-height: 44px;
 
@@ -13,7 +11,14 @@
 </style>
 
 <template>
-  <VForm id="create-idol" :form="tag" :rule="rule" :loading="loading" @submit="handleSubmit">
+  <VForm
+    id="create-idol"
+    full
+    :form="tag"
+    :rule="rule"
+    :loading="loading"
+    @submit="handleSubmit"
+  >
     <VField v-model="tag.id" placeholder="bgm.tv 的角色 id" label="来源">
       <VButton slot="after" :loading="loading" type="success" round @click="fetch">
         抓取资源

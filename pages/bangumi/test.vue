@@ -1,72 +1,64 @@
 <style lang="scss">
 #create-bangumi-question {
-  padding: 15px;
-
   .form-tip {
     font-size: 12px;
     color: $color-orange;
+  }
+
+  .form-tip,
+  .title {
+    padding: 0 12px;
   }
 }
 </style>
 
 <template>
-  <div v-if="bangumi" id="create-bangumi-question" ref="form" :disabled="submitting" label-position="top">
-    <div>
-      <h1>为《{{ bangumi.name }}》出题</h1>
-      <br>
-      <p class="form-tip">
-        题目提交完，需要审核通过之后才会入库
-      </p>
-    </div>
-    <div label="题目">
-      <VField
-        v-model="title"
-        :rows="2"
-        type="textarea"
-        placeholder="请输入题目"
-        resize="none"
-        maxlength="50"
-        show-word-limit
-      />
-    </div>
-    <div>
-      <p class="form-tip">
-        提示：选项至少提供两个，至多四个
-      </p>
-    </div>
-    <div v-for="(item, index) in answers" :key="item.key" :label="`选项${index + 1}`">
-      <VField v-model="item.value" placeholder="请输入答案（20字以内）" maxlength="20" />
-    </div>
-    <div>
-      <p class="form-tip">
-        提示：题目为单选题，正确选项不能为空
-      </p>
-    </div>
-    <div label="答案">
-      <VRadio v-model="rightOpt" :label="rightAnswerOpts" />
-    </div>
-    <div>
-      <VButton :loading="submitting" type="success" round @click="submit">
-        提交
-      </VButton>
-    </div>
-  </div>
+  <VForm v-if="bangumi" id="create-bangumi-question" full :loading="loading" @submit="handleSubmit">
+    <h2 class="title">
+      为《{{ bangumi.name }}》出题
+    </h2>
+    <br>
+    <p class="form-tip">
+      题目提交完，需要审核通过之后才会入库
+    </p>
+    <VField
+      v-model="title"
+      :min-row="2"
+      :max-len="50"
+      placeholder="请输入题目"
+      label="题目"
+    />
+    <p class="form-tip">
+      提示：选项至少提供两个，至多四个
+    </p>
+    <VField
+      v-for="(item, index) in answers"
+      :key="item.key"
+      v-model="item.value"
+      :label="`选项${index + 1}`"
+      placeholder="请输入答案（20字以内）"
+      :max-len="20"
+    />
+    <VField label="答案（题目为单选题，正确选项不能为空）">
+      <VRadio v-model="rightOpt" inline :label="rightAnswerOpts" />
+    </VField>
+  </VForm>
 </template>
 
 <script>
-import { VField, VButton, VRadio } from '@calibur/sakura'
+import { VForm, VField, VRadio } from '@calibur/sakura'
 
 export default {
   name: 'CreateBangumiQuestion',
   components: {
+    VForm,
     VField,
-    VButton,
     VRadio
   },
   data() {
     return {
       bangumi: null,
-      submitting: false,
+      loading: false,
       title: '',
       answers: [
         {
@@ -95,8 +87,9 @@ export default {
       return this.$route.query.slug
     },
     rightAnswerOpts() {
-      return this.answers.map((_) => {
-        return { label: `答案${_.key + 1}`, value: _.key }
+      const numbers = ['A', 'B', 'C', 'D']
+      return this.answers.map((_, index) => {
+        return { label: numbers[index], value: _.key }
       })
     }
   },
@@ -129,7 +122,7 @@ export default {
         })
         .catch()
     },
-    submit() {
+    handleSubmit() {
       if (!this.title.trim()) {
         this.$toast.info('题目不能为空')
         return
@@ -146,7 +139,7 @@ export default {
         this.$toast.info('正确选项不能为空')
         return
       }
-      this.submitting = true
+      this.loading = true
       this.$axios
         .$post('v1/join/create', {
           title: this.title,
@@ -155,13 +148,31 @@ export default {
           bangumi_slug: this.slug
         })
         .then(() => {
-          this.$toast.success('提交成功').then(() => {
-            window.location.reload()
-          })
+          this.$toast.success('提交成功')
+          this.title = ''
+          this.answers = [
+            {
+              value: '',
+              key: 0
+            },
+            {
+              value: '',
+              key: 1
+            },
+            {
+              value: '',
+              key: 2
+            },
+            {
+              value: '',
+              key: 3
+            }
+          ]
+          this.rightOpt = -1
         })
         .catch((err) => {
           this.$toast.error(err.message)
-          this.submitting = false
+          this.loading = false
         })
     }
   },
