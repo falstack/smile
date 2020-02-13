@@ -18,8 +18,11 @@ export const randomStr = () => {
 }
 
 export const adjustDate = (time) => {
-  if (/^\d+$/.test(time) && time.toString().length === 10) {
-    return new Date(time * 1000)
+  if (/^\d+$/.test(time)) {
+    if (time.toString().length === 10) {
+      return new Date(time * 1000)
+    }
+    return new Date(+time)
   }
   let result = new Date(time)
   if (result.toString() === 'Invalid Date') {
