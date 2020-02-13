@@ -1,36 +1,12 @@
-<style lang="scss">
-#create-bangumi-question {
-  .form-tip {
-    font-size: 12px;
-    color: $color-orange;
-  }
-
-  .form-tip,
-  .title {
-    padding: 0 12px;
-  }
-}
-</style>
-
 <template>
-  <VForm v-if="bangumi" id="create-bangumi-question" full :loading="loading" @submit="handleSubmit">
-    <h2 class="title">
-      为《{{ bangumi.name }}》出题
-    </h2>
-    <br>
-    <p class="form-tip">
-      题目提交完，需要审核通过之后才会入库
-    </p>
+  <VForm id="create-bangumi-question" full :loading="loading" @submit="handleSubmit">
     <VField
       v-model="title"
       :min-row="2"
       :max-len="50"
       placeholder="请输入题目"
-      label="题目"
+      label="题目（需要审核通过之后才会加入题库）"
     />
-    <p class="form-tip">
-      提示：选项至少提供两个，至多四个
-    </p>
     <VField
       v-for="(item, index) in answers"
       :key="item.key"
@@ -57,7 +33,6 @@ export default {
   },
   data() {
     return {
-      bangumi: null,
       loading: false,
       title: '',
       answers: [
@@ -94,22 +69,9 @@ export default {
     }
   },
   mounted() {
-    this.getBangumi()
     this.getRule()
   },
   methods: {
-    getBangumi() {
-      this.$axios
-        .$get('v1/bangumi/show', {
-          params: {
-            slug: this.slug
-          }
-        })
-        .then((bangumi) => {
-          this.bangumi = bangumi
-        })
-        .catch(() => {})
-    },
     getRule() {
       this.$axios
         .$get('v1/join/rule/show', {
