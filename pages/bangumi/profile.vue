@@ -1,7 +1,5 @@
 <style lang="scss">
 #profile-bangumi {
-  padding: $page-padding 0;
-
   .alias {
     line-height: 44px;
 
@@ -13,7 +11,14 @@
 </style>
 
 <template>
-  <VForm v-if="bangumi" id="profile-bangumi" :form="bangumi" :rule="rule" @submit="handleSubmit">
+  <VForm
+    v-if="bangumi"
+    id="profile-bangumi"
+    full
+    :form="bangumi"
+    :rule="rule"
+    @submit="handleSubmit"
+  >
     <VField v-model="bangumi.name" disabled label="名称" />
     <VField label="头像">
       <VUploader
