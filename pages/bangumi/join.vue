@@ -1,5 +1,7 @@
 <style lang="scss">
 #bangumi-join {
+  padding: $page-padding;
+
   .launch {
     position: fixed;
     left: 0;
@@ -17,54 +19,6 @@
       border-radius: 10%;
       margin-bottom: 15px;
     }
-  }
-
-  .question-list {
-    padding: 15px;
-    margin-left: 15px;
-  }
-
-  .question-item {
-    border-bottom: 1px solid $color-gray-line;
-
-    .question {
-      font-weight: 500;
-      font-size: 18px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      padding-left: 10px;
-    }
-
-    .answers {
-      list-style-type: upper-alpha;
-      margin-left: 1.3em;
-      margin-bottom: 10px;
-
-      li {
-        padding: 15px;
-        list-style-type: upper-alpha;
-        border-radius: 26px;
-        border: 1px solid $color-gray-border;
-        margin-bottom: 10px;
-
-        &.is-selected {
-          background-color: $color-main;
-          border-color: $color-main;
-        }
-      }
-    }
-
-    .controls {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-  }
-
-  .qa-footer {
-    text-align: center;
   }
 }
 </style>
@@ -90,27 +44,22 @@
       </NLink>
     </div>
     <template v-else>
-      <ol class="question-list">
-        <li v-for="item in questions" :key="item.id" class="question-item">
-          <p class="question" v-html="item.title" />
-          <ol class="answers">
-            <li v-for="(val, key) in item.answers" :key="key" :class="{ 'is-selected': selected[item.id] && selected[item.id] === key }" @click="handleSelect(item.id, key)">
-              <span v-html="val" />
-            </li>
-          </ol>
-          <div class="controls">
-            <div>
-              <span>出题人：</span>
-              <span v-text="item.user.nickname" />
-            </div>
-          </div>
-        </li>
-      </ol>
-      <footer v-if="questions.length" slot="footer" class="qa-footer">
-        <VButton :loading="loading" class="submit-btn" type="success" round @click="submit">
-          交卷
-        </VButton>
-      </footer>
+      <QaItem
+        v-for="(item, index) in questions"
+        :key="item.id"
+        :order="index"
+        :extra="extra"
+        :item="item"
+        @select="handleSelect"
+      />
+      <VButton
+        block
+        :loading="loading"
+        size="large"
+        @click="handleSubmit"
+      >
+        交卷
+      </VButton>
     </template>
   </div>
 </template>
@@ -118,10 +67,12 @@
 <script>
 import { VButton } from '@calibur/sakura'
 import mustSign from '~/mixins/mustSign'
+import QaItem from '~/components/QaItem'
 
 export default {
   name: 'BangumiJoin',
   components: {
+    QaItem,
     VButton
   },
   mixins: [mustSign],
@@ -134,6 +85,7 @@ export default {
       bangumi: null,
       questions: [],
       selected: {},
+      extra: null,
       loading: false
     }
   },
@@ -193,6 +145,7 @@ export default {
           } else if (result === 'pending') {
             this.getQuestions()
           }
+          this.getQuestions()
         })
         .catch((err) => {
           this.$toast.error(err.message)
@@ -206,6 +159,7 @@ export default {
           }
         })
         .then((data) => {
+          this.extra = data.extra
           this.selected = data.extra.answers || {}
           this.questions = data.result
           this.showLaunch = false
@@ -214,7 +168,7 @@ export default {
           this.$toast.error(err.message)
         })
     },
-    handleSelect(questionId, answerId) {
+    handleSelect({ questionId, answerId }) {
       this.$axios
         .$post('v1/join/vote', {
           question_id: questionId,
@@ -227,7 +181,7 @@ export default {
           this.$toast.error(err.message)
         })
     },
-    submit() {
+    handleSubmit() {
       if (Object.keys(this.selected).length < this.questions.length) {
         this.$toast.info('请先做完所有题目')
         return
