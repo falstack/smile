@@ -21,6 +21,20 @@
       </p>
       <VRange v-model="rule.right_rate" :min="50" :max="100" />
     </VField>
+    <VField label="加入方式">
+      <p class="form-tip">
+        加入方式更改之后不会影响「正在答题」和「已经加入」的人
+      </p>
+      <br>
+      <VRadio
+        v-model="rule.rule_type"
+        :label="[
+          { label: '需要答题或管理邀请', value: 0 },
+          { label: '只能管理邀请', value: 1 },
+          { label: '只能答题加入', value: 2 }
+        ]"
+      />
+    </VField>
     <!--
     <ElFormItem label="答题时长">
       <p class="form-tip">
@@ -32,22 +46,6 @@
         :max="120"
         :format-tooltip="formatQAMinutes"
       />
-    </ElFormItem>
-    <ElFormItem label="加入方式">
-      <ElRadioGroup v-model="rule.rule_type">
-        <ElRadio :label="0">
-          需要答题或管理邀请
-        </ElRadio>
-        <ElRadio :label="1">
-          只能管理邀请
-        </ElRadio>
-        <ElRadio :label="2">
-          只能答题加入
-        </ElRadio>
-      </ElRadioGroup>
-      <p class="form-tip">
-        加入方式更改之后不会影响「正在答题」和「已经加入」的人
-      </p>
     </ElFormItem>
     <ElFormItem label="考核方式">
       <ElRadioGroup v-model="rule.result_type">
@@ -64,7 +62,7 @@
 </template>
 
 <script>
-import { VForm, VRange, VField } from '@calibur/sakura'
+import { VForm, VRange, VField, VRadio } from '@calibur/sakura'
 
 export default {
   name: 'EditTagRuleForm',
@@ -72,7 +70,8 @@ export default {
   components: {
     VForm,
     VField,
-    VRange
+    VRange,
+    VRadio
   },
   data() {
     return {

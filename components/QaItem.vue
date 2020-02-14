@@ -21,7 +21,7 @@ $answer-padding: 10px;
     }
   }
 
-  .list {
+  .main {
     margin-bottom: $answer-padding;
 
     .answer {
@@ -51,6 +51,12 @@ $answer-padding: 10px;
           background-color: $color-main;
           z-index: -1;
         }
+      }
+
+      &.is-selected {
+        background-color: $color-blue;
+        border-color: $color-blue;
+        color: #fff;
       }
 
       .order {
@@ -85,9 +91,9 @@ $answer-padding: 10px;
       <div :class="$style.order" v-text="order" />
       <p v-html="item.title" />
     </div>
-    <div :class="$style.list">
-      <div v-for="(val, key, index) in item.answers" :key="key" :class="$style.answer">
-        <div :class="[$style.order, { [$style.isRight]: key === rightAnswer }]" @click="changeRightAnswer(key)" v-text="answerNumber(index)" />
+    <div :class="$style.main">
+      <div v-for="(val, key, index) in item.answers" :key="key" :class="[$style.answer, { [$style.isSelected]: !isTrial && key === rightAnswer }]" @click="handleAnswerClick(key)">
+        <div :class="[$style.order, { [$style.isRight]: isTrial && key === rightAnswer }]" @click="changeRightAnswer(key)" v-text="answerNumber(index)" />
         <p v-html="val" />
       </div>
     </div>
@@ -142,9 +148,6 @@ export default {
   },
   data() {
     const getRightAnswer = () => {
-      if (!this.isTrial) {
-        return ''
-      }
       const id = this.item.id.toString()
       const answers = this.extra.answers || {}
       let result = ''
@@ -171,6 +174,16 @@ export default {
     },
     answerNumber(index) {
       return ['A', 'B', 'C', 'D'][index]
+    },
+    handleAnswerClick(key) {
+      if (this.isTrial) {
+        return
+      }
+      this.rightAnswer = key
+      this.$emit('select', {
+        questionId: this.item.id,
+        answerId: key
+      })
     },
     handleUserClick() {
       this.$bridge.navigateTo({
