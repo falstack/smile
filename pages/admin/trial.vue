@@ -1,45 +1,6 @@
 <style lang="scss">
 #admin-qa-trial {
   padding: $page-padding;
-
-  .trial-item {
-    border-bottom: 1px solid $color-gray-line;
-
-    .question {
-      font-weight: 500;
-      font-size: 18px;
-      margin-bottom: 5px;
-      margin-top: 10px;
-    }
-
-    .answers {
-      list-style-type: upper-alpha;
-      margin-left: 1.3em;
-      margin-bottom: 10px;
-
-      .is-selected {
-        background-color: $color-main;
-      }
-
-      li {
-        list-style-type: disc;
-      }
-    }
-
-    .controls {
-      margin-bottom: 10px;
-
-      .intro {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-      }
-
-      .btn {
-        text-align: right;
-      }
-    }
-  }
 }
 </style>
 
@@ -47,28 +8,15 @@
   <div id="admin-qa-trial">
     <FlowLoader ref="loader" func="getBangumiQuestionTrials" type="page" :query="{ $axios, status: 0 }">
       <div slot-scope="{ flow, extra }">
-        <div v-for="item in flow" :key="item.id" class="trial-item">
-          <p class="question" v-html="item.title" />
-          <ol class="answers">
-            <li v-for="(val, key) in item.answers" :key="key" :class="{ 'is-selected': checkIsSelected(extra, key, item.id) }">
-              <span v-html="val" />
-            </li>
-          </ol>
-          <div class="controls">
-            <div class="intro">
-              <span v-text="item.user.nickname" />
-              <span v-text="item.bangumi.name" />
-            </div>
-            <div class="btn">
-              <VButton size="small" theme="danger" plain @click="handleDelete(item.id)">
-                拒绝
-              </VButton>
-              <VButton size="small" theme="success" plain @click="handlePass(item.id)">
-                通过
-              </VButton>
-            </div>
-          </div>
-        </div>
+        <QaItem
+          v-for="(item, index) in flow"
+          :key="item.id"
+          :item="item"
+          is-trial
+          :extra="extra"
+          :order="index + 1"
+          @delete="handleDelete"
+        />
       </div>
       <template slot="error" slot-scope="{ error }">
         {{ error.message }}
@@ -78,12 +26,12 @@
 </template>
 
 <script>
-import { VButton } from '@calibur/sakura'
+import QaItem from '~/components/QaItem'
 
 export default {
   name: 'AdminQaTrial',
   components: {
-    VButton
+    QaItem
   },
   data() {
     return {
@@ -92,60 +40,7 @@ export default {
   },
   methods: {
     handleDelete(id) {
-      if (this.loading) {
-        return
-      }
-      this.$alert({
-        title: '提示',
-        message: '删除后不可恢复，确认要删除吗？',
-        buttons: ['取消', '确定'],
-        callback: (index) => {
-          if (!index) {
-            return
-          }
-          this.loading = true
-          this.$axios
-            .$post('v1/join/delete', { id })
-            .then(() => {
-              this.$toast.success('删除成功')
-              this.$refs.loader.delete(id)
-            })
-            .catch((err) => {
-              this.$toast.error(err.message)
-            })
-            .finally(() => {
-              this.loading = false
-            })
-        }
-      })
-    },
-    handlePass(id) {
-      if (this.loading) {
-        return
-      }
-      this.loading = true
-      this.$axios
-        .$post('v1/join/recommend', { id })
-        .then(() => {
-          this.$toast.success('入库成功')
-          this.$refs.loader.delete(id)
-        })
-        .catch((err) => {
-          this.$toast.error(err.message)
-        })
-        .finally(() => {
-          this.loading = false
-        })
-    },
-    checkIsSelected(extra, key, id) {
-      const answers = extra.answers || {}
-      let result = false
-      Object.keys(answers).forEach((ansId) => {
-        if (ansId.toString() === id.toString() && !result) {
-          result = answers[ansId] === key
-        }
-      })
-      return result
+      this.$refs.loader.delete(id)
     }
   },
   head() {
