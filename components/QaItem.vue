@@ -95,7 +95,7 @@ $answer-padding: 10px;
       <div :class="$style.intro">
         <div class="oneline">
           <span>出题人：</span>
-          <span @clicl="handleUserClick" v-text="item.user.nickname" />
+          <span @click="handleUserClick" v-text="item.user.nickname" />
         </div>
         <div v-if="isTrial" class="oneline">
           <span>番の剧：</span>
