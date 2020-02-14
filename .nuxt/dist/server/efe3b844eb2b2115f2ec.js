@@ -1,1 +1,0 @@
-exports.ids=[14],exports.modules={165:function(t,n,e){"use strict";e.r(n);e(48),e(18);var o=e(31),r={components:{VButton:e.n(o).a}},c=e(1),component=Object(c.a)(r,(function(){var t=this.$createElement;return(this._self._c||t)("VButton",[this._v("\n  CALIBUR.TV\n")])}),[],!1,null,null,"216fcfc4");n.default=component.exports},48:function(t,n){t.exports={}}};
