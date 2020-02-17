@@ -785,10 +785,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@calibur/sakura@^1.5.9":
-  version "1.5.9"
-  resolved "https://registry.yarnpkg.com/@calibur/sakura/-/sakura-1.5.9.tgz#f84e0c84accff5ad7258e14e71534c25d2100928"
-  integrity sha512-XiIFvxfFNQAvHEPoZJRNfD5byOCBIFSuEQl9x/DgePt4XbUbDDkncG5LCQK2ZcBFmokwXlPOtthHxNqOZ9UB1Q==
+"@calibur/sakura@^1.6.5":
+  version "1.6.5"
+  resolved "https://registry.npm.taobao.org/@calibur/sakura/download/@calibur/sakura-1.6.5.tgz#2826c102039eef0e5c5acf59915da6b1da1303ab"
+  integrity sha1-KCbBAgOe7w5cWs9ZkV2msdoTA6s=
   dependencies:
     async-validator "^3.2.3"
     luxon "^1.22.0"
@@ -3580,7 +3580,16 @@ eslint-plugin-unicorn@^16.0.0:
     safe-regex "^2.1.1"
     semver "^7.1.2"
 
-eslint-plugin-vue@6.1.2, eslint-plugin-vue@^6.1.2:
+eslint-plugin-vue@6.2.0:
+  version "6.2.0"
+  resolved "https://registry.npm.taobao.org/eslint-plugin-vue/download/eslint-plugin-vue-6.2.0.tgz#d700a61c0354da125c764385f06fa751c6b2753a"
+  integrity sha1-1wCmHANU2hJcdkOF8G+nUcaydTo=
+  dependencies:
+    natural-compare "^1.4.0"
+    semver "^5.6.0"
+    vue-eslint-parser "^7.0.0"
+
+eslint-plugin-vue@^6.1.2:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-6.1.2.tgz#4b05c28c83c0ec912669b64dbd998bb8bf692ef6"
   integrity sha512-M75oAB+2a/LNkLKRbeEaS07EjzjIUaV7/hYoHAfRFeeF8ZMmCbahUn8nQLsLP85mkar24+zDU3QW2iT1JRsACw==
