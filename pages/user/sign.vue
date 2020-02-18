@@ -16,7 +16,6 @@
 
 <script>
 import { VForm, VField } from '@calibur/sakura'
-import cookie from 'js-cookie'
 import { login } from '~/api/userApi'
 
 export default {
@@ -47,11 +46,8 @@ export default {
         remember: true
       })
         .then((token) => {
-          cookie.set('JWT-TOKEN', token, {
-            expires: 365
-          })
           if (this.$route.query.from) {
-            window.location = decodeURIComponent(this.$route.query.from)
+            window.location = decodeURIComponent(`${this.$route.query.from}?token=${token}`)
           } else {
             this.$toast.info('登录成功')
           }
