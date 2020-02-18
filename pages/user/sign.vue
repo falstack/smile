@@ -49,6 +49,7 @@ export default {
           if (this.$route.query.from) {
             window.location = decodeURIComponent(`${this.$route.query.from}?token=${token}`)
           } else {
+            this.$cache.set('JWT-TOKEN', token)
             this.$toast.info('登录成功')
           }
         })
