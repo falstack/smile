@@ -21,6 +21,7 @@ const _26dd70db = () => interopDefault(import('../pages/public/rank.vue' /* webp
 const _451bd3ab = () => interopDefault(import('../pages/public/rule.vue' /* webpackChunkName: "pages/public/rule" */))
 const _a42e7e52 = () => interopDefault(import('../pages/user/edit.vue' /* webpackChunkName: "pages/user/edit" */))
 const _c2becd2a = () => interopDefault(import('../pages/user/list.vue' /* webpackChunkName: "pages/user/list" */))
+const _60fa1f0a = () => interopDefault(import('../pages/user/sign.vue' /* webpackChunkName: "pages/user/sign" */))
 const _d26dfa24 = () => interopDefault(import('../pages/write/pin.vue' /* webpackChunkName: "pages/write/pin" */))
 const _3b54ec99 = () => interopDefault(import('../pages/pin/_slug.vue' /* webpackChunkName: "pages/pin/_slug" */))
 const _6f94ae5b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
@@ -131,6 +132,11 @@ export const routerOptions = {
     component: _c2becd2a,
     props: false,
     name: "user-list"
+  }, {
+    path: "/user/sign",
+    component: _60fa1f0a,
+    props: false,
+    name: "user-sign"
   }, {
     path: "/write/pin",
     component: _d26dfa24,
