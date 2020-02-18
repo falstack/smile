@@ -26,7 +26,7 @@ export default {
           this.$router.replace({
             name: 'user-sign',
             query: {
-              from: encodeURIComponent(window.location.href)
+              from: encodeURIComponent(window.location.origin + window.location.pathname)
             }
           })
         }
