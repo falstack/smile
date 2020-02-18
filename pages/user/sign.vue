@@ -1,6 +1,3 @@
-<style lang="scss">
-</style>
-
 <template>
   <VForm id="user-sign" :loading="loading" full @submit="handleSubmit">
     <VField v-model="access" label="账号" />

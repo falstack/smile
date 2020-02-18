@@ -4,10 +4,6 @@ $answer-padding: 10px;
 .qa-item {
   padding: $answer-padding 0;
 
-  &:not(:last-child) {
-    border-bottom: 1px solid $color-gray-border;
-  }
-
   .header {
     font-weight: bold;
     font-size: 16px;
@@ -18,6 +14,10 @@ $answer-padding: 10px;
 
     .order {
       padding: 0 $answer-padding;
+    }
+
+    .title {
+      flex: 1;
     }
   }
 
@@ -88,8 +88,11 @@ $answer-padding: 10px;
 <template>
   <div :class="$style.qaItem">
     <div :class="$style.header">
-      <div :class="$style.order" v-text="order" />
-      <p v-html="item.title" />
+      <VField v-if="isTrial" v-model="title" :class="$style.title" :close="false" :label="`${order}`" />
+      <template v-else>
+        <div :class="$style.order" v-text="order" />
+        <p :class="$style.title" v-html="title" />
+      </template>
     </div>
     <div :class="$style.main">
       <div v-for="(val, key, index) in item.answers" :key="key" :class="[$style.answer, { [$style.isSelected]: !isTrial && key === rightAnswer }]" @click="handleAnswerClick(key)">
@@ -121,12 +124,13 @@ $answer-padding: 10px;
 </template>
 
 <script>
-import { VButton } from '@calibur/sakura'
+import { VButton, VField } from '@calibur/sakura'
 
 export default {
   name: 'QaItem',
   components: {
-    VButton
+    VButton,
+    VField
   },
   props: {
     item: {
@@ -162,6 +166,7 @@ export default {
     }
     return {
       rightAnswer: getRightAnswer(),
+      title: this.item.title,
       loading: false
     }
   },
@@ -224,14 +229,15 @@ export default {
       })
     },
     handlePass() {
-      if (this.loading) {
+      if (this.loading || !this.title) {
         return
       }
       this.loading = true
       this.$axios
         .$post('v1/join/recommend', {
           id: this.item.id,
-          right_id: this.rightAnswer
+          right_id: this.rightAnswer,
+          title: this.title
         })
         .then(() => {
           this.$toast.success('入库成功')
