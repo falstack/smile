@@ -27,6 +27,7 @@
     <VField v-model="tag.name" label="名称" />
     <VField label="头像">
       <VUploader
+        ref="uploader"
         v-model="tag.avatar"
         :cookie="false"
         required
@@ -124,6 +125,7 @@ export default {
       if (!this.tag.id) {
         return
       }
+      this.$toast.loading('抓取中...')
       this.$axios
         .$get('v1/bangumi/fetch', {
           params: {
@@ -138,6 +140,8 @@ export default {
             ...this.tag,
             ...info
           }
+          this.$refs.uploader.set(info.avatar)
+          this.$toast.stop()
         })
         .catch((err) => {
           if (err.statusCode !== 400) {

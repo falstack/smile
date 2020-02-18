@@ -40,6 +40,7 @@
     <VField v-model="tag.name" label="名称" />
     <VField label="头像">
       <VUploader
+        ref="uploader"
         v-model="tag.avatar"
         :cookie="false"
         required
@@ -154,6 +155,7 @@ export default {
             ...this.tag,
             ...info
           }
+          this.$refs.uploader.set(info.avatar)
           this.$toast.stop()
         })
         .catch((err) => {
