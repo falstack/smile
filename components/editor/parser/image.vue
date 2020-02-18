@@ -31,8 +31,13 @@
 </template>
 
 <script>
+import VImg from '~/components/Image'
+
 export default {
   name: 'JsonImage',
+  components: {
+    VImg
+  },
   props: {
     item: {
       type: Object,
