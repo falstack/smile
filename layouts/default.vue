@@ -18,9 +18,18 @@ export default {
     },
     handleUserLogin() {
       this.$channel.$on('sign-in', () => {
-        this.$bridge.switchTab({
-          url: '/pages/user/home/index'
-        })
+        if (this.$bridge.__IN_APP__) {
+          this.$bridge.switchTab({
+            url: '/pages/user/home/index'
+          })
+        } else {
+          this.$router.replace({
+            name: 'user-sign',
+            query: {
+              from: encodeURIComponent(window.location.href)
+            }
+          })
+        }
       })
     }
   }
