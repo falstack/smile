@@ -88,7 +88,16 @@ $answer-padding: 10px;
 <template>
   <div :class="$style.qaItem">
     <div :class="$style.header">
-      <VField v-if="isTrial" v-model="title" :class="$style.title" :close="false" :label="`${order}`" />
+      <VField
+        v-if="isTrial"
+        v-model="title"
+        :class="$style.title"
+        :min-row="1"
+        :max-row="3"
+        :max-len="50"
+        :close="false"
+        :label="`${order}`"
+      />
       <template v-else>
         <div :class="$style.order" v-text="order" />
         <p :class="$style.title" v-html="title" />
