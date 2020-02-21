@@ -67,12 +67,11 @@ jobs:
           node-version: 12
 
       - name: Install Qshell
-        shell: bash
         run: |
+          echo $PATH
+          cd /opt/hostedtoolcache/node/12.16.1/x64/bin
           echo "export PATH=\$PATH:$(pwd)" >> ~/.profile
           source ~/.profile
-          echo pwd
-          echo $PATH
           wget http://devtools.qiniu.com/qshell-linux-x64-v2.4.1.zip
           unzip qshell-linux-x64-v2.4.1.zip
           mv qshell-linux-x64-v2.4.1 qshell
