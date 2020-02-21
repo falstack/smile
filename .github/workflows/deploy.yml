@@ -20,7 +20,7 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   build:
-    needs: merge
+    needs: [merge]
     name: build
     runs-on: ubuntu-latest
     steps:
@@ -67,6 +67,7 @@ jobs:
           node-version: 12
 
       - name: Install Qshell
+        shell: bash
         run: |
           echo "export PATH=\$PATH:$(pwd)" >> ~/.profile
           source ~/.profile
