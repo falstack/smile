@@ -69,6 +69,7 @@ jobs:
       - name: Install Qshell
         run: |
           echo "export PATH=\$PATH:$(pwd)" >> ~/.bashrc
+          source ~/.bashrc
           wget http://devtools.qiniu.com/qshell-linux-x64-v2.4.1.zip
           unzip qshell-linux-x64-v2.4.1.zip
           mv qshell-linux-x64-v2.4.1 qshell
