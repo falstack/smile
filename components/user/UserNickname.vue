@@ -61,7 +61,7 @@
     <template v-if="showTitle">
       <span v-for="(item, index) in user.title" :key="index" :class="[$style.title, $style['ic-title']]" v-text="item" />
     </template>
-    <span v-if="showLevel" :class="[$style.title, $style['ic-level']]" v-text="`Lv${user.level2}`" />
+    <span v-if="showLevel" :class="[$style.title, $style['ic-level']]" v-text="`Lv${user.level}`" />
     <span v-if="showSex" :class="$style['ic-sex']">
       <i class="iconfont" :class="`ic-${sexClass.name}`" :style="{ backgroundColor: sexClass.color }" />
     </span>
