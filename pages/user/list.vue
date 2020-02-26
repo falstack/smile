@@ -1,21 +1,3 @@
-<style lang="scss">
-#user-list {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  .v-switcher-header-item {
-    padding: 0 10px;
-  }
-
-  .v-switcher-header-wrap {
-    border-bottom: 1px solid $color-gray-line;
-  }
-}
-</style>
-
 <template>
   <div id="user-list">
     <template v-if="headers.length">
