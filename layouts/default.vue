@@ -1,5 +1,5 @@
 <template>
-  <nuxt />
+  <nuxt class="main-view" />
 </template>
 
 <script>

@@ -10,6 +10,14 @@ i {
   vertical-align: middle;
 }
 
+html,
+body,
+#__nuxt,
+#__layout,
+.main-view {
+  height: 100%;
+}
+
 .oneline {
   overflow: hidden;
   text-overflow: ellipsis;
