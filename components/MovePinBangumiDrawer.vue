@@ -39,6 +39,7 @@
 <template>
   <VDrawer
     v-model="showDrawer"
+    :lock="false"
     from="right"
     size="100%"
     class="move-pin-drawer"
