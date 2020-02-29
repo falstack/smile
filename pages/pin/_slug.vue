@@ -226,9 +226,19 @@ export default {
       })
     },
     handleEditClick() {
-      this.$bridge.navigateTo({
-        url: `/pages/webview/index?url=${encodeURIComponent(`/write/pin?slug=${this.slug}`)}`
-      })
+      if (this.$bridge.__IN_APP__) {
+        this.$bridge.navigateTo({
+          url: `/pages/webview/index?url=${encodeURIComponent(`/write/pin?slug=${this.slug}`)}`
+        })
+      } else {
+        this.$router.push({
+          name: 'write-pin',
+          query: {
+            ...this.$route.query,
+            slug: this.slug
+          }
+        })
+      }
     },
     handleDeletePin() {
       this.$alert({

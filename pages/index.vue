@@ -1,7 +1,9 @@
 <template>
-  <VButton>
-    CALIBUR.TV
-  </VButton>
+  <div style="display:flex;justify-content:center;align-items:center">
+    <VButton>
+      CALIBUR.TV
+    </VButton>
+  </div>
 </template>
 
 <script>
