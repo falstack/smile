@@ -69,17 +69,25 @@
         <span style="float:right" @click="openAdminDrawer = true">···</span>
         <VDrawer
           v-model="openAdminDrawer"
-          :count="2"
+          :count="3"
           strict
           cancel="取消"
         >
           <div slot="0" class="drawer-item" @click="handleAction('recommend')">
             {{ recommended_at ? '取消推荐' : '推荐' }}
           </div>
-          <div slot="1" class="drawer-item" @click="handleAction('delete')">
+          <div slot="1" class="drawer-item" @click="handleAction('move')">
+            移动
+          </div>
+          <div slot="2" class="drawer-item" @click="handleAction('delete')">
             删除
           </div>
         </VDrawer>
+        <MovePinBangumiDrawer
+          v-model="showMoveDrawer"
+          :bangumi="bangumi.slug"
+          :slug="slug"
+        />
       </template>
     </div>
     <VAffix v-if="author" :fixed-top="0">
@@ -135,6 +143,7 @@ import UserAvatar from '~/components/user/UserAvatar'
 import UserNickname from '~/components/user/UserNickname'
 import CommentMain from '~/components/comment/CommentMain'
 import PinToolBar from '~/components/PinToolBar'
+import MovePinBangumiDrawer from '~/components/MovePinBangumiDrawer'
 
 export default {
   name: 'PinShow',
@@ -147,7 +156,8 @@ export default {
     UserNickname,
     JsonContent,
     CommentMain,
-    PinToolBar
+    PinToolBar,
+    MovePinBangumiDrawer
   },
   asyncData({ app, error, params }) {
     return app.$axios
@@ -185,7 +195,8 @@ export default {
       mark_status: false,
       reward_status: false,
       openEditDrawer: false,
-      openAdminDrawer: false
+      openAdminDrawer: false,
+      showMoveDrawer: false
     }
   },
   computed: {
@@ -304,6 +315,8 @@ export default {
         this.handleDeletePin()
       } else if (type === 'recommend') {
         this.handleRecommendPin()
+      } else if (type === 'move') {
+        this.showMoveDrawer = true
       }
     },
     patchPin() {

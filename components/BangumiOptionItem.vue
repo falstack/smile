@@ -79,6 +79,11 @@ export default {
       isSelected: this.item.slug === this.selectedSlug
     }
   },
+  watch: {
+    selectedSlug(val) {
+      this.isSelected = val === this.item.slug
+    }
+  },
   methods: {
     handleClick() {
       if (this.type === 'select') {
