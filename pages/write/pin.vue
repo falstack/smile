@@ -1,13 +1,6 @@
 <style lang="scss">
 #write-pin {
-  position: relative;
-  min-height: 100vh;
-  padding-bottom: 50px + $page-padding;
-  @include iPhoneX() {
-    padding-bottom: 70px + $page-padding;
-  }
-
-  .title {
+  .title-wrap {
     position: relative;
 
     &:after {
@@ -34,34 +27,40 @@
     }
   }
 
-  .footer {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 50px;
-    border-top: 1px solid $color-gray-3;
-    z-index: 1;
+  .footer-wrap {
+    height: 50px + $page-padding;
+    box-sizing: content-box;
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
 
-    @include iPhoneX() {
-      height: 70px;
-      padding-bottom: 20px;
-    }
+    .footer {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 50px;
+      border-top: 1px solid $color-gray-3;
+      background-color: #fff;
+      z-index: 1;
+      box-sizing: content-box;
+      padding-bottom: constant(safe-area-inset-bottom);
+      padding-bottom: env(safe-area-inset-bottom);
 
-    .v-button {
-      flex: 1;
-      margin: 0 $page-padding / 2;
+      .v-button {
+        flex: 1;
+        margin: 0 $page-padding / 2;
 
-      &:first-child {
-        margin-left: $page-padding;
-      }
+        &:first-child {
+          margin-left: $page-padding;
+        }
 
-      &:last-child {
-        margin-right: $page-padding;
+        &:last-child {
+          margin-right: $page-padding;
+        }
       }
     }
   }
@@ -74,7 +73,7 @@
 
 <template>
   <div id="write-pin">
-    <div class="title">
+    <div class="title-wrap">
       <VField
         v-model="title.text"
         :min-row="1"
@@ -91,26 +90,28 @@
       </p>
       <VButton plain @click="toggleBangumiDrawer = true" v-text="selectedBangumi.name" />
     </div>
-    <div class="footer">
-      <template v-if="published_at">
-        <VButton :loading="loading" @click="actionUpdate(true)">
-          更新文章
+    <div class="footer-wrap">
+      <div class="footer">
+        <template v-if="published_at">
+          <VButton :loading="loading" @click="actionUpdate(true)">
+            更新文章
+          </VButton>
+        </template>
+        <template v-else>
+          <VButton :loading="loading" @click="actionCreate(true)">
+            发布文章
+          </VButton>
+          <VButton v-if="slug" :loading="loading" theme="info" plain @click="actionUpdate(false)">
+            存草稿
+          </VButton>
+          <VButton v-else :loading="loading" theme="info" plain @click="actionCreate(false)">
+            存草稿
+          </VButton>
+        </template>
+        <VButton v-if="draftSource.total" plain @click="toggleDraftDrawer = true">
+          草稿箱({{ draftSource.total }})
         </VButton>
-      </template>
-      <template v-else>
-        <VButton :loading="loading" @click="actionCreate(true)">
-          发布文章
-        </VButton>
-        <VButton v-if="slug" :loading="loading" theme="info" plain @click="actionUpdate(false)">
-          存草稿
-        </VButton>
-        <VButton v-else :loading="loading" theme="info" plain @click="actionCreate(false)">
-          存草稿
-        </VButton>
-      </template>
-      <VButton v-if="draftSource.total" plain @click="toggleDraftDrawer = true">
-        草稿箱({{ draftSource.total }})
-      </VButton>
+      </div>
     </div>
     <div class="preload-wrap">
       <FlowLoader
