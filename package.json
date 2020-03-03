@@ -14,7 +14,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@calibur/sakura": "^1.7.0",
+    "@calibur/sakura": "^1.9.0",
     "@codexteam/ajax": "^4.1.0",
     "@editorjs/checklist": "^1.1.0",
     "@editorjs/delimiter": "^1.1.0",
@@ -30,7 +30,7 @@
     "nuxt": "2.11.0",
     "url-polyfill": "^1.1.8",
     "v-copy": "^0.1.0",
-    "vue-mixin-store": "^1.2.0"
+    "vue-mixin-store": "^1.2.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "2.0.2",
