@@ -22,9 +22,9 @@ export const getUserTimeline = ({ $axios, page, count, slug }) => {
   })
 }
 
-export const getUserBangumi = ({ $axios, slug }) => {
+export const getUserBangumi = ({ $axios, slug, from }) => {
   return $axios.$get('v1/user/like_bangumi', {
-    params: { slug }
+    params: { slug, from }
   })
 }
 

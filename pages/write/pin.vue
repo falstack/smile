@@ -151,7 +151,7 @@
         func="getUserBangumi"
         type="page"
         :auto="0"
-        :query="{ $axios: $axios, slug: currentUser.slug }"
+        :query="{ $axios: $axios, slug: currentUser.slug, from: 'create' }"
       >
         <div slot-scope="{ flow }">
           <BangumiOptionItem
