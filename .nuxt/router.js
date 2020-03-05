@@ -13,7 +13,6 @@ const _512784fc = () => interopDefault(import('../pages/bangumi/profile.vue' /* 
 const _7dccb0b9 = () => interopDefault(import('../pages/bangumi/relation.vue' /* webpackChunkName: "pages/bangumi/relation" */))
 const _5c60a839 = () => interopDefault(import('../pages/bangumi/rule.vue' /* webpackChunkName: "pages/bangumi/rule" */))
 const _2af6ca62 = () => interopDefault(import('../pages/bangumi/test.vue' /* webpackChunkName: "pages/bangumi/test" */))
-const _536e32d5 = () => interopDefault(import('../pages/bangumi/top250.vue' /* webpackChunkName: "pages/bangumi/top250" */))
 const _7e5c9ea9 = () => interopDefault(import('../pages/bangumi/trial.vue' /* webpackChunkName: "pages/bangumi/trial" */))
 const _2392170a = () => interopDefault(import('../pages/idol/edit.vue' /* webpackChunkName: "pages/idol/edit" */))
 const _6abe0402 = () => interopDefault(import('../pages/public/news.vue' /* webpackChunkName: "pages/public/news" */))
@@ -23,6 +22,7 @@ const _a42e7e52 = () => interopDefault(import('../pages/user/edit.vue' /* webpac
 const _c2becd2a = () => interopDefault(import('../pages/user/list.vue' /* webpackChunkName: "pages/user/list" */))
 const _60fa1f0a = () => interopDefault(import('../pages/user/sign.vue' /* webpackChunkName: "pages/user/sign" */))
 const _d26dfa24 = () => interopDefault(import('../pages/write/pin.vue' /* webpackChunkName: "pages/write/pin" */))
+const _fd9e2588 = () => interopDefault(import('../pages/bangumi/list/top250.vue' /* webpackChunkName: "pages/bangumi/list/top250" */))
 const _3b54ec99 = () => interopDefault(import('../pages/pin/_slug.vue' /* webpackChunkName: "pages/pin/_slug" */))
 const _6f94ae5b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -93,11 +93,6 @@ export const routerOptions = {
     props: false,
     name: "bangumi-test"
   }, {
-    path: "/bangumi/top250",
-    component: _536e32d5,
-    props: false,
-    name: "bangumi-top250"
-  }, {
     path: "/bangumi/trial",
     component: _7e5c9ea9,
     props: false,
@@ -142,6 +137,11 @@ export const routerOptions = {
     component: _d26dfa24,
     props: false,
     name: "write-pin"
+  }, {
+    path: "/bangumi/list/top250",
+    component: _fd9e2588,
+    props: false,
+    name: "bangumi-list-top250"
   }, {
     path: "/pin/:slug?",
     component: _3b54ec99,
