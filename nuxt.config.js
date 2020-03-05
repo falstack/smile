@@ -121,6 +121,19 @@ module.exports = {
         ]
       ]
     },
+    postcss: {
+      plugins: {
+        'postcss-px-to-viewport': {
+          viewportWidth: 375,
+          unitPrecision: 2
+        }
+      },
+      preset: {
+        autoprefixer: {
+          remove: false
+        }
+      }
+    },
     /*
      ** You can extend webpack config here
      */
