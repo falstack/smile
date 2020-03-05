@@ -785,10 +785,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@calibur/sakura@^1.11.0":
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/@calibur/sakura/-/sakura-1.11.0.tgz#8eefa520cec840a9e7c52720670a216713a84ede"
-  integrity sha512-JgnEs8ZMA11lV+sAbzxsy/9snkV11LJ3nJpJWJgY2X+NCytKhq2CubcXlCt/wYC5uik27rEN7bNqAwzWL2xSQg==
+"@calibur/sakura@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@calibur/sakura/-/sakura-2.0.1.tgz#fd1a58bd6e9c7423e9b24939a61da1f2c806e1de"
+  integrity sha512-OPD/CowIDSyeBfGlHNQ+QWRT+LO/G9bAR7JuFkNiiB21KU8hQ5kDvBJr2DRFWCV4rj7nhdl6EMKklBqn50mB0A==
   dependencies:
     async-validator "^3.2.3"
     throttle-debounce "^2.1.0"
