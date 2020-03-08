@@ -6,10 +6,8 @@
     :theme="btnStyle.theme"
     size="small"
     @click="handleFollowClick"
-  >
-    <i class="bili-font" :class="btnStyle.icon" />
-    <span v-text="btnStyle.text" />
-  </VButton>
+    v-text="btnStyle.text"
+  />
 </template>
 
 <script>
