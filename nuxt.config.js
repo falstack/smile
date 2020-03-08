@@ -1,4 +1,4 @@
-import qiniuConf from './qiniu'
+const qiniuConf = require('./qiniu')
 const nodeEnv = process.env.NODE_ENV
 const isDev = nodeEnv === 'development'
 const ENV = require('./.env')
