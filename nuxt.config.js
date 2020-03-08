@@ -1,3 +1,4 @@
+import qiniuConf from './qiniu'
 const nodeEnv = process.env.NODE_ENV
 const isDev = nodeEnv === 'development'
 const ENV = require('./.env')
@@ -101,7 +102,7 @@ module.exports = {
         localsConvention: 'camelCase'
       }
     },
-    publicPath: isDev ? '/_nuxt/' : 'https://file.calibur.tv/smile/',
+    publicPath: isDev ? '/_nuxt/' : `${qiniuConf.host}${qiniuConf.key_prefix}`,
     babel: {
       presets: [
         [

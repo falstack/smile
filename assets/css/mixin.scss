@@ -36,14 +36,6 @@
   -webkit-box-orient: vertical;
 }
 
-@mixin half-font($size, $origin: center) {
-  display: block;
-  font-size: $size * 2;
-  line-height: $size * 2;
-  transform: scale(0.5);
-  transform-origin: left $origin;
-}
-
 @mixin keyframes($name) {
   @keyframes #{$name} {
     @content

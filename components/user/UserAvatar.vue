@@ -1,5 +1,8 @@
 <style lang="scss">
 .user-avatar {
+  width: 30px;
+  height: 30px;
+
   .avatar {
     display: block;
     box-shadow: 0 0 0 1px #edf2f9;
@@ -11,8 +14,8 @@
 </style>
 
 <template>
-  <div :style="{ width: `${size}px`, height: `${size}px` }" class="user-avatar" @click="handleClick">
-    <img class="avatar" :src="$resize(user.avatar, { width: size })">
+  <div class="user-avatar" @click="handleClick">
+    <img class="avatar" :src="$resize(user.avatar, { width: 30 })">
   </div>
 </template>
 
@@ -23,10 +26,6 @@ export default {
     user: {
       type: Object,
       required: true
-    },
-    size: {
-      type: Number,
-      default: 30
     }
   },
   methods: {
