@@ -1,7 +1,7 @@
 <template>
   <div id="user-list">
     <template v-if="headers.length">
-      <VSwitcher :headers="headers" align="around" @change="handleChange">
+      <VSwitcher :default-index="activeIndex" :headers="headers" align="around" @change="handleChange">
         <FlowLoader
           v-for="(item, index) in headers"
           ref="loader"
@@ -10,6 +10,8 @@
           :func="item.func"
           :type="item.type"
           :query="item.query"
+          :auto="0"
+          :callback="detectUserRelation"
         >
           <ul slot-scope="{ flow }">
             <UserItem v-for="user in flow" :key="user.slug" :user="user" :score="computedUserScore(user, item.query.sort)" />
@@ -43,9 +45,11 @@ export default {
     VSwitcher,
     UserItem
   },
-  props: {},
   data() {
-    return {}
+    const { query } = this.$route
+    return {
+      activeIndex: query.type === 'user_followers' ? 1 : 0
+    }
   },
   computed: {
     query() {
@@ -79,14 +83,38 @@ export default {
           }
         ]
       }
+      if (query.type === 'user_following' || query.type === 'user_followers') {
+        return [
+          {
+            name: '关注',
+            func: 'getUserRelation',
+            type: 'seenIds',
+            query: {
+              $axios: this.$axios,
+              slug: query.slug,
+              relation: 'following',
+              changing: 'slug'
+            }
+          },
+          {
+            name: '粉丝',
+            func: 'getUserRelation',
+            type: 'seenIds',
+            query: {
+              $axios: this.$axios,
+              slug: query.slug,
+              relation: 'follower',
+              changing: 'slug'
+            }
+          }
+        ]
+      }
       return []
     }
   },
-  watch: {},
-  created() {},
-  mounted() {},
   methods: {
     handleChange(index) {
+      this.activeIndex = index
       this.$refs.loader[index].initData()
     },
     computedUserScore(user, sort) {
@@ -98,6 +126,30 @@ export default {
         return `${user.list_score}股`
       }
       return ''
+    },
+    detectUserRelation({ data }) {
+      if (this.query.type !== 'user_following' && this.query.type !== 'user_followers') {
+        return
+      }
+      const { result } = data
+      if (!result.length) {
+        return
+      }
+      this.$axios
+        .$get('v1/user/detect_relation', {
+          params: {
+            type: 'user',
+            targets: result.map(_ => _.slug).join(',')
+          }
+        })
+        .then((data) => {
+          this.$store.commit('social/set', {
+            type: 'user-follow',
+            data
+          })
+          this.$refs.loader[this.activeIndex].patch(data)
+        })
+        .catch(() => {})
     }
   },
   head() {
