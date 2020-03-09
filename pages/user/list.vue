@@ -10,7 +10,6 @@
           :func="item.func"
           :type="item.type"
           :query="item.query"
-          :auto="0"
           :callback="detectUserRelation"
         >
           <ul slot-scope="{ flow }">
