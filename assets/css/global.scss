@@ -1,7 +1,13 @@
 body {
-  font-size: 14px;
   width: 100%;
+  font-size: 14px;
   overflow-x: hidden;
+}
+
+button,
+span,
+i {
+  vertical-align: middle;
 }
 
 html,
