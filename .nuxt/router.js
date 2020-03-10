@@ -22,6 +22,7 @@ const _a42e7e52 = () => interopDefault(import('../pages/user/edit.vue' /* webpac
 const _c2becd2a = () => interopDefault(import('../pages/user/list.vue' /* webpackChunkName: "pages/user/list" */))
 const _60fa1f0a = () => interopDefault(import('../pages/user/sign.vue' /* webpackChunkName: "pages/user/sign" */))
 const _d26dfa24 = () => interopDefault(import('../pages/write/pin.vue' /* webpackChunkName: "pages/write/pin" */))
+const _4447525a = () => interopDefault(import('../pages/bangumi/list/release.vue' /* webpackChunkName: "pages/bangumi/list/release" */))
 const _fd9e2588 = () => interopDefault(import('../pages/bangumi/list/top250.vue' /* webpackChunkName: "pages/bangumi/list/top250" */))
 const _3b54ec99 = () => interopDefault(import('../pages/pin/_slug.vue' /* webpackChunkName: "pages/pin/_slug" */))
 const _6f94ae5b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
@@ -137,6 +138,11 @@ export const routerOptions = {
     component: _d26dfa24,
     props: false,
     name: "write-pin"
+  }, {
+    path: "/bangumi/list/release",
+    component: _4447525a,
+    props: false,
+    name: "bangumi-list-release"
   }, {
     path: "/bangumi/list/top250",
     component: _fd9e2588,
