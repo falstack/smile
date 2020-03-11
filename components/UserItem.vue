@@ -28,7 +28,7 @@
     .intro {
       color: #999;
       font-size: 12px;
-      line-height: 20px;
+      line-height: 12px;
       width: 100%;
     }
   }

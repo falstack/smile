@@ -26,6 +26,7 @@
         $axios,
         ...query
       }"
+      :callback="detectUserRelation"
     >
       <ul slot-scope="{ flow }">
         <UserItem v-for="user in flow" :key="user.slug" :user="user" :score="computedUserScore(user)" />
@@ -127,9 +128,6 @@ export default {
       return ''
     },
     detectUserRelation({ data }) {
-      if (this.query.type !== 'user_following' && this.query.type !== 'user_followers') {
-        return
-      }
       const { result } = data
       if (!result.length) {
         return
