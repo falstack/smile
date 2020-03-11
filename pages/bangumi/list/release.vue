@@ -26,7 +26,12 @@
         <VSwitcher :default-index="defaultIndex" :headers="headers">
           <div v-for="(item, index) in headers" :key="index" :slot="index">
             <template v-if="flow[index] && flow[index].length">
-              <BangumiOptionItem v-for="bangumi in flow[index]" :key="bangumi.slug" :item="bangumi" />
+              <BangumiOptionItem
+                v-for="bangumi in flow[index]"
+                :key="bangumi.slug"
+                :item="bangumi"
+                @click="handleClick(bangumi)"
+              />
             </template>
             <div v-else class="no-content">
               <img src="~/assets/img/error/no-content.png">
@@ -55,6 +60,13 @@ export default {
     defaultIndex() {
       const week = new Date().getDay()
       return (week || 7) - 1
+    }
+  },
+  methods: {
+    handleClick(bangumi) {
+      this.$bridge.navigateTo({
+        url: `/pages/bangumi/show/index?slug=${bangumi.slug}`
+      })
     }
   }
 }

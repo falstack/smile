@@ -86,9 +86,7 @@ export default {
   },
   methods: {
     handleClick() {
-      if (this.type === 'select') {
-        this.$emit('click')
-      }
+      this.$emit('click')
     }
   }
 }
