@@ -50,7 +50,7 @@
       padding-bottom: constant(safe-area-inset-bottom);
       padding-bottom: env(safe-area-inset-bottom);
 
-      .v-button {
+      .v-btn {
         flex: 1;
         margin: 0 $page-padding / 2;
 
