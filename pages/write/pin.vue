@@ -127,7 +127,7 @@
         func="getUserBangumi"
         type="page"
         :auto="0"
-        :query="{ $axios: $axios, slug: currentUser.slug }"
+        :query="{ $axios: $axios, slug: currentUser.slug, from: 'create' }"
       />
     </div>
     <VDrawer v-model="toggleDraftDrawer">
@@ -233,7 +233,8 @@ export default {
         func: 'getUserBangumi',
         type: 'page',
         query: {
-          slug: this.currentUser.slug
+          slug: this.currentUser.slug,
+          from: 'create'
         }
       }) || {}
     }
