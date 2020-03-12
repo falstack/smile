@@ -9,18 +9,6 @@
 
 <template>
   <VForm v-if="rule" id="bangumi-rule" full :loading="loading" @submit="handleSubmit">
-    <VField :label="`出题数（${rule.question_count}个）`">
-      <p class="form-tip">
-        如果题库数量不足，则能出几题出几题，如果题库数量超过设定值，则随机出指定题目数
-      </p>
-      <VRange v-model="rule.question_count" :min="5" :max="100" />
-    </VField>
-    <VField :label="`正确率（${rule.right_rate}%）`">
-      <p class="form-tip">
-        答题的正确率不低于该值才能通过
-      </p>
-      <VRange v-model="rule.right_rate" :min="50" :max="100" />
-    </VField>
     <VField label="加入方式">
       <p class="form-tip">
         加入方式更改之后不会影响「正在答题」和「已经加入」的人
@@ -29,12 +17,27 @@
       <VRadio
         v-model="rule.rule_type"
         :label="[
-          { label: '需要答题或管理邀请', value: 0 },
-          { label: '只能管理邀请', value: 1 },
-          { label: '只能答题加入', value: 2 }
+          { label: '无需答题和确认', value: 0 },
+          { label: '需要答题或管理邀请', value: 1 },
+          { label: '只能答题加入', value: 2 },
+          { label: '只能管理邀请', value: 3 }
         ]"
       />
     </VField>
+    <template v-if="rule.rule_type === 1 || rule.rule_type === 2">
+      <VField :label="`出题数（${rule.question_count}个）`">
+        <p class="form-tip">
+          如果题库数量不足，则能出几题出几题，如果题库数量超过设定值，则随机出指定题目数
+        </p>
+        <VRange v-model="rule.question_count" :min="5" :max="100" />
+      </VField>
+      <VField :label="`正确率（${rule.right_rate}%）`">
+        <p class="form-tip">
+          答题的正确率不低于该值才能通过
+        </p>
+        <VRange v-model="rule.right_rate" :min="50" :max="100" />
+      </VField>
+    </template>
     <!--
     <ElFormItem label="答题时长">
       <p class="form-tip">
