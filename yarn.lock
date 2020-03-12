@@ -9298,10 +9298,10 @@ vue-meta@^2.3.1:
   dependencies:
     deepmerge "^4.2.2"
 
-vue-mixin-store@^1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/vue-mixin-store/-/vue-mixin-store-1.2.6.tgz#12543fc13aeeee86b6c092af1783aca286cfc9c6"
-  integrity sha512-Bbtk6OpQk5cI+BIe3664Fdj3Ulwsfi+F3Lv/QdtCrQXSRhea4ta3ZvFgordoTnnW/igDopAkgS2lsuxET7Zw3A==
+vue-mixin-store@^1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/vue-mixin-store/-/vue-mixin-store-1.2.7.tgz#ef3ddd4bfc1bd95078d1558de7cbe9be53c8a8ae"
+  integrity sha512-GwwII1Yplp1dFbqvTqImoYIvuRv1/NWha1sejx6TZDMK+o3x4Pa+X3xXF4+TjNNLJf1srXkmBlt8rFaMmnL5ZA==
   dependencies:
     vue "^2.6.11"
 
