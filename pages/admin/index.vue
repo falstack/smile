@@ -14,10 +14,15 @@
 
 <template>
   <div id="app-admin">
-    <NLink to="/admin/trial">
+    <NLink to="/admin/trial-qa">
       <i class="el-icon-edit" />
-      <span>审核题目</span>
-      <span v-if="trialInfo">（待审：{{ trialInfo.trial }}，库存：{{ trialInfo.pass }}）</span>
+      <span>题目审核</span>
+      <span v-if="trialInfo">（待审：{{ trialInfo.qa_wait }}，库存：{{ trialInfo.qa_pass }}）</span>
+    </NLink>
+    <NLink to="/admin/trial-pin">
+      <i class="el-icon-edit" />
+      <span>帖子审核</span>
+      <span v-if="trialInfo">（待审：{{ trialInfo.pin_wait }}）</span>
     </NLink>
     <NLink to="/admin/create-bangumi">
       <i class="el-icon-plus" />
@@ -29,23 +34,18 @@
 <script>
 export default {
   name: 'AppAdmin',
-  components: {},
-  props: {},
   data() {
     return {
       trialInfo: null
     }
   },
-  computed: {},
-  watch: {},
-  created() {},
   mounted() {
     this.getTrialInfo()
   },
   methods: {
     getTrialInfo() {
       this.$axios
-        .$get('v1/bangumi/atfield')
+        .$get('v1/console/trial/stat')
         .then((data) => {
           this.trialInfo = data
         })

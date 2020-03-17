@@ -1,12 +1,12 @@
 <style lang="scss">
-#admin-qa-trial {
+#trial-qa {
   padding: $page-padding;
 }
 </style>
 
 <template>
-  <div id="admin-qa-trial">
-    <FlowLoader ref="loader" func="getBangumiQuestionTrials" type="page" :query="{ $axios, status: 0 }">
+  <div id="trial-qa">
+    <FlowLoader ref="loader" func="getBangumiQuestionTrials" type="page" :query="query">
       <div slot-scope="{ flow, extra }">
         <QaItem
           v-for="(item, index) in flow"
@@ -33,9 +33,15 @@ export default {
   components: {
     QaItem
   },
-  data() {
-    return {
-      loading: false
+  computed: {
+    query() {
+      const query = this.$route.query
+
+      return {
+        ...query,
+        $axios: this.$axios,
+        status: 0
+      }
     }
   },
   methods: {
