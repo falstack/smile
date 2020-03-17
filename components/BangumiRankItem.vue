@@ -85,7 +85,7 @@
     </div>
     <div class="body">
       <div class="poster">
-        <img :src="$resize(item.avatar, { width: 180, height: 240 })">
+        <img :src="$resizeImage(item.avatar, { width: 180, height: 240 })">
       </div>
       <div class="content">
         <p class="title oneline" v-text="item.name" />

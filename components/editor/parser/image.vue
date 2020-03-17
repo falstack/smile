@@ -3,8 +3,16 @@
   padding: 0.7em 0;
   text-align: center;
 
-  picture {
-    margin: 0 auto;
+  .wrap {
+    position: relative;
+    width: 100%;
+    height: 0;
+
+    :global(.v-img) {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
   }
 
   p {
@@ -24,14 +32,21 @@
 </style>
 
 <template>
-  <div :class="$style.image">
-    <VImg :src="item.data.file.url" :stretched="item.data.stretched" :width="item.data.file.width" :height="item.data.file.height" />
+  <div v-if="item.data" :class="$style.image">
+    <div v-if="item.data.file" :class="$style.wrap" :style="{ paddingTop: `${parseFloat(item.data.file.height / item.data.file.width * 100).toFixed(2)}%` }">
+      <VImg
+        :src="item.data.file.url"
+        :width="400"
+        :height="parseFloat(item.data.file.height / item.data.file.width * 400).toFixed(2)"
+        lazy
+      />
+    </div>
     <p v-if="item.data.caption" v-text="item.data.caption" />
   </div>
 </template>
 
 <script>
-import VImg from '~/components/Image'
+import { VImg } from '@calibur/sakura'
 
 export default {
   name: 'JsonImage',
