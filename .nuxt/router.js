@@ -6,14 +6,14 @@ import scrollBehavior from './router.scrollBehavior.js'
 const _4529324a = () => interopDefault(import('../pages/admin/index.vue' /* webpackChunkName: "pages/admin/index" */))
 const _7f3bf50f = () => interopDefault(import('../pages/admin/create-bangumi.vue' /* webpackChunkName: "pages/admin/create-bangumi" */))
 const _ab0c7f9c = () => interopDefault(import('../pages/admin/create-idol.vue' /* webpackChunkName: "pages/admin/create-idol" */))
-const _4638e9c2 = () => interopDefault(import('../pages/admin/trial.vue' /* webpackChunkName: "pages/admin/trial" */))
+const _baa09c32 = () => interopDefault(import('../pages/admin/trial-pin.vue' /* webpackChunkName: "pages/admin/trial-pin" */))
+const _5649ada4 = () => interopDefault(import('../pages/admin/trial-qa.vue' /* webpackChunkName: "pages/admin/trial-qa" */))
 const _e3476f72 = () => interopDefault(import('../pages/bangumi/edit.vue' /* webpackChunkName: "pages/bangumi/edit" */))
 const _495bb132 = () => interopDefault(import('../pages/bangumi/join.vue' /* webpackChunkName: "pages/bangumi/join" */))
 const _512784fc = () => interopDefault(import('../pages/bangumi/profile.vue' /* webpackChunkName: "pages/bangumi/profile" */))
 const _7dccb0b9 = () => interopDefault(import('../pages/bangumi/relation.vue' /* webpackChunkName: "pages/bangumi/relation" */))
 const _5c60a839 = () => interopDefault(import('../pages/bangumi/rule.vue' /* webpackChunkName: "pages/bangumi/rule" */))
 const _2af6ca62 = () => interopDefault(import('../pages/bangumi/test.vue' /* webpackChunkName: "pages/bangumi/test" */))
-const _7e5c9ea9 = () => interopDefault(import('../pages/bangumi/trial.vue' /* webpackChunkName: "pages/bangumi/trial" */))
 const _2392170a = () => interopDefault(import('../pages/idol/edit.vue' /* webpackChunkName: "pages/idol/edit" */))
 const _6abe0402 = () => interopDefault(import('../pages/public/news.vue' /* webpackChunkName: "pages/public/news" */))
 const _26dd70db = () => interopDefault(import('../pages/public/rank.vue' /* webpackChunkName: "pages/public/rank" */))
@@ -59,10 +59,15 @@ export const routerOptions = {
     props: false,
     name: "admin-create-idol"
   }, {
-    path: "/admin/trial",
-    component: _4638e9c2,
+    path: "/admin/trial-pin",
+    component: _baa09c32,
     props: false,
-    name: "admin-trial"
+    name: "admin-trial-pin"
+  }, {
+    path: "/admin/trial-qa",
+    component: _5649ada4,
+    props: false,
+    name: "admin-trial-qa"
   }, {
     path: "/bangumi/edit",
     component: _e3476f72,
@@ -93,11 +98,6 @@ export const routerOptions = {
     component: _2af6ca62,
     props: false,
     name: "bangumi-test"
-  }, {
-    path: "/bangumi/trial",
-    component: _7e5c9ea9,
-    props: false,
-    name: "bangumi-trial"
   }, {
     path: "/idol/edit",
     component: _2392170a,
