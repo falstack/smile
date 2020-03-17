@@ -785,12 +785,12 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@calibur/sakura@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@calibur/sakura/-/sakura-2.0.1.tgz#fd1a58bd6e9c7423e9b24939a61da1f2c806e1de"
-  integrity sha512-OPD/CowIDSyeBfGlHNQ+QWRT+LO/G9bAR7JuFkNiiB21KU8hQ5kDvBJr2DRFWCV4rj7nhdl6EMKklBqn50mB0A==
+"@calibur/sakura@^2.4.4":
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/@calibur/sakura/-/sakura-2.4.4.tgz#cb833b4499309ccc4690a399a5a347aea05e0d34"
+  integrity sha512-kLoVYYWBYNDyLdRcwixW9oYrj52+C/UYnk7MEoy05+/BP19i8k4ShrCyAtroYpGUBt6Eg99Dqgu8ToHoRdjSkw==
   dependencies:
-    async-validator "^3.2.3"
+    async-validator "^3.2.4"
     throttle-debounce "^2.1.0"
     tua-body-scroll-lock "^1.0.0"
 
@@ -814,10 +814,10 @@
   resolved "https://registry.yarnpkg.com/@editorjs/delimiter/-/delimiter-1.1.0.tgz#f61808ea92e4e289607d54441964f1cb8605410a"
   integrity sha512-0G36vEvvb94g6nu/qs2rVjC/qjxLnY20OfOgxROKSOOXzS7xnkTij5raeIxRiYueeLL5fMrzrvtFH7wclfxF+g==
 
-"@editorjs/editorjs@^2.16.1":
-  version "2.16.1"
-  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.16.1.tgz#41a2707fc126518dca513a09aa207aa8b6d9a65c"
-  integrity sha512-PfCG7UZeFW/QtdcN3/gC0qIUinQ/TL5XuODllxWRx7GMEFHYWwen2YOwbW3KN0Rp6Ue94HbJua7Hn3HToH9wug==
+"@editorjs/editorjs@^2.17.0":
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.17.0.tgz#38f20d7f99bc21868904b6b937905b6daad5a2a2"
+  integrity sha512-5rMjZLdiFOiUGESe5MZagvuVaLggORXBEolbbDLLVWHslR+r4+TACOXBcN8A6m9hMmnpHIJsC3442MZEWdNfQA==
   dependencies:
     codex-notifier "^1.1.2"
     codex-tooltip "^1.0.0"
@@ -1721,10 +1721,10 @@ async-limiter@~1.0.0:
   resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.1.tgz#dd379e94f0db8310b08291f9d64c3209766617fd"
   integrity sha512-csOlWGAcRFJaI6m+F2WKdnMKr4HhdhFVBk0H/QbJFMCr+uO2kwohwXQPxw/9OCxp05r5ghVBFSyioixx3gfkNQ==
 
-async-validator@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/async-validator/-/async-validator-3.2.3.tgz#b38b72f9c08c1d28548df13bb260b6908448ca49"
-  integrity sha512-yMJ4i3x5qEGVgEMowZiBkx+rjDrsXf64BWdHENCtHLgyPiEE+2r8jvqMF1cghCgdGo4sWVLJ7MDwPQgGSPDCcw==
+async-validator@^3.2.4:
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/async-validator/-/async-validator-3.2.4.tgz#4e773a1d0d741016b455b7995b469a47cce0dbe0"
+  integrity sha512-mTgzMJixkrh+5t2gbYoua8MLy11GHkQqFE6tbhY5Aqc4jEDGsR4BWP+sVQiYDHtzTMB8WIwI/ypObTVPcTZInw==
 
 async@^2.1.4:
   version "2.6.3"
@@ -9298,10 +9298,10 @@ vue-meta@^2.3.1:
   dependencies:
     deepmerge "^4.2.2"
 
-vue-mixin-store@^1.2.7:
-  version "1.2.7"
-  resolved "https://registry.yarnpkg.com/vue-mixin-store/-/vue-mixin-store-1.2.7.tgz#ef3ddd4bfc1bd95078d1558de7cbe9be53c8a8ae"
-  integrity sha512-GwwII1Yplp1dFbqvTqImoYIvuRv1/NWha1sejx6TZDMK+o3x4Pa+X3xXF4+TjNNLJf1srXkmBlt8rFaMmnL5ZA==
+vue-mixin-store@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/vue-mixin-store/-/vue-mixin-store-1.3.0.tgz#68e193282fd6012b8abe13b0c80254a5c0698a77"
+  integrity sha512-nJrR6yFf3t7EVrZV/V35kI7vKulmU4xQK2dCutjDbbFEuyXp0rhcOiCnyMbAHwfoFEpaswbLtY917YG+XPJ8BQ==
   dependencies:
     vue "^2.6.11"
 
