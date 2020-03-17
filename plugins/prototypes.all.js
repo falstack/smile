@@ -7,7 +7,7 @@ export default ({ store }) => {
     install(Vue) {
       Vue.prototype.$utils = utils
 
-      Vue.prototype.$resize = imageResize
+      Vue.prototype.$resizeImage = imageResize
 
       Vue.prototype.$hasRole = store.getters.hasRole
 

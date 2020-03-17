@@ -15,7 +15,7 @@
 
 <template>
   <div class="user-avatar" @click="handleClick">
-    <img class="avatar" :src="$resize(user.avatar, { width: 30 })">
+    <img class="avatar" :src="$resizeImage(user.avatar, { width: 30 })">
   </div>
 </template>
 

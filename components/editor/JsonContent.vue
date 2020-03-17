@@ -6,8 +6,10 @@
       :key="index"
       :item="item"
       :reward="reward"
-      :vote="vote"
-      :slug="slug"
+      v-bind="item.type === 'vote' ? {
+        vote,
+        slug
+      } : ''"
     />
   </section>
 </template>

@@ -38,7 +38,7 @@
 
 <template>
   <div :class="$style.pinDraft" @click="handleClick">
-    <img :class="[$style.poster, { [$style.defaultPoster]: noPoster }]" :src="$resize(noPoster ? 'default-poster' : item.title.banner.url, { width: 200, height: 150 })">
+    <img :class="[$style.poster, { [$style.defaultPoster]: noPoster }]" :src="$resizeImage(noPoster ? 'default-poster' : item.title.banner.url, { width: 200, height: 150 })">
     <div :class="$style.body">
       <div :class="$style.title" class="oneline" v-text="item.title.text" />
       <p :class="$style.time" v-text="$utils.timeAgo(item.last_edit_at)" />
