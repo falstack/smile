@@ -10,6 +10,7 @@
           :key="item.slug"
           :item="item"
           :extra="extra[item.slug]"
+          @delete="handleDelete"
         />
       </div>
       <template slot="error" slot-scope="{ error }">
@@ -27,10 +28,6 @@ export default {
   components: {
     TrialPinItem
   },
-  props: {},
-  data() {
-    return {}
-  },
   computed: {
     query() {
       const query = this.$route.query
@@ -38,13 +35,25 @@ export default {
       return {
         ...query,
         $axios: this.$axios,
-        status: 0
+        status: 0,
+        changing: 'slug'
       }
+    },
+    source() {
+      return this.$store.getters['flow/getFlow']({
+        func: 'getTrialPinList',
+        type: 'page',
+        query: this.query
+      })
     }
   },
-  watch: {},
-  created() {},
-  mounted() {},
-  methods: {}
+  methods: {
+    handleDelete(slug) {
+      this.$refs.loader.delete(slug)
+      if (this.source.result.length === 0) {
+        this.$refs.loader.refresh()
+      }
+    }
+  }
 }
 </script>
