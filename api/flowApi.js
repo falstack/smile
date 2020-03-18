@@ -115,6 +115,12 @@ export const getBangumiQuestionTrials = ({ $axios, page, take, bangumi_slug, use
   })
 }
 
+export const getTrialPinList = ({ $axios, slug, from }) => {
+  return $axios.$get('v1/flow/pin/trial', {
+    params: { slug, from }
+  })
+}
+
 export const getIdolFans = ({ $axios, page, take, slug, sort }) => {
   return $axios.$get('v1/idol/fans', {
     params: {

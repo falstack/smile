@@ -40,7 +40,7 @@
 
 <template>
   <div :class="$style.bangumiOption" @click="handleClick">
-    <img :class="$style.poster" :src="$resizeImage(item.avatar, { width: 120, height: 120 })">
+    <img :class="$style.poster" :src="$resizeImage(item.avatar, { width: 120 })">
     <div :class="$style.body">
       <div :class="$style.content">
         <div :class="$style.title" class="oneline" v-text="item.name" />

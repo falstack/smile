@@ -9,7 +9,7 @@ export default (url, { width, height, rule, webP }) => {
 
   const link = url.startsWith('http') ? url : `https://m1.calibur.tv/${url}`
   const format = webP ? '/format/webp' : ''
-  const mode = rule || 1
+  const mode = rule === undefined ? 1 : rule
 
   if ((mode === 1 && !width) || (!width && !height)) {
     return `${link}?imageMogr2/auto-orient/strip${format}`
