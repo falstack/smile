@@ -318,9 +318,13 @@ export default {
         .then((slug) => {
           this.removeCache()
           if (publish) {
-            this.$bridge.redirectTo({
-              url: `/pages/pin/show/index?slug=${slug}`
-            })
+            if (this.$bridge.__IN_APP__) {
+              this.$bridge.redirectTo({
+                url: `/pages/pin/show/index?slug=${slug}`
+              })
+            } else {
+              window.location = `/pin/${slug}`
+            }
           } else {
             this.switchDraft(slug)
           }
@@ -345,9 +349,13 @@ export default {
         })
         .then((slug) => {
           if (publish) {
-            this.$bridge.redirectTo({
-              url: `/pages/pin/show/index?slug=${slug}`
-            })
+            if (this.$bridge.__IN_APP__) {
+              this.$bridge.redirectTo({
+                url: `/pages/pin/show/index?slug=${slug}`
+              })
+            } else {
+              window.location = `/pin/${slug}`
+            }
           }
           this.loading = false
         })

@@ -97,6 +97,11 @@
         <span>题目审核</span>
         <span v-if="trialInfo">（待审：{{ trialInfo.qa_wait }}，库存：{{ trialInfo.qa_pass }}）</span>
       </NLink>
+      <NLink v-if="trialPin" :to="`/admin/trial-pin?from=bangumi&slug=${bangumi.slug}`">
+        <i class="el-icon-edit" />
+        <span>帖子审核</span>
+        <span v-if="trialInfo">（待审：{{ trialInfo.pin_wait }}）</span>
+      </NLink>
     </div>
   </div>
 </template>
@@ -139,6 +144,9 @@ export default {
     },
     trialQuestion() {
       return this.$hasRole('trial_qa')
+    },
+    trialPin() {
+      return this.$hasRole('trial_pin')
     }
   },
   mounted() {

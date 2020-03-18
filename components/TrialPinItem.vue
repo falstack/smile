@@ -102,10 +102,10 @@
   <div class="trial-pin-item">
     <div class="header">
       <div class="user">
-        <img :src="$resizeImage(item.author.avatar, { width: 40 })">
+        <img :src="$resizeImage(item.author.avatar, { width: 40 })" @click="clickUser">
         <div class="name">
-          <p class="nickname oneline" v-html="item.author.nickname" />
-          <p class="bangumi oneline" v-html="item.bangumi.name" />
+          <p class="nickname oneline" @click="clickUser" v-html="item.author.nickname" />
+          <p class="bangumi oneline" @click="clickBangumi" v-html="item.bangumi.name" />
         </div>
       </div>
       <span class="time" v-text="$utils.timeAgo(item.published_at)" />
@@ -122,34 +122,36 @@
       </div>
     </div>
     <div class="footer">
-      <div v-if="extra.filter.words_1.length">
+      <div v-if="words_1.length">
         <span class="sub_title">一级敏感词命中：</span>
         <VButton
-          v-for="words in extra.filter.words_1"
+          v-for="words in words_1"
           :key="words"
           size="small"
           plain
           theme="warning"
+          @click="deleteWords(words, 1)"
           v-text="words"
         />
       </div>
-      <div v-if="extra.filter.words_2.length">
+      <div v-if="words_2.length">
         <span class="sub_title">二级敏感词命中：</span>
         <VButton
-          v-for="words in extra.filter.words_2"
+          v-for="words in words_2"
           :key="words"
           size="small"
           plain
           theme="danger"
+          @click="deleteWords(words, 2)"
           v-text="words"
         />
       </div>
     </div>
     <div class="control">
-      <VButton block size="small" theme="info">
+      <VButton :loading="loading" block size="small" theme="info" @click="handleDelete">
         删除
       </VButton>
-      <VButton block size="small">
+      <VButton :loading="loading" block size="small" @click="handlePass">
         通过
       </VButton>
     </div>
@@ -175,12 +177,97 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      words_1: [...this.extra.filter.words_1],
+      words_2: [...this.extra.filter.words_2],
+      loading: false
+    }
   },
-  computed: {},
-  watch: {},
-  created() {},
-  mounted() {},
-  methods: {}
+  mounted() {
+    this.$channel.$on('delete-words', (data) => {
+      this[`words_${data.level}`].forEach((words, index) => {
+        if (words === data.words) {
+          this[`words_${data.level}`].splice(index, 1)
+        }
+      })
+    })
+  },
+  methods: {
+    deleteWords(words, level) {
+      this.$alert({
+        title: '确认要删除吗？',
+        message: `${level}级敏感词：${words}`,
+        buttons: ['取消', '确认'],
+        callback: (index) => {
+          if (!index) {
+            return
+          }
+          this.$axios.$post('v1/console/trial/words/delete', {
+            filename: `words_level_${level}`,
+            words: [words]
+          })
+            .then(() => {
+              this.$channel.$emit('delete-words', { level, words })
+            })
+            .catch((err) => {
+              this.$toast.info(err.message)
+            })
+        }
+      })
+    },
+    clickUser() {
+      this.$bridge.navigateTo({
+        url: `/pages/user/show/index?slug=${this.item.author.slug}`
+      })
+    },
+    clickBangumi() {
+      this.$bridge.navigateTo({
+        url: `/pages/bangumi/show/index?slug=${this.item.bangumi.slug}`
+      })
+    },
+    handleDelete() {
+      if (this.loading) {
+        return
+      }
+      this.$alert({
+        title: '确认要删帖吗？',
+        buttons: ['取消', '确认'],
+        callback: (index) => {
+          if (!index) {
+            return
+          }
+          this.loading = true
+          this.$axios.$post('v1/pin/delete', {
+            slug: this.item.slug
+          })
+            .then(() => {
+              this.$emit('delete', this.item.slug)
+              this.$toast.info('删除成功')
+            })
+            .catch((err) => {
+              this.loading = false
+              this.$toast.error(err.message)
+            })
+        }
+      })
+    },
+    handlePass() {
+      if (this.loading) {
+        return
+      }
+      this.loading = true
+      this.$axios.$post('v1/pin/pass', {
+        slug: this.item.slug
+      })
+        .then(() => {
+          this.$emit('delete', this.item.slug)
+          this.$toast.info('通过成功')
+        })
+        .catch((err) => {
+          this.loading = false
+          this.$toast.error(err.message)
+        })
+    }
+  }
 }
 </script>
