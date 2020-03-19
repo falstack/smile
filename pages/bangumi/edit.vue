@@ -155,9 +155,10 @@ export default {
   methods: {
     getTrialInfo() {
       this.$axios
-        .$get('v1/bangumi/atfield', {
+        .$get('v1/console/trial/stat', {
           params: {
-            slug: this.bangumi.slug
+            slug: this.bangumi.slug,
+            from: 'bangumi'
           }
         })
         .then((data) => {

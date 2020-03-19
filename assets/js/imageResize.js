@@ -3,7 +3,7 @@ export default (url, { width, height, rule, webP }) => {
     return ''
   }
 
-  if (/imageMogr2/.test(url)) {
+  if (/imageMogr2/.test(url) || url.startsWith('data')) {
     return url
   }
 
