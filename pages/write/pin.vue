@@ -1,5 +1,51 @@
 <style lang="scss">
 #write-pin {
+  .v-uploader {
+    position: relative;
+    width: 100vw;
+    height: 56vw;
+    overflow: hidden;
+
+    &__action {
+      width: 100%;
+      height: 100%;
+      background-color: #fafbfd;
+
+      &__wrap {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #99a2aa;
+        user-select: none;
+      }
+    }
+
+    .banner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .delete {
+      position: absolute;
+      right: $page-padding;
+      bottom: $page-padding;
+      z-index: 2;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding: 4px 6px;
+      font-size: 12px;
+      border-radius: 5px;
+    }
+  }
+
   .title-wrap {
     position: relative;
 
@@ -73,6 +119,28 @@
 
 <template>
   <div id="write-pin">
+    <VUploader
+      ref="uploader"
+      v-model="title.banner"
+      :cookie="false"
+      :url="imageUploadAction"
+      :accept="imageUploadAccept"
+      :transform-request="imageUploadRequest"
+      :transform-response="imageUploadResponse"
+      @change="saveTitle"
+    >
+      <template slot="list" slot-scope="{ list }">
+        <img v-if="list.length" class="banner" :src="$resizeImage(list[0].url, { width: 400, height: 244 })">
+        <div v-if="list.length" class="delete" @click="handleDeleteBanner">
+          删除封面
+        </div>
+      </template>
+      <template slot="action">
+        <div>请添加封面图（选填）</div>
+        <p>支持8MB内的JPG／JPEG／PNG格式的高清图片</p>
+        <p>（建议大于960*540像素）</p>
+      </template>
+    </VUploader>
     <div class="title-wrap">
       <VField
         v-model="title.text"
@@ -169,7 +237,7 @@
 </template>
 
 <script>
-import { VField, VButton, VDrawer } from '@calibur/sakura'
+import { VField, VButton, VDrawer, VUploader } from '@calibur/sakura'
 import Editor from '~/components/editor'
 import upload from '~/mixins/upload'
 import mustSign from '~/mixins/mustSign'
@@ -183,6 +251,7 @@ export default {
     VButton,
     Editor,
     VDrawer,
+    VUploader,
     PinDraftItem,
     BangumiOptionItem
   },
@@ -251,6 +320,10 @@ export default {
       }
       if (this.$cache.has('editor_local_draft_title')) {
         this.title = this.$cache.get('editor_local_draft_title')
+        this.title.banner = this.title.banner && this.title.banner.url ? this.title.banner : null
+        if (this.title.banner) {
+          this.$refs.uploader && this.$refs.uploader.set(this.title.banner)
+        }
       }
       if (this.$cache.has('editor_local_draft_bangumi')) {
         this.selectedBangumi = this.$cache.get('editor_local_draft_bangumi')
@@ -258,6 +331,11 @@ export default {
           this.bangumi_slug = this.selectedBangumi.slug
         }
       }
+    },
+    handleDeleteBanner() {
+      this.title.banner = null
+      this.$refs.uploader && this.$refs.uploader.set(this.title.banner)
+      this.saveTitle()
     },
     initUserDraft() {
       if (!this.$refs.draftLoader) {
