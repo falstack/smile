@@ -52,7 +52,7 @@ export default {
       }
       if (this.state.is_following && this.state.is_followed_by) {
         return {
-          text: '互相关注',
+          text: '已互粉',
           theme: 'info',
           plain: true,
           icon: 'ic_more'
@@ -66,7 +66,7 @@ export default {
         }
       } else if (this.state.is_followed_by) {
         return {
-          text: '关注了我',
+          text: '关注我',
           theme: 'primary',
           plain: false,
           icon: 'ic_add'
