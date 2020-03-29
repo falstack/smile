@@ -4,7 +4,8 @@ import {
   getMatchedComponentsInstances,
   getChildrenComponentInstancesUsingFetch,
   promisify,
-  globalHandleError
+  globalHandleError,
+  sanitizeComponent
 } from './utils'
 
 import NuxtLoading from './components/nuxt-loading.vue'
@@ -15,7 +16,7 @@ import '../assets/font/iconfont.css'
 
 import _6f6c098b from '../layouts/default.vue'
 
-const layouts = { "_default": _6f6c098b }
+const layouts = { "_default": sanitizeComponent(_6f6c098b) }
 
 export default {
   render (h, props) {
