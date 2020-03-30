@@ -3724,10 +3724,10 @@ eslint-plugin-import@2.19.1:
     read-pkg-up "^2.0.0"
     resolve "^1.12.0"
 
-eslint-plugin-import@2.20.1:
-  version "2.20.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.20.1.tgz#802423196dcb11d9ce8435a5fc02a6d3b46939b3"
-  integrity sha512-qQHgFOTjguR+LnYRoToeZWT62XM55MBVXObHM6SKFd1VzDcX/vqT1kAz8ssqigh5eMj8qXcRoXXGZpPP6RfdCw==
+eslint-plugin-import@2.20.2:
+  version "2.20.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.20.2.tgz#91fc3807ce08be4837141272c8b99073906e588d"
+  integrity sha512-FObidqpXrR8OnCh4iNsxy+WACztJLXAHBO5hK79T1Hc77PgQZkyDGA5Ag9xAvRpglvLNxhH/zSmZ70/pZ31dHg==
   dependencies:
     array-includes "^3.0.3"
     array.prototype.flat "^1.2.1"
@@ -9611,10 +9611,10 @@ vue-meta@^2.3.3:
   dependencies:
     deepmerge "^4.2.2"
 
-vue-mixin-store@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/vue-mixin-store/-/vue-mixin-store-1.3.2.tgz#22f1cde3543ac810fe594bf56a5e5babb1fb9dea"
-  integrity sha512-gM7e1gkh/KPL1/ZGYVq+WB2SYdLIFoPm5wAZAdVLGAPwtGrjhnLtIIW7ne0KErnE9c/BXcXMrT8jZrLX58OZ2g==
+vue-mixin-store@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/vue-mixin-store/-/vue-mixin-store-1.3.4.tgz#dc6aabeaa2cdd6f13a4ac80ef96bf84740783331"
+  integrity sha512-R1UWRYvbgsAn59207XXjRYPVJXTAfeo2ZIRKbe7KOyCEk8oQphCB//PmCv+pTGmvVtC6oe7/Fah5A0z/oEn+8A==
   dependencies:
     vue "^2.6.11"
 
