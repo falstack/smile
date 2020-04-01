@@ -238,6 +238,7 @@
 
 <script>
 import { VField, VButton, VDrawer, VUploader } from '@calibur/sakura'
+import qs from 'qs'
 import Editor from '~/components/editor'
 import upload from '~/mixins/upload'
 import mustSign from '~/mixins/mustSign'
@@ -509,33 +510,19 @@ export default {
             })
             return
           }
-        } else {
+        } else if (this.preValidate()) {
           // 未发布的文章，自动存草稿
           this.actionUpdate(false)
         }
       }
-      // 路由切换
-      this.$router.replace({
-        name: this.$route.name,
-        query: {
-          ...this.$route.query,
-          slug
-        }
-      })
       if (!slug) {
         this.clearPageData()
         return
       }
-      this.$axios
-        .$get('v1/pin/update/content', {
-          params: { slug }
-        })
-        .then((data) => {
-          this.updatePageData(data)
-        })
-        .catch((err) => {
-          this.$toast.info(err.message)
-        })
+      window.location.href = window.location.pathname + '?' + qs.stringify({
+        ...this.$route.query,
+        slug
+      })
     }
   },
   head() {
