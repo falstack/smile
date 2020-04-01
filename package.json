@@ -28,6 +28,7 @@
     "cross-env": "7.0.2",
     "koa": "^2.11.0",
     "nuxt": "2.12.2",
+    "qs": "^6.9.3",
     "url-polyfill": "^1.1.8",
     "v-copy": "^0.1.0",
     "vue-mixin-store": "^1.3.4"
