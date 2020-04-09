@@ -18,7 +18,7 @@
     "@codexteam/ajax": "^4.1.0",
     "@editorjs/checklist": "^1.1.0",
     "@editorjs/delimiter": "^1.1.0",
-    "@editorjs/editorjs": "^2.17.0",
+    "@editorjs/editorjs": "2.16.1",
     "@editorjs/embed": "^2.2.1",
     "@editorjs/header": "^2.4.0",
     "@editorjs/image": "^2.3.3",
@@ -50,7 +50,7 @@
     "eslint-plugin-standard": "4.0.1",
     "eslint-plugin-vue": "6.2.2",
     "node-sass": "^4.13.1",
-    "nodemon": "2.0.2",
+    "nodemon": "2.0.3",
     "postcss-px-to-viewport": "^1.1.1",
     "qiniu-qupload": "^1.0.6",
     "sass-loader": "^8.0.2"
