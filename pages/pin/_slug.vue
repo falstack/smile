@@ -239,7 +239,7 @@ export default {
     handleEditClick() {
       if (this.$bridge.__IN_APP__) {
         this.$bridge.navigateTo({
-          url: `/pages/webview/index?url=${encodeURIComponent(`/write/pin?slug=${this.slug}`)}`
+          url: `/pages/webview/index?url=${encodeURIComponent(`write/pin?slug=${this.slug}`)}`
         })
       } else {
         this.$router.push({
