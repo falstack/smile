@@ -215,7 +215,7 @@ export default {
   methods: {
     watchPinToggle() {
       this.$channel.$on('pin-toggle', ({ type, result }) => {
-        this[`${type}_count`] += result
+        this[`${type}_count`] += result ? 1 : -1
         if (type === 'like') {
           this.up_vote_status = result > 0
         } else {
