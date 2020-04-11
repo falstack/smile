@@ -958,10 +958,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@calibur/sakura@^2.5.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@calibur/sakura/-/sakura-2.5.0.tgz#1eba58553e2143cca1a20188ee5f399964dd3ddf"
-  integrity sha512-W81XuHn86hmWmSzRsTm7e/aJbbdIx/nfG42lLi/XqdYGEaCcjmHQUwEdktw3YCgMWz/sBURuWBd5m+Qo/nZNhg==
+"@calibur/sakura@^2.5.2":
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/@calibur/sakura/-/sakura-2.5.2.tgz#2c391ce27e420c892728f6146f49d2f08cbed4ff"
+  integrity sha512-HKuDUXVxjIijl9U9U8J7SZkQ3cNxD9+qkUxIa6+0YoaKQFFQWlb08CjGsqufDeDWklVxIVjguQJCJkc+nDUOkQ==
   dependencies:
     async-validator "^3.2.4"
     throttle-debounce "^2.1.0"
@@ -987,10 +987,10 @@
   resolved "https://registry.yarnpkg.com/@editorjs/delimiter/-/delimiter-1.1.0.tgz#f61808ea92e4e289607d54441964f1cb8605410a"
   integrity sha512-0G36vEvvb94g6nu/qs2rVjC/qjxLnY20OfOgxROKSOOXzS7xnkTij5raeIxRiYueeLL5fMrzrvtFH7wclfxF+g==
 
-"@editorjs/editorjs@2.16.1":
-  version "2.16.1"
-  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.16.1.tgz#41a2707fc126518dca513a09aa207aa8b6d9a65c"
-  integrity sha512-PfCG7UZeFW/QtdcN3/gC0qIUinQ/TL5XuODllxWRx7GMEFHYWwen2YOwbW3KN0Rp6Ue94HbJua7Hn3HToH9wug==
+"@editorjs/editorjs@2.17.0":
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.17.0.tgz#38f20d7f99bc21868904b6b937905b6daad5a2a2"
+  integrity sha512-5rMjZLdiFOiUGESe5MZagvuVaLggORXBEolbbDLLVWHslR+r4+TACOXBcN8A6m9hMmnpHIJsC3442MZEWdNfQA==
   dependencies:
     codex-notifier "^1.1.2"
     codex-tooltip "^1.0.0"
@@ -2906,10 +2906,10 @@ core-js@^2.6.5:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
   integrity sha512-5wjnpaT/3dV+XB4borEsnAYQchn00XSgTAWKDkEqv+K8KevjbzmofK6hfJ9TZIlpj2N0xQpazy7PiRQiWHqzWg==
 
-core-js@^3.6.4:
-  version "3.6.4"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.6.4.tgz#440a83536b458114b9cb2ac1580ba377dc470647"
-  integrity sha512-4paDGScNgZP2IXXilaffL9X7968RuvwlkK3xWtZRVqgd8SYNiVKRJvkFd1aqqEuPfN7E68ZHEp9hDj6lHj4Hyw==
+core-js@^3.6.5:
+  version "3.6.5"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.6.5.tgz#7395dc273af37fb2e50e9bd3d9fe841285231d1a"
+  integrity sha512-vZVEEwZoIsI+vPEuoF9Iqf5H7/M3eeQqWlQnYa8FSKKePuYTf5MWnxb5SDAzCa60b3JBRS5g9b+Dq7b1y/RCrA==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -9644,10 +9644,10 @@ vue-meta@^2.3.3:
   dependencies:
     deepmerge "^4.2.2"
 
-vue-mixin-store@^1.3.6:
-  version "1.3.6"
-  resolved "https://registry.yarnpkg.com/vue-mixin-store/-/vue-mixin-store-1.3.6.tgz#5f7d33f7c8398e128f177d79f2f5957f668d93d6"
-  integrity sha512-x7hUnfCZ7ZLcpyzS4GJh3g1tlzSGm36MLiSdg0+6BvaUQFXMU1wIiR5oJaN4nr0ahhJdJl8uIwigxy8MCl0Iyg==
+vue-mixin-store@^1.3.7:
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/vue-mixin-store/-/vue-mixin-store-1.3.7.tgz#ba225f4d2d6f89880d454b346aca0057d4a5f214"
+  integrity sha512-SiU+JI/1JagXhciMSe2uNVfjDUY4T2gEJE5TFuu7+oNSMgHxil3CqkSvo3vE8RXqD9PNQd/PwiYn4A28SU34jw==
   dependencies:
     vue "^2.6.11"
 
